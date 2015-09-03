@@ -21,10 +21,11 @@ ejb-setup --ejbVersion 3.2 ;
 faces-setup --facesVersion 2.2 ;
 servlet-setup --servletVersion 3.1 ;
 rest-setup --jaxrsVersion 2.0 ;
+# TODO constraint-setup --beanValidation 1.1
 
 #  Setup Arquillian
 #  ############
-arquillian-setup --arquillianVersion 1.1.8.Final --testFramework junit --testFrameworkVersion 4.12 --containerAdapter wildfly-remote --containerAdapterVersion 8.2.1.Final ;
+arquillian-setup --arquillianVersion 1.1.9.Final --testFramework junit --testFrameworkVersion 4.12 --containerAdapter wildfly-remote --containerAdapterVersion 8.2.1.Final ;
 
 
 
@@ -38,6 +39,29 @@ arquillian-setup --arquillianVersion 1.1.8.Final --testFramework junit --testFra
 constraint-new-annotation --named Email ;
 
 
+#  Country entity
+#  ############
+jpa-new-entity --named Country ;
+jpa-new-field --named isoCode --length 2 --columnName iso_code --not-nullable ;
+jpa-new-field --named name --length 80 --not-nullable ;
+jpa-new-field --named printableName --length 80 --columnName printable_name --not-nullable ;
+jpa-new-field --named iso3 --length 3 ;
+jpa-new-field --named numcode --length 3 ;
+# Constraints
+constraint-add --onProperty isoCode --constraint NotNull ;
+constraint-add --onProperty isoCode --constraint Size --min 2 --max 2 ;
+constraint-add --onProperty name --constraint NotNull ;
+constraint-add --onProperty name --constraint Size --min 2 --max 80 ;
+constraint-add --onProperty printableName --constraint NotNull ;
+constraint-add --onProperty printableName --constraint Size --min 2 --max 80 ;
+constraint-add --onProperty iso3 --constraint NotNull ;
+constraint-add --onProperty iso3 --constraint Size --min 3 --max 3 ;
+constraint-add --onProperty numcode --constraint NotNull ;
+constraint-add --onProperty numcode --constraint Size --min 3 --max 3 ;
+# Cache
+java-add-annotation --annotation javax.persistence.Cacheable ;
+
+
 #  Address embeddable
 #  ############
 jpa-new-embeddable --named Address ;
@@ -46,7 +70,10 @@ jpa-new-field --named street2 ;
 jpa-new-field --named city  --length 50 --not-nullable ;
 jpa-new-field --named state ;
 jpa-new-field --named zipcode --columnName zip_code --length 10 --not-nullable ;
-jpa-new-field --named country --not-nullable ;
+# Relationships
+# TODO FORGE-2464
+# jpa-new-field --named country --type ~.model.Country --relationshipType Many-to-One ;
+jpa-new-field --named country --type org.agoncal.application.cdbookstore.model.Country --relationshipType Many-to-One ;
 # Constraints
 constraint-add --onProperty street1 --constraint Size --min 5 --max 50 ;
 constraint-add --onProperty street1 --constraint NotNull ;
@@ -64,6 +91,10 @@ java-new-enum-const VISA ;
 java-new-enum-const MASTER_CARD ;
 java-new-enum-const AMERICAN_EXPRESS ;
 
+
+#  CreditCardType converter
+#  ############
+# TODO being able to create a converter
 java-new-class --named CreditCardConverter --targetPackage ~.model ;
 
 
@@ -71,7 +102,9 @@ java-new-class --named CreditCardConverter --targetPackage ~.model ;
 # ############
 jpa-new-embeddable --named CreditCard ;
 jpa-new-field --named creditCardNumber --columnName credit_card_number --length 30 --not-nullable ;
-jpa-new-field --named creditCardType --type ~.model.CreditCardType --columnName credit_card_type ;
+# TODO
+# jpa-new-field --named creditCardType --type ~.model.CreditCardType --columnName credit_card_type ;
+jpa-new-field --named creditCardType --type org.agoncal.application.cdbookstore.model.CreditCardType --columnName credit_card_type ;
 jpa-new-field --named creditCardExpDate --columnName credit_card_expiry_date --length 5 --not-nullable ;
 # Constraints
 constraint-add --onProperty creditCardNumber --constraint NotNull ;
@@ -104,8 +137,8 @@ jpa-new-field --named login --length 10 --not-nullable ;
 jpa-new-field --named password --length 256 --not-nullable ;
 jpa-new-field --named uuid --length 256 ;
 # TODO FORGE-2464
-# jpa-new-field --named UserRole --type ~.model.UserRole --columnName user_role
-jpa-new-field --named UserRole --type org.agoncal.application.cdbookstore.model.UserRole --columnName user_role ;
+# jpa-new-field --named role --type ~.model.UserRole --columnName user_role
+jpa-new-field --named role --type org.agoncal.application.cdbookstore.model.UserRole --columnName user_role ;
 jpa-new-field --named dateOfBirth --type java.util.Date --temporalType DATE --columnName date_of_birth ;
 # Constraints
 constraint-add --onProperty login --constraint NotNull ;
@@ -141,23 +174,33 @@ jpa-new-field --named firstName --length 50 ;
 jpa-new-field --named lastName --length 50 ;
 jpa-new-field --named bio --length 5000 ;
 jpa-new-field --named dateOfBirth --type java.util.Date --temporalType DATE ;
-jpa-new-field --named age --type java.lang.Integer ;
-
+jpa-new-field --named age --type java.lang.Integer --transient ;
+# Constraints
 constraint-add --onProperty firstName --constraint NotNull ;
 constraint-add --onProperty firstName --constraint Size --min 2 --max 50 ;
 constraint-add --onProperty lastName --constraint NotNull ;
 constraint-add --onProperty lastName --constraint Size --min 2 --max 50 ;
 constraint-add --onProperty bio --constraint Size --max 5000 ;
 constraint-add --onProperty dateOfBirth --constraint Past ;
+# Lifecycle
+java-new-method --methodName calculateAge --accessType public ;
+java-add-annotation --annotation javax.persistence.PostLoad --onMethod calculateAge ;
+java-add-annotation --annotation javax.persistence.PostPersist --onMethod calculateAge ;
+java-add-annotation --annotation javax.persistence.PostUpdate --onMethod calculateAge ;
 
 
 #  Author Entity
 #  ############
+# TODO extends Artist
 jpa-new-entity --named Author ;
+# TODO FORGE-2464
 jpa-new-field --named preferredLanguage --type ~.model.Language ;
+# jpa-new-field --named preferredLanguage --type ~.model.Language ;
+jpa-new-field --named preferredLanguage --type org.agoncal.application.cdbookstore.model.Language ;
 
 #  Musician Entity
 #  ############
+# TODO extends Artist
 jpa-new-entity --named Musician ;
 jpa-new-field --named preferredInstrument ;
 
@@ -165,7 +208,7 @@ jpa-new-field --named preferredInstrument ;
 #  ############
 jpa-new-entity --named Publisher ;
 jpa-new-field --named name --length 30 ;
-
+# Constraints
 constraint-add --onProperty name --constraint NotNull ;
 constraint-add --onProperty name --constraint Size --max 30 ;
 
@@ -175,7 +218,7 @@ jpa-new-mapped-superclass --named Item ;
 jpa-new-field --named title --length 30 ;
 jpa-new-field --named description --length 3000 ;
 jpa-new-field --named unitCost --type java.lang.Float ;
-
+# Constraints
 constraint-add --onProperty title --constraint NotNull ;
 constraint-add --onProperty title --constraint Size --min 1 --max 30 ;
 constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
@@ -186,23 +229,27 @@ constraint-add --onProperty unitCost --constraint Min --value 1 ;
 #  ############
 jpa-new-entity --named Category ;
 jpa-new-field --named name --length 100 ;
-
+# Constraints
 constraint-add --onProperty name --constraint NotNull ;
 constraint-add --onProperty name --constraint Size --max 100 ;
 
 
 #  Book Entity
 #  ############
+# TODO extends Item
 jpa-new-entity --named Book ;
 jpa-new-field --named isbn --length 15 ;
 jpa-new-field --named nbOfPage --type java.lang.Integer ;
 jpa-new-field --named publicationDate --type java.util.Date --temporalType DATE ;
-jpa-new-field --named language --type ~.model.Language ;
+# TODO FORGE-2464
+# jpa-new-field --named language --type ~.model.Language ;
+jpa-new-field --named language --type org.agoncal.application.cdbookstore.model.Language ;
 # Relationships
-jpa-new-field --named category --type ~.model.Category --relationshipType Many-to-One
-jpa-new-field --named authors --type ~.model.Author --relationshipType One-to-Many ;
-jpa-new-field --named publisher --type ~.model.Publisher --relationshipType Many-to-One ;
-
+# TODO FORGE-2464
+jpa-new-field --named category --type org.agoncal.application.cdbookstore.model.Category --relationshipType Many-to-One ;
+jpa-new-field --named authors --type org.agoncal.application.cdbookstore.model.Author --relationshipType One-to-Many ;
+jpa-new-field --named publisher --type org.agoncal.application.cdbookstore.model.Publisher --relationshipType Many-to-One ;
+# Constraints
 constraint-add --onProperty isbn --constraint NotNull ;
 constraint-add --onProperty isbn --constraint Size --max 15 ;
 constraint-add --onProperty nbOfPage --constraint Min --value 1 ;
@@ -210,16 +257,18 @@ constraint-add --onProperty nbOfPage --constraint Min --value 1 ;
 
 #  CD Entity
 #  ############
+# TODO extends Item
 jpa-new-entity --named CD ;
 jpa-new-field --named totalDuration --type java.lang.Float ;
 jpa-new-field --named musicCompany ;
 jpa-new-field --named genre ;
-jpa-new-field --named musicians --type ~.model.Musician --relationshipType Many-to-Many ;
+# TODO FORGE-2464
+jpa-new-field --named musicians --type org.agoncal.application.cdbookstore.model.Musician --relationshipType Many-to-Many ;
 
 #  Musician Entity
 #  ############
 cd ../Musician.java ;
-jpa-new-field --named cds --type ~.model.CD --relationshipType Many-to-Many ;
+jpa-new-field --named cds --type org.agoncal.application.cdbookstore.model.CD --relationshipType Many-to-Many ;
 
 
 #  OrderLine entity
@@ -227,7 +276,7 @@ jpa-new-field --named cds --type ~.model.CD --relationshipType Many-to-Many ;
 jpa-new-entity --named OrderLine --tableName order_line ;
 jpa-new-field --named quantity --type java.lang.Integer --not-nullable;
 # Relationships
-jpa-new-field --named item --type org.agoncal.application.petstore.model.Item --relationshipType Many-to-One --cascadeType PERSIST ;
+jpa-new-field --named item --type org.agoncal.application.cdbookstore.model.Item --relationshipType Many-to-One --cascadeType PERSIST ;
 # Constraints
 constraint-add --onProperty quantity --constraint Min --value 1 ;
 
@@ -242,14 +291,16 @@ jpa-new-field --named vat --type java.lang.Float ;
 jpa-new-field --named totalWithVat --type java.lang.Float ;
 jpa-new-field --named total --type java.lang.Float ;
 # Address embeddable
+# TODO being able to add an embeddable for scaffolding
 jpa-new-field --named street1 --length 50 ;
 jpa-new-field --named street2 ;
 jpa-new-field --named city --length 50 ;
 jpa-new-field --named state ;
 jpa-new-field --named zipcode --columnName zip_code --length 10 ;
 # Credit card embeddable
+# TODO being able to add an embeddable for scaffolding
 jpa-new-field --named creditCardNumber --columnName credit_card_number ;
-jpa-new-field --named creditCardType --type org.agoncal.application.petstore.model.CreditCardType --columnName credit_card_type ;
+jpa-new-field --named creditCardType --type org.agoncal.application.cdbookstore.model.CreditCardType --columnName credit_card_type ;
 jpa-new-field --named creditCardExpDate --columnName credit_card_expiry_date  ;
 # Relationships
 jpa-new-field --named customer --type ~.model.User --relationshipType Many-to-One ;
@@ -270,7 +321,8 @@ constraint-add --constraint Size --min 5 --max 5 --onProperty creditCardExpDate 
 
 #  Package Vetoed
 #  ############
-java-new-package --named ~.model --createPackageInfo ;
+# TODO FORGE-2464
+java-new-package --named org.agoncal.application.cdbookstore.model --createPackageInfo ;
 # java-add-annotation --annotation javax.enterprie.inject.Vetoed --targetClass ~.model.package-info ;
 
 
@@ -299,9 +351,9 @@ java-add-annotation --annotation javax.enterprise.context.RequestScoped --onMeth
 #  Logging Interceptor
 #  ############
 cdi-new-interceptor-binding --named Loggable --targetPackage ~.util ;
-cdi-new-interceptor --named LoggingInterceptor --interceptorBinding ~.util.Loggable --targetPackage ~.util ;
-java-new-field --named logger --type org.apache.logging.log4j.Logger --generateGetter=false --generateSetter=false --updateToString=false --updateToString=false ;
-java-add-annotation --annotation javax.inject.Inject --onProperty logger ;
+# TODO --interceptorBinding does not have autocompletion
+cdi-new-interceptor --named LoggingInterceptor --interceptorBinding org.agoncal.application.cdbookstore.util.Loggable --targetPackage ~.util ;
+cdi-add-injection-point --named logger --type org.apache.logging.log4j.Logger ;
 
 
 #  Exception Interceptor
@@ -310,117 +362,114 @@ cdi-new-interceptor-binding --named CatchException --targetPackage ~.view.util ;
 # TODO FORGE-2466
 # cdi-new-interceptor --named CatchExceptionInterceptor --interceptorBinding ~.view.util.CatchException  --targetPackage ~.view.util ;
 cdi-new-interceptor --named CatchExceptionInterceptor --interceptorBinding org.agoncal.application.cdbookstore.view.util.CatchException  --targetPackage ~.view.util ;
-cdi-add-injection-point --named logger --type java.util.logging.Logger ;
+cdi-add-injection-point --named logger --type org.apache.logging.log4j.Logger ;
 
 
 #  Number generators interface and qualifier
 #  ############
-cdi-new-qualifier --named EightDigits --targetPackage com.pluralsight.injection.module07.util ;
-cdi-new-qualifier --named ThirteenDigits --targetPackage com.pluralsight.injection.module07.util ;
-cdi-new-qualifier --named Vat --targetPackage com.pluralsight.injection.module07.util ;
-cdi-new-qualifier --named Discount --targetPackage com.pluralsight.injection.module07.util ;
-java-new-interface --named NumberGenerator --targetPackage com.pluralsight.injection.module07.util ;
+cdi-new-qualifier --named EightDigits --targetPackage ~.util ;
+cdi-new-qualifier --named ThirteenDigits --targetPackage ~.util ;
+cdi-new-qualifier --named Vat --targetPackage ~.util ;
+cdi-new-qualifier --named Discount --targetPackage ~.util ;
+java-new-interface --named NumberGenerator --targetPackage ~.util ;
 java-new-method --methodName generateNumber --returnType String --accessType public ;
 
 
 #  IsbnGenerator
 #  ############
-cdi-new-bean --named IsbnGenerator --qualifier com.pluralsight.injection.module07.util.ThirteenDigits --targetPackage com.pluralsight.injection.module07.util ;
-java-new-field --named logger --type org.apache.logging.log4j.Logger --generateGetter=false --generateSetter=false --updateToString=false ;
-java-add-annotation --annotation javax.inject.Inject --onProperty logger ;
-java-new-field --named prefix --generateGetter=false --generateSetter=false --updateToString=false ;
-java-add-annotation --annotation javax.inject.Inject --onProperty prefix ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.ThirteenDigits --onProperty prefix ;
-java-new-field --named postfix --type int --generateGetter=false --generateSetter=false --updateToString=false ;
-java-add-annotation --annotation javax.inject.Inject --onProperty postfix ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.ThirteenDigits --onProperty postfix ;
+# TODO FORGE-2466
+cdi-new-bean --named IsbnGenerator --qualifier org.agoncal.application.cdbookstore.util.ThirteenDigits --targetPackage ~.util ;
+cdi-add-injection-point --named logger --type org.apache.logging.log4j.Logger ;
+# TODO FORGE-2466
+cdi-add-injection-point --named prefix --type String --qualifiers org.agoncal.application.cdbookstore.util.ThirteenDigits ;
+cdi-add-injection-point --named postfix --type int --qualifiers org.agoncal.application.cdbookstore.util.ThirteenDigits ;
+# TODO Implement interface
 java-new-method --methodName generateNumber --returnType String --accessType public ;
 
 #  IssnGenerator
 #  ############
-cdi-new-bean --named IssnGenerator --qualifier com.pluralsight.injection.module07.util.EightDigits --targetPackage com.pluralsight.injection.module07.util ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.EightDigits ;
-java-new-field --named logger --type org.apache.logging.log4j.Logger --generateGetter=false --generateSetter=false --updateToString=false ;
-java-add-annotation --annotation javax.inject.Inject --onProperty logger ;
-java-new-field --named prefix --generateGetter=false --generateSetter=false --updateToString=false ;
-java-add-annotation --annotation javax.inject.Inject --onProperty prefix ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.EightDigits --onProperty prefix ;
-java-new-field --named postfix --type int --generateGetter=false --generateSetter=false --updateToString=false ;
-java-add-annotation --annotation javax.inject.Inject --onProperty postfix ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.EightDigits --onProperty postfix ;
+cdi-new-bean --named IssnGenerator --qualifier org.agoncal.application.cdbookstore.util.EightDigits --targetPackage ~.util ;
+cdi-add-injection-point --named logger --type org.apache.logging.log4j.Logger ;
+# TODO FORGE-2466
+cdi-add-injection-point --named prefix --type String --qualifiers org.agoncal.application.cdbookstore.util.EightDigits ;
+cdi-add-injection-point --named postfix --type int --qualifiers org.agoncal.application.cdbookstore.util.EightDigits ;
+# TODO Implement interface
 java-new-method --methodName generateNumber --returnType String --accessType public ;
+
 
 #  Number producer
 #  ############
-java-new-class --named NumberProducer --targetPackage com.pluralsight.injection.module07.util ;
+java-new-class --named NumberProducer --targetPackage org.agoncal.application.cdbookstore.util ;
+# TODO producers
 java-new-field --named prefix1 --generateGetter=false --generateSetter=false --updateToString=false ;
 java-add-annotation --annotation javax.enterprise.inject.Produces --onProperty prefix1 ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.ThirteenDigits --onProperty prefix1 ;
+java-add-annotation --annotation org.agoncal.application.cdbookstore.util.ThirteenDigits --onProperty prefix1 ;
 java-new-field --named postfix1 --type int --generateGetter=false --generateSetter=false --updateToString=false ;
 java-add-annotation --annotation javax.enterprise.inject.Produces --onProperty postfix1 ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.ThirteenDigits --onProperty postfix1 ;
+java-add-annotation --annotation org.agoncal.application.cdbookstore.util.ThirteenDigits --onProperty postfix1 ;
 
 java-new-field --named prefix2 --generateGetter=false --generateSetter=false --updateToString=false ;
 java-add-annotation --annotation javax.enterprise.inject.Produces --onProperty prefix2 ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.EightDigits --onProperty prefix2 ;
+java-add-annotation --annotation org.agoncal.application.cdbookstore.util.EightDigits --onProperty prefix2 ;
 java-new-field --named postfix2 --type int --generateGetter=false --generateSetter=false --updateToString=false ;
 java-add-annotation --annotation javax.enterprise.inject.Produces --onProperty postfix2 ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.EightDigits --onProperty postfix2 ;
+java-add-annotation --annotation org.agoncal.application.cdbookstore.util.EightDigits --onProperty postfix2 ;
 
 java-new-field --named prefix3 --generateGetter=false --generateSetter=false --updateToString=false ;
 java-add-annotation --annotation javax.enterprise.inject.Produces --onProperty prefix3 ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.ThirteenDigits --onProperty prefix3 ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.EightDigits --onProperty prefix3 ;
+java-add-annotation --annotation org.agoncal.application.cdbookstore.util.ThirteenDigits --onProperty prefix3 ;
+java-add-annotation --annotation org.agoncal.application.cdbookstore.util.EightDigits --onProperty prefix3 ;
 java-add-annotation --annotation javax.enterprise.inject.Alternative --onProperty prefix3 ;
 
 java-new-field --named postfix3 --type int --generateGetter=false --generateSetter=false --updateToString=false ;
 java-add-annotation --annotation javax.enterprise.inject.Produces --onProperty postfix3 ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.ThirteenDigits --onProperty postfix3 ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.EightDigits --onProperty postfix3 ;
+java-add-annotation --annotation org.agoncal.application.cdbookstore.util.ThirteenDigits --onProperty postfix3 ;
+java-add-annotation --annotation org.agoncal.application.cdbookstore.util.EightDigits --onProperty postfix3 ;
 java-add-annotation --annotation javax.enterprise.inject.Alternative --onProperty postfix3 ;
 
 java-new-field --named vatRate --type java.lang.Float --generateGetter=false --generateSetter=false --updateToString=false ;
 java-add-annotation --annotation javax.enterprise.inject.Produces --onProperty vat ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.Vat --onProperty vat ;
+java-add-annotation --annotation org.agoncal.application.cdbookstore.util.Vat --onProperty vat ;
 java-add-annotation --annotation javax.inject.Named --onProperty vat ;
 
 java-new-field --named discountRate --type java.lang.Float --generateGetter=false --generateSetter=false --updateToString=false ;
 java-add-annotation --annotation javax.enterprise.inject.Produces --onProperty discountRate ;
-java-add-annotation --annotation com.pluralsight.injection.module07.util.Discount --onProperty discountRate ;
+java-add-annotation --annotation org.agoncal.application.cdbookstore.util.Discount --onProperty discountRate ;
 java-add-annotation --annotation javax.inject.Named --onProperty discountRate ;
-
-
-#  #####################  #
-#  Adding a Service Tier  #
-#  #####################  #
-
-
 
 
 #  #############################  #
 #  Generates JSF beans and pages  #
 #  #############################  #
 
-
+# TODO ~ 
+scaffold-generate --provider Faces --webRoot admin --targets org.agoncal.application.cdbookstore.model.* ;
 
 #  ########################  #
 #  Generates REST endpoints  #
 #  ########################  #
 
-
+# TODO ~
+rest-generate-endpoints-from-entities --contentType application/xml application/json --targets org.agoncal.application.cdbookstore.model.CD ;
+rest-generate-endpoints-from-entities --contentType application/xml application/json --targets org.agoncal.application.cdbookstore.model.Book ;
 
 #  #########################  #
 #  Generate Arquillian tests
 #  #########################  #
 
+
 # JSF Beacking Beans
 # ##################
+
+# TODO ~
+arquillian-create-test --enableJPA --targets org.agoncal.application.cdbookstore.view.* ;
+
 
 # REST Endpoints
 # ##############
 
-# Services
-# ##############
+# TODO ~
+arquillian-create-test --enableJPA --targets org.agoncal.application.cdbookstore.rest.* ;
 
 
 
@@ -433,18 +482,22 @@ project-remove-dependencies javax.ejb:javax.ejb-api:jar:: ;
 project-remove-dependencies javax.faces:javax.faces-api:jar:: ;
 project-remove-dependencies javax.servlet:javax.servlet-api:jar:: ;
 project-remove-dependencies javax.validation:validation-api:jar:: ;
+project-remove-dependencies javax.ws.rs:javax.ws.rs-api:jar:: ;
 
 project-remove-managed-dependencies org.hibernate.javax.persistence:hibernate-jpa-2.1-api:jar::1.0.0.Draft-16 ;
 project-remove-managed-dependencies javax.enterprise:cdi-api:jar::1.1 ;
 project-remove-managed-dependencies javax.ejb:javax.ejb-api:jar::3.2 ;
 project-remove-managed-dependencies javax.faces:javax.faces-api:jar::2.2 ;
 project-remove-managed-dependencies javax.servlet:javax.servlet-api:jar::3.1.0 ;
-project-remove-managed-dependencies org.jboss.spec:jboss-javaee-6.0:pom::3.0.2.Final ;
+project-remove-managed-dependencies org.jboss.spec:jboss-javaee-6.0:pom::3.0.3.Final ;
+project-remove-managed-dependencies javax.ws.rs:javax.ws.rs-api:jar::2.0 ;
 
 #  Adding Java EE and Web Jars dependencies
 #  ############################
+project-add-dependencies org.apache.logging.log4j:log4j-api:2.3 ;
+project-add-dependencies org.apache.logging.log4j:log4j-core:2.3 ;
 project-add-dependencies org.webjars:bootstrap:2.3.2 ;
-project-add-dependencies org.primefaces:primefaces:5.1 ;
+project-add-dependencies org.primefaces:primefaces:5.2 ;
 project-add-dependencies org.jboss.spec:jboss-javaee-7.0:1.0.1.Final:provided:pom ;
 
 #  Adding repositories
