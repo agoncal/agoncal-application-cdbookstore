@@ -444,6 +444,14 @@ java-add-annotation --annotation javax.inject.Named --onProperty discountRate ;
 
 # TODO ~ 
 scaffold-generate --provider Faces --webRoot admin --targets org.agoncal.application.cdbookstore.model.* ;
+faces-new-bean --named AccountBean --scoped SESSION ;
+# TODO
+# faces-add-method --named doSignup --outcome index ;
+# faces-add-method --named doSignin ;
+# faces-add-method --named doLogout --outcome index ;
+# faces-add-method --named doForgotPassword ;
+# faces-add-method --named doUpdateProfile ;
+
 
 #  ########################  #
 #  Generates REST endpoints  #
