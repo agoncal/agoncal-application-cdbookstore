@@ -1,0 +1,24 @@
+
+# ####################
+# #  JDBC Drivers
+# ####################
+
+# First you need to copy the Derby and Postgre jar into $JBOSS_HOME/modules/system/layers/base/org/postgresql/main
+# Get it with mvn dependency:get -DgroupId=org.postgresql -DartifactId=postgresql -Dversion=9.4-1202-jdbc42
+# module remove --name=org.postgres
+
+module add --name=org.postgres --resources=~/.m2/repository/org/postgresql/postgresql/9.4-1202-jdbc42/postgresql-9.4-1202-jdbc42.jar --dependencies=javax.api,javax.transaction.api
+
+/subsystem=datasources/jdbc-driver=postgres:add(driver-name=postgres, driver-module-name=org.postgres, driver-class-name=org.postgresql.Driver)
+
+/subsystem=datasources:installed-drivers-list
+
+
+# ####################
+# #  Datasources
+# ####################
+
+/subsystem=datasources/data-source=applicationCDBookStorePostgresPU:add(driver-name=postgres, user-name=postgres, password=postgres, connection-url="jdbc:postgresql://localhost:5432/postgres", jndi-name=java:jboss/datasources/PostgresDS, enabled=true)
+
+# You can either have enabled=true or enable it as follow
+/subsystem=datasources/data-source=PostgresDS:enable

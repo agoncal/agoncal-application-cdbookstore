@@ -197,7 +197,6 @@ java-add-annotation --annotation javax.persistence.PostUpdate --onMethod calcula
 # TODO extends Artist
 jpa-new-entity --named Author ;
 # TODO FORGE-2464
-jpa-new-field --named preferredLanguage --type ~.model.Language ;
 # jpa-new-field --named preferredLanguage --type ~.model.Language ;
 jpa-new-field --named preferredLanguage --type org.agoncal.application.cdbookstore.model.Language ;
 
@@ -448,9 +447,9 @@ java-add-annotation --annotation org.agoncal.application.cdbookstore.util.EightD
 java-add-annotation --annotation javax.enterprise.inject.Alternative --onProperty postfix3 ;
 
 java-new-field --named vatRate --type java.lang.Float --generateGetter=false --generateSetter=false --updateToString=false ;
-java-add-annotation --annotation javax.enterprise.inject.Produces --onProperty vat ;
-java-add-annotation --annotation org.agoncal.application.cdbookstore.util.Vat --onProperty vat ;
-java-add-annotation --annotation javax.inject.Named --onProperty vat ;
+java-add-annotation --annotation javax.enterprise.inject.Produces --onProperty vatRate ;
+java-add-annotation --annotation org.agoncal.application.cdbookstore.util.Vat --onProperty vatRate ;
+java-add-annotation --annotation javax.inject.Named --onProperty vatRate ;
 
 java-new-field --named discountRate --type java.lang.Float --generateGetter=false --generateSetter=false --updateToString=false ;
 java-add-annotation --annotation javax.enterprise.inject.Produces --onProperty discountRate ;

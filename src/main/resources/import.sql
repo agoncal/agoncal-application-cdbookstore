@@ -1,9 +1,3 @@
--- Customer
-INSERT INTO T_USER (id, version, first_name, last_name, telephone, email, date_of_birth, street1, city, zip_code, country) VALUES (-1, 1, 'Anakin', 'Skywalker', '+1 123 3564 4567', 'anakin@skywalker.com', '1935-07-01', '3 Wars Street', 'Black Star', '9999', 'Universe');
-INSERT INTO T_USER (id, version, first_name, last_name, telephone, email, date_of_birth, street1, city, zip_code, country) VALUES (-2, 1, 'Obi-Wan', 'Kenobi', '+1 765 897 321', 'obiwan@kenobi.com', '1914-04-02', '14 Star Boulevard', 'Black Star', '9999', 'Universe');
-INSERT INTO T_USER (id, version, first_name, last_name, telephone, email, date_of_birth, street1, city, zip_code, country) VALUES (-3, 1, 'Luke', 'Skywalker', '+1 786 1212 987', 'luke@skywalker.com', '1951-09-07', '543 Sun Set Boulevard', 'Black Star', '9999', 'Universe');
-INSERT INTO T_USER (id, version, first_name, last_name, telephone, email, date_of_birth, street1, city, zip_code, country) VALUES (-4, 1, 'Han', 'Solo', '+1 786 1212 987', 'han@solo.com', '1923-04-12', '543 Sun Set Boulevard', 'Black Star', '9999', 'Universe');
-
 -- Category
 INSERT INTO CATEGORY (id, version, name) VALUES (-1, 1, 'Arts & Photography');
 INSERT INTO CATEGORY (id, version, name) VALUES (-2, 1, 'Biographies & Memoirs');
@@ -381,7 +375,7 @@ INSERT INTO COUNTRY (id, iso_code, name, printable_name, iso3, numcode, version)
 INSERT INTO COUNTRY (id, iso_code, name, printable_name, iso3, numcode, version) VALUES (1237, 'ZM','ZAMBIA','Zambia','ZMB','894', 1)
 INSERT INTO COUNTRY (id, iso_code, name, printable_name, iso3, numcode, version) VALUES (1238, 'ZW','ZIMBABWE','Zimbabwe','ZWE','716', 1)
 
-
+-- User
 INSERT INTO T_USER (id, version, login, password, first_name, last_name, telephone, email, date_of_birth, street1, city, zip_code, country_id) VALUES (1000, 1, 'anakin', 'anakinpwd', 'Anakin', 'Skywalker', '+1 123 3564 4567', 'anakin@skywalker.com', '1935-07-01', '3 Wars Street', 'Black Star', '9999', 1230)
 INSERT INTO T_USER (id, version, login, password, first_name, last_name, telephone, email, date_of_birth, street1, city, zip_code, country_id) VALUES (1001, 1, 'obiwan', 'obiwanpwd', 'Obi-Wan', 'Kenobi', '+1 765 897 321', 'obiwan@kenobi.com', '1914-04-02', '14 Star Boulevard', 'Black Star', '9999', 1115)
 INSERT INTO T_USER (id, version, login, password, first_name, last_name, telephone, email, date_of_birth, street1, city, zip_code, country_id) VALUES (1002, 1, 'luke', 'lukepwd', 'Luke', 'Skywalker', '+1 786 1212 987', 'luke@skywalker.com', '1951-09-07', '543 Sun Set Boulevard', 'Black Star', '9999', 1200)
