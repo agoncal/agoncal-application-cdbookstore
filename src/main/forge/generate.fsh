@@ -16,6 +16,8 @@ project-new --named agoncal-application-cdbookstore --topLevelPackage org.agonca
 #  Setup the deployment descriptors to Java EE 7
 #  ############
 jpa-setup --persistenceUnitName applicationCDBookStorePU --jpaVersion 2.1 ;
+jpa-setup --persistenceUnitName applicationCDBookStorePostgresPU --dataSourceName java:jboss/datasources/PostgresDS --dbType POSTGRES --schemaGenerationType DROP_CREATE ;
+
 cdi-setup --cdiVersion 1.1 ;
 ejb-setup --ejbVersion 3.2 ;
 faces-setup --facesVersion 2.2 ;
@@ -37,6 +39,7 @@ arquillian-setup --arquillianVersion 1.1.9.Final --testFramework junit --testFra
 #  Constraints
 #  ############
 constraint-new-annotation --named Email ;
+constraint-new-annotation --named NotEmpty ;
 
 
 #  Country entity
@@ -255,15 +258,32 @@ constraint-add --onProperty isbn --constraint Size --max 15 ;
 constraint-add --onProperty nbOfPage --constraint Min --value 1 ;
 
 
+#  Genre entity
+#  ############
+jpa-new-entity --named Genre ;
+jpa-new-field --named name --length 100 ;
+# Constraints
+constraint-add --onProperty name --constraint NotNull ;
+constraint-add --onProperty name --constraint Size --max 100 ;
+
+#  Label Entity
+#  ############
+jpa-new-entity --named Label ;
+jpa-new-field --named name --length 30 ;
+# Constraints
+constraint-add --onProperty name --constraint NotNull ;
+constraint-add --onProperty name --constraint Size --max 30 ;
+
+
 #  CD Entity
 #  ############
 # TODO extends Item
 jpa-new-entity --named CD ;
 jpa-new-field --named totalDuration --type java.lang.Float ;
-jpa-new-field --named musicCompany ;
-jpa-new-field --named genre ;
 # TODO FORGE-2464
+jpa-new-field --named label --type org.agoncal.application.cdbookstore.model.Label --relationshipType Many-to-One ;
 jpa-new-field --named musicians --type org.agoncal.application.cdbookstore.model.Musician --relationshipType Many-to-Many ;
+jpa-new-field --named genre --type org.agoncal.application.cdbookstore.model.Genre --relationshipType Many-to-One ;
 
 #  Musician Entity
 #  ############

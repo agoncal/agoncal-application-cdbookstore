@@ -19,6 +19,8 @@ The goals of this sample is to :
 
 The only external framework used are [Arquillian](http://arquillian.org/), [Twitter Bootstrap](http://twitter.github.io/bootstrap/) and [PrimeFaces](http://www.primefaces.org/). Arquillian is used for integration testing. Using Maven profile, you can test services, injection, persistence... against different application servers. Twitter Bootstrap and PrimeFaces bring a bit of beauty to the web interface.
 
+To fill up the database, I've used some Amazon Web Services. You will find the raw XML data in the `xml` directory with XSLT transformation (zipped so it's not too big).
+
 ## Compile and package
 
 Being Maven centric, you can compile and package it without tests using `mvn clean compile -Dmaven.test.skip=true`, `mvn clean package -Dmaven.test.skip=true` or `mvn clean install -Dmaven.test.skip=true`. Once you have your war file, you can deploy it.
@@ -31,7 +33,7 @@ Launching tests under [WildFly](http://www.wildfly.org/) is straight forward. Yo
 
 ## Execute the sample
 
-Once deployed go to the following URL and start buying some pets: [http://localhost:8080/applicationCDBookStore](http://localhost:8080/applicationCDBookStore).
+Once deployed go to the following URL and start buying some books and cds: [http://localhost:8080/applicationCDBookStore](http://localhost:8080/applicationCDBookStore).
 
 The admin [REST interface](rs/application.wadl) allows you to create/update/remove items in the catalog, orders or customers. You can run the following [curl](http://curl.haxx.se/) commands :
 
