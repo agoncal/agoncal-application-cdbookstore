@@ -1,7 +1,9 @@
 package org.agoncal.application.cdbookstore.rest;
 
-import javax.ws.rs.core.Application;
 import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+
 @ApplicationPath("/rest")
-public class RestApplication extends Application {
+public class RestApplication extends Application
+{
 }

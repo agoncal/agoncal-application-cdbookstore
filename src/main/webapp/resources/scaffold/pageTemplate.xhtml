@@ -1,99 +1,104 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-	<title>#{empty pageTitle ? 'Page Title' : pageTitle}</title>
-	<link rel="icon" href='#{resource["favicon.ico"]}' />
-	<h:outputStylesheet name="bootstrap.css" />
-	<h:outputStylesheet name="forge-style.css" />
+    <title>#{empty pageTitle ? 'Page Title' : pageTitle}</title>
+    <link rel="icon" href='#{resource["favicon.ico"]}'/>
+    <h:outputStylesheet name="bootstrap.css"/>
+    <h:outputStylesheet name="forge-style.css"/>
 </h:head>
 
 <h:body>
-	<ui:debug rendered="#{facesContext.application.projectStage == 'Development'}" />
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<h:link id="brandLink" outcome="/index.xhtml" styleClass="brand">
-					<h:outputText value="Welcome to " rendered=" #{request.userPrincipal !=null} "/>
+    <ui:debug rendered="#{facesContext.application.projectStage == 'Development'}"/>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <h:link id="brandLink" outcome="/index.xhtml" styleClass="brand">
+                    <h:outputText value="Welcome to " rendered=" #{request.userPrincipal !=null} "/>
                     Agoncal-application-cdbookstore
                     <h:outputText value=",  #{request.userPrincipal.name}" rendered="#{request.userPrincipal !=null} "/>
-				</h:link>
-				<div class="nav-collapse collapse">
-					<ul class="nav">
-						<li><a href="http://forge.jboss.org/docs/important_plugins/ui-scaffolding.html">How to Customize</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+                </h:link>
 
-	<div class="container forgecontainer">
-		<div id="navigation">
-			<h:link id="homeLink" outcome="/index.xhtml">
-				<img src='#{resource["forge-logo.png"]}' alt="Forge... get hammered" border="0" />
-			</h:link>
-			<ul>
-				<li>
-					<h:link outcome="/admin/CD/search" value="CD"/>
-				</li>
-				<li>
-					<h:link outcome="/admin/author/search" value="Author"/>
-				</li>
-				<li>
-					<h:link outcome="/admin/book/search" value="Book"/>
-				</li>
-				<li>
-					<h:link outcome="/admin/category/search" value="Category"/>
-				</li>
-				<li>
-					<h:link outcome="/admin/country/search" value="Country"/>
-				</li>
-				<li>
-					<h:link outcome="/admin/genre/search" value="Genre"/>
-				</li>
-				<li>
-					<h:link outcome="/admin/item/search" value="Item"/>
-				</li>
-				<li>
-					<h:link outcome="/admin/label/search" value="Label"/>
-				</li>
-				<li>
-					<h:link outcome="/admin/musician/search" value="Musician"/>
-				</li>
-				<li>
-					<h:link outcome="/admin/orderLine/search" value="Order Line"/>
-				</li>
-				<li>
-					<h:link outcome="/admin/publisher/search" value="Publisher"/>
-				</li>
-				<li>
-					<h:link outcome="/admin/purchaseOrder/search" value="Purchase Order"/>
-				</li>
-				<li>
-					<h:link outcome="/admin/user/search" value="User"/>
-				</li>
-			</ul>
-		</div>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li>
+                            <a href="http://forge.jboss.org/docs/important_plugins/ui-scaffolding.html">How to Customize</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-		<div id="content">
-			<h1>
-				<ui:insert name="header" />
-			</h1>
-			<h2>
-				<ui:insert name="subheader" />
-			</h2>
+    <div class="container forgecontainer">
+        <div id="navigation">
+            <h:link id="homeLink" outcome="/index.xhtml">
+                <img src='#{resource["forge-logo.png"]}' alt="Forge... get hammered" border="0"/>
+            </h:link>
+            <ul>
+                <li>
+                    <h:link outcome="/admin/CD/search" value="CD"/>
+                </li>
+                <li>
+                    <h:link outcome="/admin/author/search" value="Author"/>
+                </li>
+                <li>
+                    <h:link outcome="/admin/book/search" value="Book"/>
+                </li>
+                <li>
+                    <h:link outcome="/admin/category/search" value="Category"/>
+                </li>
+                <li>
+                    <h:link outcome="/admin/country/search" value="Country"/>
+                </li>
+                <li>
+                    <h:link outcome="/admin/genre/search" value="Genre"/>
+                </li>
+                <li>
+                    <h:link outcome="/admin/item/search" value="Item"/>
+                </li>
+                <li>
+                    <h:link outcome="/admin/label/search" value="Label"/>
+                </li>
+                <li>
+                    <h:link outcome="/admin/musician/search" value="Musician"/>
+                </li>
+                <li>
+                    <h:link outcome="/admin/orderLine/search" value="Order Line"/>
+                </li>
+                <li>
+                    <h:link outcome="/admin/publisher/search" value="Publisher"/>
+                </li>
+                <li>
+                    <h:link outcome="/admin/purchaseOrder/search" value="Purchase Order"/>
+                </li>
+                <li>
+                    <h:link outcome="/admin/user/search" value="User"/>
+                </li>
+            </ul>
+        </div>
 
-			<ui:insert name="main" />
-		</div>
-	</div>
+        <div id="content">
+            <h1>
+                <ui:insert name="header"/>
+            </h1>
 
-	<footer>
-		<div id="footer-wrapper">
-	    	<p>Powered by <a href="http://jboss.org/forge">Forge</a></p>
-	    </div>
-	</footer>
+            <h2>
+                <ui:insert name="subheader"/>
+            </h2>
+
+            <ui:insert name="main"/>
+        </div>
+    </div>
+
+    <footer>
+        <div id="footer-wrapper">
+            <p>Powered by <a href="http://jboss.org/forge">Forge</a></p>
+        </div>
+    </footer>
 
 </h:body>
 </html>
