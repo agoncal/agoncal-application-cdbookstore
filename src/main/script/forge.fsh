@@ -194,17 +194,45 @@ java-add-annotation --annotation javax.persistence.PostUpdate --onMethod calcula
 
 #  Author Entity
 #  ############
-# TODO extends Artist
 jpa-new-entity --named Author ;
+
+# TODO extends Artist
+jpa-new-field --named firstName --length 50 ;
+jpa-new-field --named lastName --length 50 ;
+jpa-new-field --named bio --length 5000 ;
+jpa-new-field --named dateOfBirth --type java.util.Date --temporalType DATE ;
+jpa-new-field --named age --type java.lang.Integer --transient ;
+constraint-add --onProperty firstName --constraint NotNull ;
+constraint-add --onProperty firstName --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty lastName --constraint NotNull ;
+constraint-add --onProperty lastName --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty bio --constraint Size --max 5000 ;
+constraint-add --onProperty dateOfBirth --constraint Past ;
+
 # TODO FORGE-2464
 # jpa-new-field --named preferredLanguage --type ~.model.Language ;
 jpa-new-field --named preferredLanguage --type org.agoncal.application.cdbookstore.model.Language ;
 
+
 #  Musician Entity
 #  ############
-# TODO extends Artist
 jpa-new-entity --named Musician ;
+
+# TODO extends Artist
+jpa-new-field --named firstName --length 50 ;
+jpa-new-field --named lastName --length 50 ;
+jpa-new-field --named bio --length 5000 ;
+jpa-new-field --named dateOfBirth --type java.util.Date --temporalType DATE ;
+jpa-new-field --named age --type java.lang.Integer --transient ;
+constraint-add --onProperty firstName --constraint NotNull ;
+constraint-add --onProperty firstName --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty lastName --constraint NotNull ;
+constraint-add --onProperty lastName --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty bio --constraint Size --max 5000 ;
+constraint-add --onProperty dateOfBirth --constraint Past ;
+
 jpa-new-field --named preferredInstrument ;
+
 
 #  Publisher Entity
 #  ############
@@ -214,9 +242,9 @@ jpa-new-field --named name --length 30 ;
 constraint-add --onProperty name --constraint NotNull ;
 constraint-add --onProperty name --constraint Size --max 30 ;
 
-#  Item Mapped Superclass
+#  Item Entity
 #  ############
-jpa-new-mapped-superclass --named Item ;
+jpa-new-entity --named Item ;
 jpa-new-field --named title --length 30 ;
 jpa-new-field --named description --length 3000 ;
 jpa-new-field --named unitCost --type java.lang.Float ;
@@ -238,8 +266,17 @@ constraint-add --onProperty name --constraint Size --max 100 ;
 
 #  Book Entity
 #  ############
-# TODO extends Item
 jpa-new-entity --named Book ;
+
+# TODO extends Item
+jpa-new-field --named title --length 30 ;
+jpa-new-field --named description --length 3000 ;
+jpa-new-field --named unitCost --type java.lang.Float ;
+constraint-add --onProperty title --constraint NotNull ;
+constraint-add --onProperty title --constraint Size --min 1 --max 30 ;
+constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
+constraint-add --onProperty unitCost --constraint Min --value 1 ;
+
 jpa-new-field --named isbn --length 15 ;
 jpa-new-field --named nbOfPage --type java.lang.Integer ;
 jpa-new-field --named publicationDate --type java.util.Date --temporalType DATE ;
@@ -276,13 +313,23 @@ constraint-add --onProperty name --constraint Size --max 30 ;
 
 #  CD Entity
 #  ############
-# TODO extends Item
 jpa-new-entity --named CD ;
+
+# TODO extends Item
+jpa-new-field --named title --length 30 ;
+jpa-new-field --named description --length 3000 ;
+jpa-new-field --named unitCost --type java.lang.Float ;
+constraint-add --onProperty title --constraint NotNull ;
+constraint-add --onProperty title --constraint Size --min 1 --max 30 ;
+constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
+constraint-add --onProperty unitCost --constraint Min --value 1 ;
+
 jpa-new-field --named totalDuration --type java.lang.Float ;
 # TODO FORGE-2464
 jpa-new-field --named label --type org.agoncal.application.cdbookstore.model.Label --relationshipType Many-to-One ;
 jpa-new-field --named musicians --type org.agoncal.application.cdbookstore.model.Musician --relationshipType Many-to-Many ;
 jpa-new-field --named genre --type org.agoncal.application.cdbookstore.model.Genre --relationshipType Many-to-One ;
+
 
 #  Musician Entity
 #  ############
@@ -309,28 +356,33 @@ jpa-new-field --named vatRate --type java.lang.Float --columnName vat_rate ;
 jpa-new-field --named vat --type java.lang.Float ;
 jpa-new-field --named totalWithVat --type java.lang.Float ;
 jpa-new-field --named total --type java.lang.Float ;
-# Address embeddable
+# Relationships
+# TODO FORGE-2466
+jpa-new-field --named customer --type org.agoncal.application.cdbookstore.model.User --relationshipType Many-to-One ;
+jpa-new-field --named orderLines --type org.agoncal.application.cdbookstore.model.OrderLine --relationshipType One-to-Many ;
+# Constraints
+constraint-add --constraint Past --onProperty orderDate ;
+
+
 # TODO being able to add an embeddable for scaffolding
+# Address embeddable
 jpa-new-field --named street1 --length 50 ;
 jpa-new-field --named street2 ;
 jpa-new-field --named city --length 50 ;
 jpa-new-field --named state ;
 jpa-new-field --named zipcode --columnName zip_code --length 10 ;
-# Credit card embeddable
-# TODO being able to add an embeddable for scaffolding
-jpa-new-field --named creditCardNumber --columnName credit_card_number ;
-jpa-new-field --named creditCardType --type org.agoncal.application.cdbookstore.model.CreditCardType --columnName credit_card_type ;
-jpa-new-field --named creditCardExpDate --columnName credit_card_expiry_date  ;
-# Relationships
-jpa-new-field --named customer --type ~.model.User --relationshipType Many-to-One ;
-jpa-new-field --named orderLines --type ~.model.OrderLine --relationshipType One-to-Many ;
-# Constraints
 constraint-add --constraint NotNull --onProperty street1 ;
 constraint-add --constraint Size --min 5 --max 50 --onProperty street1 ;
 constraint-add --constraint NotNull --onProperty city ;
 constraint-add --constraint Size --min 5 --max 50 --onProperty city ;
 constraint-add --constraint NotNull --onProperty zipcode ;
 constraint-add --constraint Size --min 1 --max 10 --onProperty zipcode ;
+
+# Credit card embeddable
+# TODO being able to add an embeddable for scaffolding
+jpa-new-field --named creditCardNumber --columnName credit_card_number ;
+jpa-new-field --named creditCardType --type org.agoncal.application.cdbookstore.model.CreditCardType --columnName credit_card_type ;
+jpa-new-field --named creditCardExpDate --columnName credit_card_expiry_date  ;
 constraint-add --constraint NotNull --onProperty creditCardNumber ;
 constraint-add --constraint Size --min 1 --max 30 --onProperty creditCardNumber ;
 constraint-add --constraint NotNull --onProperty creditCardType ;
@@ -362,9 +414,8 @@ java-new-method --methodName produceHttpServletResponse --returnType javax.servl
 java-add-annotation --annotation javax.enterprise.inject.Produces --onMethod produceHttpServletResponse ;
 java-add-annotation --annotation javax.enterprise.context.RequestScoped --onMethod produceHttpServletResponse ;
 
-java-new-method --methodName produceLogger --returnType java.util.logging.Logger --accessType private ;
+java-new-method --methodName produceLogger --returnType org.apache.logging.log4j.Logger --accessType private ;
 java-add-annotation --annotation javax.enterprise.inject.Produces --onMethod produceLogger ;
-java-add-annotation --annotation javax.enterprise.context.RequestScoped --onMethod produceLogger ;
 
 
 #  Logging Interceptor
@@ -462,7 +513,7 @@ java-add-annotation --annotation javax.inject.Named --onProperty discountRate ;
 #  #############################  #
 
 # TODO ~ 
-scaffold-generate --provider Faces --webRoot admin --targets org.agoncal.application.cdbookstore.model.* ;
+scaffold-generate --provider Faces --webRoot /admin --targets org.agoncal.application.cdbookstore.model.* ;
 faces-new-bean --named AccountBean --scoped SESSION ;
 # TODO
 # faces-add-method --named doSignup --outcome index ;
@@ -525,7 +576,7 @@ project-add-dependencies org.apache.logging.log4j:log4j-api:2.3 ;
 project-add-dependencies org.apache.logging.log4j:log4j-core:2.3 ;
 project-add-dependencies org.webjars:bootstrap:2.3.2 ;
 project-add-dependencies org.primefaces:primefaces:5.2 ;
-project-add-dependencies org.jboss.spec:jboss-javaee-7.0:1.0.1.Final:provided:pom ;
+project-add-dependencies org.jboss.spec:jboss-javaee-7.0:1.0.3.Final:provided:pom ;
 
 #  Adding repositories
 #  ############################
