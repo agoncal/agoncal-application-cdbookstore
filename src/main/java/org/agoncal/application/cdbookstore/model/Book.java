@@ -36,7 +36,7 @@ public class Book extends Item
    private Category category;
 
    @OneToMany
-   private Set<Author> authors = new HashSet<Author>();
+   private Set<Author> authors = new HashSet<>();
 
    @ManyToOne
    private Publisher publisher;

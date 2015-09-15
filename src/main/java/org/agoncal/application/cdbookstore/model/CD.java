@@ -19,7 +19,7 @@ public class CD extends Item
    private Label label;
 
    @ManyToMany
-   private Set<Musician> musicians = new HashSet<Musician>();
+   private Set<Musician> musicians = new HashSet<>();
 
    @ManyToOne
    private Genre genre;

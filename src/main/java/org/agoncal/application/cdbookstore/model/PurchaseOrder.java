@@ -45,7 +45,7 @@ public class PurchaseOrder implements Serializable
    private User customer;
 
    @OneToMany
-   private Set<OrderLine> orderLines = new HashSet<OrderLine>();
+   private Set<OrderLine> orderLines = new HashSet<>();
 
    @Embedded
    private Address address = new Address();

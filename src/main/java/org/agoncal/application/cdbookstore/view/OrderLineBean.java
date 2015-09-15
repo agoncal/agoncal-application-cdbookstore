@@ -235,7 +235,7 @@ public class OrderLineBean implements Serializable
    {
 
       CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-      List<Predicate> predicatesList = new ArrayList<Predicate>();
+      List<Predicate> predicatesList = new ArrayList<>();
 
       Integer quantity = this.example.getQuantity();
       if (quantity != null && quantity.intValue() != 0)

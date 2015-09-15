@@ -15,7 +15,7 @@ public class Musician extends Artist
    private String preferredInstrument;
 
    @ManyToMany
-   private Set<CD> cds = new HashSet<CD>();
+   private Set<CD> cds = new HashSet<>();
 
    public String getPreferredInstrument()
    {

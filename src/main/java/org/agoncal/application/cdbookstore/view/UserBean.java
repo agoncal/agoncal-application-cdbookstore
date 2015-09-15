@@ -233,7 +233,7 @@ public class UserBean implements Serializable
    {
 
       CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-      List<Predicate> predicatesList = new ArrayList<Predicate>();
+      List<Predicate> predicatesList = new ArrayList<>();
 
       String firstName = this.example.getFirstName();
       if (firstName != null && !"".equals(firstName))

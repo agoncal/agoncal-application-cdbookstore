@@ -233,7 +233,7 @@ public class ItemBean implements Serializable
    {
 
       CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-      List<Predicate> predicatesList = new ArrayList<Predicate>();
+      List<Predicate> predicatesList = new ArrayList<>();
 
       String title = this.example.getTitle();
       if (title != null && !"".equals(title))

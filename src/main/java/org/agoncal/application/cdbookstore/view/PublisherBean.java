@@ -234,7 +234,7 @@ public class PublisherBean implements Serializable
    {
 
       CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-      List<Predicate> predicatesList = new ArrayList<Predicate>();
+      List<Predicate> predicatesList = new ArrayList<>();
 
       String name = this.example.getName();
       if (name != null && !"".equals(name))

@@ -237,7 +237,7 @@ public class PurchaseOrderBean implements Serializable
    {
 
       CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-      List<Predicate> predicatesList = new ArrayList<Predicate>();
+      List<Predicate> predicatesList = new ArrayList<>();
 
       User customer = this.example.getCustomer();
       if (customer != null)
