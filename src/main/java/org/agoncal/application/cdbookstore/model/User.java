@@ -1,5 +1,7 @@
 package org.agoncal.application.cdbookstore.model;
 
+import org.agoncal.application.cdbookstore.util.PasswordUtils;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,13 +13,20 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "t_user")
 @NamedQueries({
-         @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
-         @NamedQuery(name = "User.findByUUID", query = "SELECT u FROM User u WHERE u.uuid = :uuid"),
-         @NamedQuery(name = "User.findByLogin", query = "SELECT u FROM User u WHERE u.login = :login"),
-         @NamedQuery(name = "User.findByLoginPassword", query = "SELECT u FROM User u WHERE u.login = :login AND u.password = :password"),
-         @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u") })
+         @NamedQuery(name = User.FIND_BY_EMAIL, query = "SELECT u FROM User u WHERE u.email = :email"),
+         @NamedQuery(name = User.FIND_BY_UUID, query = "SELECT u FROM User u WHERE u.uuid = :uuid"),
+         @NamedQuery(name = User.FIND_BY_LOGIN, query = "SELECT u FROM User u WHERE u.login = :login"),
+         @NamedQuery(name = User.FIND_BY_LOGIN_PASSWORD, query = "SELECT u FROM User u WHERE u.login = :login AND u.password = :password"),
+         @NamedQuery(name = User.FIND_ALL, query = "SELECT u FROM User u")
+})
 public class User implements Serializable
 {
+
+   public static final String FIND_BY_EMAIL = "User.findByEmail";
+   public static final String FIND_BY_LOGIN = "User.findByLogin";
+   public static final String FIND_BY_UUID = "User.findByUUID";
+   public static final String FIND_BY_LOGIN_PASSWORD = "User.findByLoginAndPassword";
+   public static final String FIND_ALL = "User.findAll";
 
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -66,6 +75,12 @@ public class User implements Serializable
    @Temporal(TemporalType.DATE)
    @Past
    private Date dateOfBirth;
+
+   @PrePersist
+   private void digestPassword()
+   {
+      password = PasswordUtils.digestPassword(password);
+   }
 
    public Long getId()
    {

@@ -155,6 +155,9 @@ constraint-add --onProperty firstName --constraint Size --min 2 --max 50 ;
 constraint-add --onProperty lastName --constraint NotNull ;
 constraint-add --onProperty lastName --constraint Size --min 2 --max 50 ;
 constraint-add --onProperty dateOfBirth --constraint Past ;
+# Lifecycle
+java-new-method --methodName digestPassword --accessType public --returnType void ;
+java-add-annotation --annotation javax.persistence.PostPersist --onMethod digestPassword ;
 
 
 #  Language enum
@@ -404,6 +407,13 @@ java-new-package --named org.agoncal.application.cdbookstore.model --createPacka
 #  Creates utility classes  #
 #  #######################  #
 
+
+#  Resource Producer
+#  ############
+java-new-class --named PasswordUtils --targetPackage ~.util ;
+java-new-method --methodName digestPassword --returnType String --accessType public ;
+
+
 #  Resource Producer
 #  ############
 java-new-class --named ResourcProducer --targetPackage ~.util ;
@@ -583,6 +593,7 @@ project-remove-managed-dependencies javax.ws.rs:javax.ws.rs-api:jar::2.0 ;
 #  ############################
 project-add-dependencies org.apache.logging.log4j:log4j-api:2.3 ;
 project-add-dependencies org.apache.logging.log4j:log4j-core:2.3 ;
+project-add-dependencies com.thedeanda:lorem:1.2 ;
 project-add-dependencies org.webjars:bootstrap:3.3.5 ;
 project-add-dependencies org.webjars:jquery:2.1.4 ;
 project-add-dependencies org.primefaces:primefaces:5.2 ;

@@ -61,6 +61,11 @@
                 <version>3.0.12.Final</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>com.thedeanda</groupId>
+                <artifactId>lorem</artifactId>
+                <version>1.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -104,6 +109,10 @@
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.thedeanda</groupId>
+            <artifactId>lorem</artifactId>
         </dependency>
     </dependencies>
     <repositories>
