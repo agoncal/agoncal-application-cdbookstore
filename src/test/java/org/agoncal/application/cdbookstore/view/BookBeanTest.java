@@ -1,5 +1,7 @@
 package org.agoncal.application.cdbookstore.view;
 
+import static org.junit.Assert.*;
+
 import javax.inject.Inject;
 
 import org.agoncal.application.cdbookstore.model.*;
@@ -8,7 +10,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -37,6 +38,46 @@ public class BookBeanTest
    @Test
    public void should_be_deployed()
    {
-      Assert.assertNotNull(bookBean);
+      assertNotNull(bookBean);
+   }
+
+   @Test
+   public void should_crud()
+   {
+      // Creates an object
+      Book book = new Book();
+      book.setTitle("Dummy value");
+      book.setIsbn("Dummy value");
+
+      // Inserts the object into the database
+      bookBean.setBook(book);
+      bookBean.create();
+      bookBean.update();
+      book = bookBean.getBook();
+      assertNotNull(book.getId());
+
+      // Finds the object from the database and checks it's the right one
+      book = bookBean.findById(book.getId());
+      assertEquals("Dummy value", book.getTitle());
+
+      // Deletes the object from the database and checks it's not there anymore
+      bookBean.setId(book.getId());
+      bookBean.create();
+      bookBean.delete();
+      book = bookBean.findById(book.getId());
+      assertNull(book);
+   }
+
+   @Test
+   public void should_paginate()
+   {
+      // Creates an empty example
+      Book example = new Book();
+
+      // Paginates through the example
+      bookBean.setExample(example);
+      bookBean.paginate();
+      assertTrue((bookBean.getPageItems().size() == bookBean.getPageSize())
+               || (bookBean.getPageItems().size() == bookBean.getCount()));
    }
 }

@@ -1,5 +1,7 @@
 package org.agoncal.application.cdbookstore.view;
 
+import static org.junit.Assert.*;
+
 import javax.inject.Inject;
 
 import org.agoncal.application.cdbookstore.model.Item;
@@ -8,7 +10,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -33,6 +34,45 @@ public class ItemBeanTest
    @Test
    public void should_be_deployed()
    {
-      Assert.assertNotNull(itemBean);
+      assertNotNull(itemBean);
+   }
+
+   @Test
+   public void should_crud()
+   {
+      // Creates an object
+      Item item = new Item();
+      item.setTitle("Dummy value");
+
+      // Inserts the object into the database
+      itemBean.setItem(item);
+      itemBean.create();
+      itemBean.update();
+      item = itemBean.getItem();
+      assertNotNull(item.getId());
+
+      // Finds the object from the database and checks it's the right one
+      item = itemBean.findById(item.getId());
+      assertEquals("Dummy value", item.getTitle());
+
+      // Deletes the object from the database and checks it's not there anymore
+      itemBean.setId(item.getId());
+      itemBean.create();
+      itemBean.delete();
+      item = itemBean.findById(item.getId());
+      assertNull(item);
+   }
+
+   @Test
+   public void should_paginate()
+   {
+      // Creates an empty example
+      Item example = new Item();
+
+      // Paginates through the example
+      itemBean.setExample(example);
+      itemBean.paginate();
+      assertTrue((itemBean.getPageItems().size() == itemBean.getPageSize())
+               || (itemBean.getPageItems().size() == itemBean.getCount()));
    }
 }

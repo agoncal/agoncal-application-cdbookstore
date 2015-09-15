@@ -1,5 +1,7 @@
 package org.agoncal.application.cdbookstore.view;
 
+import static org.junit.Assert.*;
+
 import javax.inject.Inject;
 
 import org.agoncal.application.cdbookstore.model.Genre;
@@ -8,7 +10,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -33,6 +34,45 @@ public class GenreBeanTest
    @Test
    public void should_be_deployed()
    {
-      Assert.assertNotNull(genreBean);
+      assertNotNull(genreBean);
+   }
+
+   @Test
+   public void should_crud()
+   {
+      // Creates an object
+      Genre genre = new Genre();
+      genre.setName("Dummy value");
+
+      // Inserts the object into the database
+      genreBean.setGenre(genre);
+      genreBean.create();
+      genreBean.update();
+      genre = genreBean.getGenre();
+      assertNotNull(genre.getId());
+
+      // Finds the object from the database and checks it's the right one
+      genre = genreBean.findById(genre.getId());
+      assertEquals("Dummy value", genre.getName());
+
+      // Deletes the object from the database and checks it's not there anymore
+      genreBean.setId(genre.getId());
+      genreBean.create();
+      genreBean.delete();
+      genre = genreBean.findById(genre.getId());
+      assertNull(genre);
+   }
+
+   @Test
+   public void should_paginate()
+   {
+      // Creates an empty example
+      Genre example = new Genre();
+
+      // Paginates through the example
+      genreBean.setExample(example);
+      genreBean.paginate();
+      assertTrue((genreBean.getPageItems().size() == genreBean.getPageSize())
+               || (genreBean.getPageItems().size() == genreBean.getCount()));
    }
 }

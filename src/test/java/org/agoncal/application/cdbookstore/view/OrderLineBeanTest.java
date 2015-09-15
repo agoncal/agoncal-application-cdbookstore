@@ -1,5 +1,7 @@
 package org.agoncal.application.cdbookstore.view;
 
+import static org.junit.Assert.*;
+
 import javax.inject.Inject;
 
 import org.agoncal.application.cdbookstore.model.Item;
@@ -9,7 +11,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -35,6 +36,45 @@ public class OrderLineBeanTest
    @Test
    public void should_be_deployed()
    {
-      Assert.assertNotNull(orderLineBean);
+      assertNotNull(orderLineBean);
+   }
+
+   @Test
+   public void should_crud()
+   {
+      // Creates an object
+      OrderLine orderLine = new OrderLine();
+      orderLine.setQuantity(99);
+
+      // Inserts the object into the database
+      orderLineBean.setOrderLine(orderLine);
+      orderLineBean.create();
+      orderLineBean.update();
+      orderLine = orderLineBean.getOrderLine();
+      assertNotNull(orderLine.getId());
+
+      // Finds the object from the database and checks it's the right one
+      orderLine = orderLineBean.findById(orderLine.getId());
+      assertEquals(new Integer(99), orderLine.getQuantity());
+
+      // Deletes the object from the database and checks it's not there anymore
+      orderLineBean.setId(orderLine.getId());
+      orderLineBean.create();
+      orderLineBean.delete();
+      orderLine = orderLineBean.findById(orderLine.getId());
+      assertNull(orderLine);
+   }
+
+   @Test
+   public void should_paginate()
+   {
+      // Creates an empty example
+      OrderLine example = new OrderLine();
+
+      // Paginates through the example
+      orderLineBean.setExample(example);
+      orderLineBean.paginate();
+      assertTrue((orderLineBean.getPageItems().size() == orderLineBean.getPageSize())
+               || (orderLineBean.getPageItems().size() == orderLineBean.getCount()));
    }
 }

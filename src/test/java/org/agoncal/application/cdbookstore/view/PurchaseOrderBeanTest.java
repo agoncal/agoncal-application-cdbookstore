@@ -1,5 +1,7 @@
 package org.agoncal.application.cdbookstore.view;
 
+import static org.junit.Assert.*;
+
 import javax.inject.Inject;
 
 import org.agoncal.application.cdbookstore.model.*;
@@ -8,7 +10,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -39,6 +40,50 @@ public class PurchaseOrderBeanTest
    @Test
    public void should_be_deployed()
    {
-      Assert.assertNotNull(purchaseOrderBean);
+      assertNotNull(purchaseOrderBean);
+   }
+
+   @Test
+   public void should_crud()
+   {
+      // Creates an object
+      PurchaseOrder purchaseOrder = new PurchaseOrder();
+      purchaseOrder.setCreditCardType(CreditCardType.MASTER_CARD);
+      purchaseOrder.setCreditCardExpDate("Dummy");
+      purchaseOrder.setCreditCardNumber("Dummy value");
+      purchaseOrder.setStreet1("Dummy value");
+      purchaseOrder.setCity("Dummy value");
+      purchaseOrder.setZipcode("Dummy");
+
+      // Inserts the object into the database
+      purchaseOrderBean.setPurchaseOrder(purchaseOrder);
+      purchaseOrderBean.create();
+      purchaseOrderBean.update();
+      purchaseOrder = purchaseOrderBean.getPurchaseOrder();
+      assertNotNull(purchaseOrder.getId());
+
+      // Finds the object from the database and checks it's the right one
+      purchaseOrder = purchaseOrderBean.findById(purchaseOrder.getId());
+      assertEquals("Dummy value", purchaseOrder.getStreet1());
+
+      // Deletes the object from the database and checks it's not there anymore
+      purchaseOrderBean.setId(purchaseOrder.getId());
+      purchaseOrderBean.create();
+      purchaseOrderBean.delete();
+      purchaseOrder = purchaseOrderBean.findById(purchaseOrder.getId());
+      assertNull(purchaseOrder);
+   }
+
+   @Test
+   public void should_paginate()
+   {
+      // Creates an empty example
+      PurchaseOrder example = new PurchaseOrder();
+
+      // Paginates through the example
+      purchaseOrderBean.setExample(example);
+      purchaseOrderBean.paginate();
+      assertTrue((purchaseOrderBean.getPageItems().size() == purchaseOrderBean.getPageSize())
+               || (purchaseOrderBean.getPageItems().size() == purchaseOrderBean.getCount()));
    }
 }
