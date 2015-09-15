@@ -34,6 +34,7 @@ public class BookEndpointTest
    {
       return ShrinkWrap
                .create(WebArchive.class)
+               .addClass(RestApplication.class)
                .addClass(BookEndpoint.class)
                .addClass(Book.class)
                .addClass(Language.class)

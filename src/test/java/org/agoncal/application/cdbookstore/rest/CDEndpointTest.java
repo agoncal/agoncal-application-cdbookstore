@@ -37,12 +37,13 @@ public class CDEndpointTest
    {
       return ShrinkWrap
                .create(WebArchive.class)
+               .addClass(RestApplication.class)
                .addClass(CDEndpoint.class)
                .addClass(CD.class)
                .addClass(Genre.class)
                .addClass(Label.class)
                .addClass(Musician.class)
-               .addAsResource("META-INF/persistence.xml", "persistence.xml")
+               .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 
