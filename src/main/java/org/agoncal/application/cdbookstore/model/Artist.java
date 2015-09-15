@@ -1,6 +1,8 @@
 package org.agoncal.application.cdbookstore.model;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,27 +13,78 @@ import javax.validation.constraints.Size;
 public class Artist
 {
 
-   @Column(length = 50)
-   @NotNull
-   @Size(min = 2, max = 50)
-   private String firstName;
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   @Column(name = "id", updatable = false, nullable = false)
+   protected Long id;
+   @Version
+   @Column(name = "version")
+   protected int version;
 
    @Column(length = 50)
    @NotNull
    @Size(min = 2, max = 50)
-   private String lastName;
+   protected String firstName;
+
+   @Column(length = 50)
+   @NotNull
+   @Size(min = 2, max = 50)
+   protected String lastName;
 
    @Column(length = 5000)
    @Size(max = 5000)
-   private String bio;
+   protected String bio;
 
    @Column
    @Temporal(TemporalType.DATE)
    @Past
-   private Date dateOfBirth;
+   protected Date dateOfBirth;
 
    @Transient
-   private Integer age;
+   protected Integer age;
+
+   @PostLoad
+   @PostPersist
+   @PostUpdate
+   private void calculateAge()
+   {
+      if (dateOfBirth == null)
+      {
+         age = null;
+         return;
+      }
+
+      Calendar birth = new GregorianCalendar();
+      birth.setTime(dateOfBirth);
+      Calendar now = new GregorianCalendar();
+      now.setTime(new Date());
+      int adjust = 0;
+      if (now.get(Calendar.DAY_OF_YEAR) - birth.get(Calendar.DAY_OF_YEAR) < 0)
+      {
+         adjust = -1;
+      }
+      age = now.get(Calendar.YEAR) - birth.get(Calendar.YEAR) + adjust;
+   }
+
+   public Long getId()
+   {
+      return this.id;
+   }
+
+   public void setId(final Long id)
+   {
+      this.id = id;
+   }
+
+   public int getVersion()
+   {
+      return this.version;
+   }
+
+   public void setVersion(final int version)
+   {
+      this.version = version;
+   }
 
    public String getFirstName()
    {
@@ -98,13 +151,5 @@ public class Artist
       if (age != null)
          result += ", age: " + age;
       return result;
-   }
-
-   @PostLoad
-   @PostPersist
-   @PostUpdate
-   public String calculateAge()
-   {
-      throw new UnsupportedOperationException("Not supported yet.");
    }
 }

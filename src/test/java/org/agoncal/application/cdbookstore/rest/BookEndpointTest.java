@@ -40,6 +40,7 @@ public class BookEndpointTest
                .addClass(Language.class)
                .addClass(Category.class)
                .addClass(Publisher.class)
+               .addClass(Artist.class)
                .addClass(Author.class)
                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

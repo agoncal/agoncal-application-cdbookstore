@@ -4,10 +4,7 @@ import static org.junit.Assert.*;
 
 import javax.inject.Inject;
 
-import org.agoncal.application.cdbookstore.model.CD;
-import org.agoncal.application.cdbookstore.model.Genre;
-import org.agoncal.application.cdbookstore.model.Label;
-import org.agoncal.application.cdbookstore.model.Musician;
+import org.agoncal.application.cdbookstore.model.*;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -32,6 +29,7 @@ public class CDBeanTest
                .addClass(CD.class)
                .addClass(Genre.class)
                .addClass(Label.class)
+               .addClass(Artist.class)
                .addClass(Musician.class)
                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");

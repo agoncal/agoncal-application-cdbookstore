@@ -186,7 +186,7 @@ constraint-add --onProperty lastName --constraint Size --min 2 --max 50 ;
 constraint-add --onProperty bio --constraint Size --max 5000 ;
 constraint-add --onProperty dateOfBirth --constraint Past ;
 # Lifecycle
-java-new-method --methodName calculateAge --accessType public ;
+java-new-method --methodName calculateAge --accessType private --returnType void ;
 java-add-annotation --annotation javax.persistence.PostLoad --onMethod calculateAge ;
 java-add-annotation --annotation javax.persistence.PostPersist --onMethod calculateAge ;
 java-add-annotation --annotation javax.persistence.PostUpdate --onMethod calculateAge ;

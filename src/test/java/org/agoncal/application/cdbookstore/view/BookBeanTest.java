@@ -30,6 +30,7 @@ public class BookBeanTest
                .addClass(Language.class)
                .addClass(Category.class)
                .addClass(Publisher.class)
+               .addClass(Artist.class)
                .addClass(Author.class)
                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");

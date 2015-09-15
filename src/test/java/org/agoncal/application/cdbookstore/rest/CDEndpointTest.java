@@ -10,10 +10,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.agoncal.application.cdbookstore.model.CD;
-import org.agoncal.application.cdbookstore.model.Genre;
-import org.agoncal.application.cdbookstore.model.Label;
-import org.agoncal.application.cdbookstore.model.Musician;
+import org.agoncal.application.cdbookstore.model.*;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -42,6 +39,7 @@ public class CDEndpointTest
                .addClass(CD.class)
                .addClass(Genre.class)
                .addClass(Label.class)
+               .addClass(Artist.class)
                .addClass(Musician.class)
                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

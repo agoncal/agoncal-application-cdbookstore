@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import javax.inject.Inject;
 
+import org.agoncal.application.cdbookstore.model.Artist;
 import org.agoncal.application.cdbookstore.model.Author;
 import org.agoncal.application.cdbookstore.model.Language;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -28,6 +29,7 @@ public class AuthorBeanTest
                .create(JavaArchive.class)
                .addClass(AuthorBean.class)
                .addClass(Author.class)
+               .addClass(Artist.class)
                .addClass(Language.class)
                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");

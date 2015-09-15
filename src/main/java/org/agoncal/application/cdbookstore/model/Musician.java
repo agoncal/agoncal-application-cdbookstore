@@ -1,73 +1,38 @@
 package org.agoncal.application.cdbookstore.model;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 
 @Entity
-public class Musician implements Serializable
+public class Musician extends Artist
 {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id", updatable = false, nullable = false)
-   private Long id;
-   @Version
-   @Column(name = "version")
-   private int version;
-
-   @Column(length = 50)
-   @NotNull
-   @Size(min = 2, max = 50)
-   private String firstName;
-
-   @Column(length = 50)
-   @NotNull
-   @Size(min = 2, max = 50)
-   private String lastName;
-
-   @Column(length = 5000)
-   @Size(max = 5000)
-   private String bio;
-
-   @Column
-   @Temporal(TemporalType.DATE)
-   @Past
-   private Date dateOfBirth;
-
-   @Transient
-   private Integer age;
-
-   @Column
    private String preferredInstrument;
 
    @ManyToMany
    private Set<CD> cds = new HashSet<CD>();
 
-   public Long getId()
+   public String getPreferredInstrument()
    {
-      return this.id;
+      return preferredInstrument;
    }
 
-   public void setId(final Long id)
+   public void setPreferredInstrument(String preferredInstrument)
    {
-      this.id = id;
+      this.preferredInstrument = preferredInstrument;
    }
 
-   public int getVersion()
+   public Set<CD> getCds()
    {
-      return this.version;
+      return this.cds;
    }
 
-   public void setVersion(final int version)
+   public void setCds(final Set<CD> cds)
    {
-      this.version = version;
+      this.cds = cds;
    }
 
    @Override
@@ -101,66 +66,6 @@ public class Musician implements Serializable
       return result;
    }
 
-   public String getFirstName()
-   {
-      return firstName;
-   }
-
-   public void setFirstName(String firstName)
-   {
-      this.firstName = firstName;
-   }
-
-   public String getLastName()
-   {
-      return lastName;
-   }
-
-   public void setLastName(String lastName)
-   {
-      this.lastName = lastName;
-   }
-
-   public String getBio()
-   {
-      return bio;
-   }
-
-   public void setBio(String bio)
-   {
-      this.bio = bio;
-   }
-
-   public Date getDateOfBirth()
-   {
-      return dateOfBirth;
-   }
-
-   public void setDateOfBirth(Date dateOfBirth)
-   {
-      this.dateOfBirth = dateOfBirth;
-   }
-
-   public Integer getAge()
-   {
-      return age;
-   }
-
-   public void setAge(Integer age)
-   {
-      this.age = age;
-   }
-
-   public String getPreferredInstrument()
-   {
-      return preferredInstrument;
-   }
-
-   public void setPreferredInstrument(String preferredInstrument)
-   {
-      this.preferredInstrument = preferredInstrument;
-   }
-
    @Override
    public String toString()
    {
@@ -182,15 +87,5 @@ public class Musician implements Serializable
                && !preferredInstrument.trim().isEmpty())
          result += ", preferredInstrument: " + preferredInstrument;
       return result;
-   }
-
-   public Set<CD> getCds()
-   {
-      return this.cds;
-   }
-
-   public void setCds(final Set<CD> cds)
-   {
-      this.cds = cds;
    }
 }
