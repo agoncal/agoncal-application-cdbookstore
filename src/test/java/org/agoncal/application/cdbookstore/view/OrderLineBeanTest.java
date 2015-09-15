@@ -29,7 +29,7 @@ public class OrderLineBeanTest
                .addClass(OrderLineBean.class)
                .addClass(OrderLine.class)
                .addClass(Item.class)
-               .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+               .addAsManifestResource("META-INF/persistence-test.xml", "persistence.xml")
                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 

@@ -24,8 +24,7 @@ public class AccountBeanTest
       return ShrinkWrap
                .create(JavaArchive.class)
                .addClass(AccountBean.class)
-               .addAsManifestResource("META-INF/persistence.xml",
-                        "persistence.xml")
+               .addAsManifestResource("META-INF/persistence-test.xml", "persistence.xml")
                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 

@@ -42,7 +42,7 @@ public class CDEndpointTest
                .addClass(Label.class)
                .addClass(Artist.class)
                .addClass(Musician.class)
-               .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+               .addAsResource("META-INF/persistence-test.xml", "META-INF/persistence.xml")
                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 

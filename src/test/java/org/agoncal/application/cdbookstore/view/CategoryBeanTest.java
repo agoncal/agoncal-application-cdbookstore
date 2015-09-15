@@ -27,7 +27,7 @@ public class CategoryBeanTest
                .create(JavaArchive.class)
                .addClass(CategoryBean.class)
                .addClass(Category.class)
-               .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+               .addAsManifestResource("META-INF/persistence-test.xml", "persistence.xml")
                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 

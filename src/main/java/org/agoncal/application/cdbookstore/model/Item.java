@@ -21,9 +21,9 @@ public class Item implements Serializable
    @Column(name = "version")
    protected int version;
 
-   @Column(length = 30)
+   @Column(length = 50)
    @NotNull
-   @Size(min = 1, max = 30)
+   @Size(min = 1, max = 50)
    protected String title;
 
    @Column(length = 3000)

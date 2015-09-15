@@ -31,7 +31,7 @@ public class AuthorBeanTest
                .addClass(Author.class)
                .addClass(Artist.class)
                .addClass(Language.class)
-               .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+               .addAsManifestResource("META-INF/persistence-test.xml", "persistence.xml")
                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 

@@ -32,7 +32,7 @@ public class CDBeanTest
                .addClass(Label.class)
                .addClass(Artist.class)
                .addClass(Musician.class)
-               .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+               .addAsManifestResource("META-INF/persistence-test.xml", "persistence.xml")
                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 

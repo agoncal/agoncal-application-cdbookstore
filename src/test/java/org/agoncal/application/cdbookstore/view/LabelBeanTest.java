@@ -27,7 +27,7 @@ public class LabelBeanTest
                .create(JavaArchive.class)
                .addClass(LabelBean.class)
                .addClass(Label.class)
-               .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+               .addAsManifestResource("META-INF/persistence-test.xml", "persistence.xml")
                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 

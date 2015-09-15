@@ -27,7 +27,7 @@ public class PublisherBeanTest
                .create(JavaArchive.class)
                .addClass(PublisherBean.class)
                .addClass(Publisher.class)
-               .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+               .addAsManifestResource("META-INF/persistence-test.xml", "persistence.xml")
                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 

@@ -30,7 +30,7 @@ public class UserBeanTest
                .addClass(UserBean.class)
                .addClass(User.class)
                .addClass(UserRole.class)
-               .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+               .addAsManifestResource("META-INF/persistence-test.xml", "persistence.xml")
                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 
