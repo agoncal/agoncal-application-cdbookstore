@@ -43,6 +43,16 @@ public class Category implements Serializable
       this.version = version;
    }
 
+   public String getName()
+   {
+      return name;
+   }
+
+   public void setName(String name)
+   {
+      this.name = name;
+   }
+
    @Override
    public boolean equals(Object obj)
    {
@@ -72,16 +82,6 @@ public class Category implements Serializable
       int result = 1;
       result = prime * result + ((id == null) ? 0 : id.hashCode());
       return result;
-   }
-
-   public String getName()
-   {
-      return name;
-   }
-
-   public void setName(String name)
-   {
-      this.name = name;
    }
 
    @Override

@@ -15,8 +15,8 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <meta name="description" content=""/>
         <meta name="author" content=""/>
-        <link rel="icon" href="./resources/favicon.png"/>
-        <link rel="shortcut icon" href="./resources/favicon.png"/>
+        <link rel="icon" href="./resources/favicon.ico"/>
+        <link rel="shortcut icon" href="./resources/favicon.ico"/>
 
 
         <title><ui:insert name="title"/></title>
@@ -48,12 +48,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <h:link class="navbar-brand" outcome="index.xhtml" value="JSF Login"/>
+                    <h:link class="navbar-brand" outcome="index.xhtml" value="CD Book Store"/>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <h:form>
                         <ul class="nav navbar-nav">
-                            <li><h:commandLink action="#{userBean.doFindAll}" value="Users"/></li>
+                            <li><h:link outcome="admin" value="Shopping cart"/></li>
                             <li><h:link outcome="admin" value="Admin" rendered="#{accountBean.admin}"/></li>
                         </ul>
                     </h:form>

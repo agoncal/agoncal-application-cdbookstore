@@ -45,6 +45,26 @@ public class OrderLine implements Serializable
       this.version = version;
    }
 
+   public Integer getQuantity()
+   {
+      return quantity;
+   }
+
+   public void setQuantity(Integer quantity)
+   {
+      this.quantity = quantity;
+   }
+
+   public Item getItem()
+   {
+      return this.item;
+   }
+
+   public void setItem(final Item item)
+   {
+      this.item = item;
+   }
+
    @Override
    public boolean equals(Object obj)
    {
@@ -76,16 +96,6 @@ public class OrderLine implements Serializable
       return result;
    }
 
-   public Integer getQuantity()
-   {
-      return quantity;
-   }
-
-   public void setQuantity(Integer quantity)
-   {
-      this.quantity = quantity;
-   }
-
    @Override
    public String toString()
    {
@@ -96,15 +106,5 @@ public class OrderLine implements Serializable
       if (quantity != null)
          result += ", quantity: " + quantity;
       return result;
-   }
-
-   public Item getItem()
-   {
-      return this.item;
-   }
-
-   public void setItem(final Item item)
-   {
-      this.item = item;
    }
 }

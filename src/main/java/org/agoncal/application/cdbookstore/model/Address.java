@@ -87,6 +87,16 @@ public class Address implements Serializable
       this.zipcode = zipcode;
    }
 
+   public Country getCountry()
+   {
+      return this.country;
+   }
+
+   public void setCountry(final Country country)
+   {
+      this.country = country;
+   }
+
    @Override
    public String toString()
    {
@@ -102,15 +112,5 @@ public class Address implements Serializable
       if (zipcode != null && !zipcode.trim().isEmpty())
          result += ", zipcode: " + zipcode;
       return result;
-   }
-
-   public Country getCountry()
-   {
-      return this.country;
-   }
-
-   public void setCountry(final Country country)
-   {
-      this.country = country;
    }
 }

@@ -524,6 +524,13 @@ faces-new-bean --named AccountBean --scoped SESSION ;
 # faces-add-method --named doForgotPassword ;
 # faces-add-method --named doUpdateProfile ;
 
+java-new-field --named loggedIn --type boolean --updateToString=false ;
+java-new-field --named admin --type boolean --updateToString=false ;
+java-new-field --named rememberMe --type boolean --updateToString=false ;
+java-new-field --named password1 --type String --updateToString=false ;
+java-new-field --named password2 --type String --updateToString=false ;
+
+
 
 #  ########################  #
 #  Generates REST endpoints  #
