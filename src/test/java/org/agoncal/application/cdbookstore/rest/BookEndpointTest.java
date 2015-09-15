@@ -37,6 +37,7 @@ public class BookEndpointTest
                .addClass(RestApplication.class)
                .addClass(BookEndpoint.class)
                .addClass(Book.class)
+               .addClass(Item.class)
                .addClass(Language.class)
                .addClass(Category.class)
                .addClass(Publisher.class)

@@ -1,40 +1,18 @@
 package org.agoncal.application.cdbookstore.model;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class CD implements Serializable
+public class CD extends Item
 {
-
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id", updatable = false, nullable = false)
-   private Long id;
-   @Version
-   @Column(name = "version")
-   private int version;
-
-   @Column(length = 30)
-   @NotNull
-   @Size(min = 1, max = 30)
-   private String title;
-
-   @Column(length = 3000)
-   @Size(min = 1, max = 3000)
-   private String description;
-
-   @Column
-   @Min(1)
-   private Float unitCost;
 
    @Column
    private Float totalDuration;

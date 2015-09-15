@@ -29,6 +29,7 @@ public class MusicianBeanTest
                .addClass(Musician.class)
                .addClass(Artist.class)
                .addClass(CD.class)
+               .addClass(Item.class)
                .addClass(Genre.class)
                .addClass(Label.class)
                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")

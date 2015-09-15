@@ -14,23 +14,23 @@ public class Item implements Serializable
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
    @Column(name = "id", updatable = false, nullable = false)
-   private Long id;
+   protected Long id;
    @Version
    @Column(name = "version")
-   private int version;
+   protected int version;
 
    @Column(length = 30)
    @NotNull
    @Size(min = 1, max = 30)
-   private String title;
+   protected String title;
 
    @Column(length = 3000)
    @Size(min = 1, max = 3000)
-   private String description;
+   protected String description;
 
    @Column
    @Min(1)
-   private Float unitCost;
+   protected Float unitCost;
 
    public Long getId()
    {

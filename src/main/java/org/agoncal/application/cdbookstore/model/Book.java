@@ -1,6 +1,5 @@
 package org.agoncal.application.cdbookstore.model;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,29 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class Book implements Serializable
+public class Book extends Item
 {
-
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id", updatable = false, nullable = false)
-   private Long id;
-   @Version
-   @Column(name = "version")
-   private int version;
-
-   @Column(length = 30)
-   @NotNull
-   @Size(min = 1, max = 30)
-   private String title;
-
-   @Column(length = 3000)
-   @Size(min = 1, max = 3000)
-   private String description;
-
-   @Column
-   @Min(1)
-   private Float unitCost;
 
    @Column(length = 15)
    @NotNull

@@ -6,9 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "purchase_order")
@@ -52,20 +50,8 @@ public class PurchaseOrder implements Serializable
    @Embedded
    private Address address = new Address();
 
-   @Column(name = "credit_card_number")
-   @NotNull
-   @Size(min = 1, max = 30)
-   private String creditCardNumber;
-
-   @Enumerated
-   @Column(name = "credit_card_type")
-   @NotNull
-   private CreditCardType creditCardType;
-
-   @Column(name = "credit_card_expiry_date")
-   @NotNull
-   @Size(min = 5, max = 5)
-   private String creditCardExpDate;
+   @Embedded
+   private CreditCard creditCard = new CreditCard();
 
    public Long getId()
    {
@@ -227,34 +213,44 @@ public class PurchaseOrder implements Serializable
       this.address.setZipcode(zipcode);
    }
 
+   public CreditCard getCreditCard()
+   {
+      return creditCard;
+   }
+
+   public void setCreditCard(CreditCard creditCard)
+   {
+      this.creditCard = creditCard;
+   }
+
    public String getCreditCardNumber()
    {
-      return creditCardNumber;
+      return creditCard.getCreditCardNumber();
    }
 
    public void setCreditCardNumber(String creditCardNumber)
    {
-      this.creditCardNumber = creditCardNumber;
+      this.creditCard.setCreditCardNumber(creditCardNumber);
    }
 
    public CreditCardType getCreditCardType()
    {
-      return creditCardType;
+      return creditCard.getCreditCardType();
    }
 
    public void setCreditCardType(CreditCardType creditCardType)
    {
-      this.creditCardType = creditCardType;
+      this.creditCard.setCreditCardType(creditCardType);
    }
 
    public String getCreditCardExpDate()
    {
-      return creditCardExpDate;
+      return creditCard.getCreditCardExpDate();
    }
 
    public void setCreditCardExpDate(String creditCardExpDate)
    {
-      this.creditCardExpDate = creditCardExpDate;
+      this.creditCard.setCreditCardExpDate(creditCardExpDate);
    }
 
    @Override
@@ -321,12 +317,12 @@ public class PurchaseOrder implements Serializable
          result += ", state: " + getState();
       if (getZipcode() != null && !getZipcode().trim().isEmpty())
          result += ", zipcode: " + getZipcode();
-      if (creditCardNumber != null && !creditCardNumber.trim().isEmpty())
-         result += ", creditCardNumber: " + creditCardNumber;
-      if (creditCardType != null)
-         result += ", creditCardType: " + creditCardType;
-      if (creditCardExpDate != null && !creditCardExpDate.trim().isEmpty())
-         result += ", creditCardExpDate: " + creditCardExpDate;
+      if (getCreditCardNumber() != null && !getCreditCardNumber().trim().isEmpty())
+         result += ", creditCardNumber: " + getCreditCardNumber();
+      if (getCreditCardType() != null)
+         result += ", creditCardType: " + getCreditCardType();
+      if (getCreditCardExpDate() != null && !getCreditCardExpDate().trim().isEmpty())
+         result += ", creditCardExpDate: " + getCreditCardExpDate();
       return result;
    }
 }

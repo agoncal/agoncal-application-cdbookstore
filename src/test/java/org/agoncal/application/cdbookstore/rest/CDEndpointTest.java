@@ -37,6 +37,7 @@ public class CDEndpointTest
                .addClass(RestApplication.class)
                .addClass(CDEndpoint.class)
                .addClass(CD.class)
+               .addClass(Item.class)
                .addClass(Genre.class)
                .addClass(Label.class)
                .addClass(Artist.class)

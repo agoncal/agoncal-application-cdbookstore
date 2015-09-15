@@ -27,6 +27,7 @@ public class BookBeanTest
                .create(JavaArchive.class)
                .addClass(BookBean.class)
                .addClass(Book.class)
+               .addClass(Item.class)
                .addClass(Language.class)
                .addClass(Category.class)
                .addClass(Publisher.class)

@@ -27,6 +27,7 @@ public class CDBeanTest
                .create(JavaArchive.class)
                .addClass(CDBean.class)
                .addClass(CD.class)
+               .addClass(Item.class)
                .addClass(Genre.class)
                .addClass(Label.class)
                .addClass(Artist.class)
