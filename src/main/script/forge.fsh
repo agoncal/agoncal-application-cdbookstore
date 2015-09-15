@@ -576,7 +576,8 @@ project-remove-managed-dependencies javax.ws.rs:javax.ws.rs-api:jar::2.0 ;
 #  ############################
 project-add-dependencies org.apache.logging.log4j:log4j-api:2.3 ;
 project-add-dependencies org.apache.logging.log4j:log4j-core:2.3 ;
-project-add-dependencies org.webjars:bootstrap:2.3.2 ;
+project-add-dependencies org.webjars:bootstrap:3.3.5 ;
+project-add-dependencies org.webjars:jquery:2.1.4 ;
 project-add-dependencies org.primefaces:primefaces:5.2 ;
 project-add-dependencies org.jboss.spec:jboss-javaee-7.0:1.0.3.Final:provided:pom ;
 project-add-dependencies org.jboss.resteasy:resteasy-client:3.0.12.Final:test ;
