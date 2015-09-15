@@ -49,26 +49,8 @@ public class PurchaseOrder implements Serializable
    @OneToMany
    private Set<OrderLine> orderLines = new HashSet<OrderLine>();
 
-   @Column(length = 50)
-   @NotNull
-   @Size(min = 5, max = 50)
-   private String street1;
-
-   @Column
-   private String street2;
-
-   @Column(length = 50)
-   @NotNull
-   @Size(min = 5, max = 50)
-   private String city;
-
-   @Column
-   private String state;
-
-   @Column(length = 10, name = "zip_code")
-   @NotNull
-   @Size(min = 1, max = 10)
-   private String zipcode;
+   @Embedded
+   private Address address = new Address();
 
    @Column(name = "credit_card_number")
    @NotNull
@@ -103,37 +85,6 @@ public class PurchaseOrder implements Serializable
    public void setVersion(final int version)
    {
       this.version = version;
-   }
-
-   @Override
-   public boolean equals(Object obj)
-   {
-      if (this == obj)
-      {
-         return true;
-      }
-      if (!(obj instanceof PurchaseOrder))
-      {
-         return false;
-      }
-      PurchaseOrder other = (PurchaseOrder) obj;
-      if (id != null)
-      {
-         if (!id.equals(other.id))
-         {
-            return false;
-         }
-      }
-      return true;
-   }
-
-   @Override
-   public int hashCode()
-   {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((id == null) ? 0 : id.hashCode());
-      return result;
    }
 
    public Date getOrderDate()
@@ -216,54 +167,64 @@ public class PurchaseOrder implements Serializable
       this.orderLines = orderLines;
    }
 
+   public Address getAddress()
+   {
+      return address;
+   }
+
+   public void setAddress(Address address)
+   {
+      this.address = address;
+   }
+
    public String getStreet1()
    {
-      return street1;
+      return address.getStreet1();
    }
 
    public void setStreet1(String street1)
    {
-      this.street1 = street1;
+      this.address.setStreet1(street1);
    }
 
    public String getStreet2()
    {
-      return street2;
+      return address.getStreet2();
    }
 
    public void setStreet2(String street2)
    {
-      this.street2 = street2;
+      this.address.setStreet2(street2);
    }
 
    public String getCity()
    {
-      return city;
+      return address.getCity();
    }
 
    public void setCity(String city)
    {
-      this.city = city;
+      this.address.setCity(city);
    }
 
    public String getState()
    {
-      return state;
+      return address.getState();
    }
 
    public void setState(String state)
    {
-      this.state = state;
+      this.address.setState(state);
    }
 
    public String getZipcode()
    {
-      return zipcode;
+      return address.getZipcode();
    }
 
    public void setZipcode(String zipcode)
    {
-      this.zipcode = zipcode;
+      this.address.setZipcode(zipcode);
    }
 
    public String getCreditCardNumber()
@@ -297,6 +258,37 @@ public class PurchaseOrder implements Serializable
    }
 
    @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
+      {
+         return true;
+      }
+      if (!(obj instanceof PurchaseOrder))
+      {
+         return false;
+      }
+      PurchaseOrder other = (PurchaseOrder) obj;
+      if (id != null)
+      {
+         if (!id.equals(other.id))
+         {
+            return false;
+         }
+      }
+      return true;
+   }
+
+   @Override
+   public int hashCode()
+   {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ((id == null) ? 0 : id.hashCode());
+      return result;
+   }
+
+   @Override
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
@@ -319,16 +311,16 @@ public class PurchaseOrder implements Serializable
          result += ", customer: " + customer;
       if (orderLines != null)
          result += ", orderLines: " + orderLines;
-      if (street1 != null && !street1.trim().isEmpty())
-         result += ", street1: " + street1;
-      if (street2 != null && !street2.trim().isEmpty())
-         result += ", street2: " + street2;
-      if (city != null && !city.trim().isEmpty())
-         result += ", city: " + city;
-      if (state != null && !state.trim().isEmpty())
-         result += ", state: " + state;
-      if (zipcode != null && !zipcode.trim().isEmpty())
-         result += ", zipcode: " + zipcode;
+      if (getStreet1() != null && !getStreet1().trim().isEmpty())
+         result += ", street1: " + getStreet1();
+      if (getStreet2() != null && !getStreet2().trim().isEmpty())
+         result += ", street2: " + getStreet2();
+      if (getCity() != null && !getCity().trim().isEmpty())
+         result += ", city: " + getCity();
+      if (getState() != null && !getState().trim().isEmpty())
+         result += ", state: " + getState();
+      if (getZipcode() != null && !getZipcode().trim().isEmpty())
+         result += ", zipcode: " + getZipcode();
       if (creditCardNumber != null && !creditCardNumber.trim().isEmpty())
          result += ", creditCardNumber: " + creditCardNumber;
       if (creditCardType != null)

@@ -27,6 +27,8 @@ public class PurchaseOrderBeanTest
                .create(JavaArchive.class)
                .addClass(PurchaseOrderBean.class)
                .addClass(PurchaseOrder.class)
+               .addClass(Address.class)
+               .addClass(Country.class)
                .addClass(User.class)
                .addClass(UserRole.class)
                .addClass(CreditCard.class)
