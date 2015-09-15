@@ -1,0 +1,63 @@
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <xsl:output method="xml" encoding="UTF-8" omit-xml-declaration="no" indent="yes"/>
+    <xsl:strip-space elements="*"/>
+
+    <xsl:template match="Items">
+
+        <xsl:for-each select="Item">
+            <xsl:variable name="i" select="position()" />
+            <xsl:value-of select="$i"/>
+            <xsl:text>, </xsl:text>
+
+            <xsl:if test="ItemAttributes/Title">'<xsl:value-of select="normalize-space(ItemAttributes/Title)"/>'</xsl:if>
+            <xsl:if test="not(ItemAttributes/Title)">null</xsl:if>
+            <xsl:text>, </xsl:text>
+
+            <xsl:if test="ItemAttributes/NumberOfDiscs"><xsl:value-of select="normalize-space(ItemAttributes/NumberOfDiscs)"/></xsl:if>
+            <xsl:if test="not(ItemAttributes/NumberOfDiscs)">null</xsl:if>
+            <xsl:text>, </xsl:text>
+
+            <xsl:if test="SalesRank"><xsl:value-of select="substring(normalize-space(SalesRank), 1, 1)"/></xsl:if>
+            <xsl:if test="not(SalesRank)">null</xsl:if>
+            <xsl:text>, </xsl:text>
+
+            <xsl:if test="SmallImage/URL">'<xsl:value-of select="normalize-space(SmallImage/URL)"/>'</xsl:if>
+            <xsl:if test="not(SmallImage/URL)">null</xsl:if>
+            <xsl:text>, </xsl:text>
+
+            <xsl:if test="MediumImage/URL">'<xsl:value-of select="normalize-space(MediumImage/URL)"/>'</xsl:if>
+            <xsl:if test="not(MediumImage/URL)">null</xsl:if>
+            <xsl:text>, </xsl:text>
+
+            <xsl:if test="ItemAttributes/Languages/Language/Name">'<xsl:value-of select="normalize-space(ItemAttributes/Languages/Language/Name)"/>'</xsl:if>
+            <xsl:if test="not(ItemAttributes/Languages/Language/Name)">null</xsl:if>
+            <xsl:text>, </xsl:text>
+
+            <xsl:if test="ItemAttributes/ListPrice/FormattedPrice"><xsl:value-of select="normalize-space(ItemAttributes/ListPrice/FormattedPrice)"/></xsl:if>
+            <xsl:if test="not(ItemAttributes/ListPrice/FormattedPrice)">null</xsl:if>
+            <xsl:text>, </xsl:text>
+
+            <xsl:if test="ItemAttributes/NumberOfPages"><xsl:value-of select="normalize-space(ItemAttributes/NumberOfPages)"/></xsl:if>
+            <xsl:if test="not(ItemAttributes/NumberOfPages)">null</xsl:if>
+            <xsl:text>, </xsl:text>
+
+            <xsl:if test="ItemAttributes/PublicationDate"><xsl:value-of select="normalize-space(ItemAttributes/PublicationDate)"/></xsl:if>
+            <xsl:if test="not(ItemAttributes/PublicationDate)">null</xsl:if>
+            <xsl:text>, </xsl:text>
+
+            <xsl:if test="EditorialReviews/EditorialReview/Content">'<xsl:value-of select="normalize-space(EditorialReviews/EditorialReview/Content)"/>'</xsl:if>
+            <xsl:if test="not(EditorialReviews/EditorialReview/Content)">null</xsl:if>
+            <xsl:text>, </xsl:text>
+
+            <xsl:value-of select="normalize-space(ItemAttributes/Author)"/>
+            <xsl:text>, </xsl:text>
+            <xsl:value-of select="normalize-space(ItemAttributes/Label)"/>
+
+
+            <xsl:text>&#xA;</xsl:text>
+        </xsl:for-each>
+
+
+    </xsl:template>
+    <xsl:template match="text()"/>
+</xsl:stylesheet>
