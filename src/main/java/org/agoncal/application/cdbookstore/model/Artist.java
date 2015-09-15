@@ -21,12 +21,12 @@ public class Artist
    @Column(name = "version")
    protected int version;
 
-   @Column(length = 50)
+   @Column(length = 50, name = "first_name", nullable = false)
    @NotNull
    @Size(min = 2, max = 50)
    protected String firstName;
 
-   @Column(length = 50)
+   @Column(length = 50, name = "last_name", nullable = false)
    @NotNull
    @Size(min = 2, max = 50)
    protected String lastName;
@@ -35,7 +35,7 @@ public class Artist
    @Size(max = 5000)
    protected String bio;
 
-   @Column
+   @Column(name = "date_of_birth")
    @Temporal(TemporalType.DATE)
    @Past
    protected Date dateOfBirth;

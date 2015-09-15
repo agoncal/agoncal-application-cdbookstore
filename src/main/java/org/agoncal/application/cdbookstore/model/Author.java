@@ -1,5 +1,6 @@
 package org.agoncal.application.cdbookstore.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 
@@ -8,6 +9,7 @@ public class Author extends Artist
 {
 
    @Enumerated
+   @Column(name = "preferred_language")
    private Language preferredLanguage;
 
    public Language getPreferredLanguage()

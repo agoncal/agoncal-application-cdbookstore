@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@DiscriminatorColumn(name = "discriminator", discriminatorType = DiscriminatorType.CHAR)
+@DiscriminatorValue("I")
 public class Item implements Serializable
 {
 
@@ -28,9 +30,15 @@ public class Item implements Serializable
    @Size(min = 1, max = 3000)
    protected String description;
 
-   @Column
+   @Column(name = "unit_cost")
    @Min(1)
    protected Float unitCost;
+
+   @Column(name = "small_image_url")
+   protected String smallImageURL;
+
+   @Column(name = "medium_image_url")
+   protected String mediumImageURL;
 
    public Long getId()
    {
@@ -50,6 +58,56 @@ public class Item implements Serializable
    public void setVersion(final int version)
    {
       this.version = version;
+   }
+
+   public String getTitle()
+   {
+      return title;
+   }
+
+   public void setTitle(String title)
+   {
+      this.title = title;
+   }
+
+   public String getDescription()
+   {
+      return description;
+   }
+
+   public void setDescription(String description)
+   {
+      this.description = description;
+   }
+
+   public Float getUnitCost()
+   {
+      return unitCost;
+   }
+
+   public void setUnitCost(Float unitCost)
+   {
+      this.unitCost = unitCost;
+   }
+
+   public String getSmallImageURL()
+   {
+      return smallImageURL;
+   }
+
+   public void setSmallImageURL(String smallImageURL)
+   {
+      this.smallImageURL = smallImageURL;
+   }
+
+   public String getMediumImageURL()
+   {
+      return mediumImageURL;
+   }
+
+   public void setMediumImageURL(String mediumImageURL)
+   {
+      this.mediumImageURL = mediumImageURL;
    }
 
    @Override
@@ -81,36 +139,6 @@ public class Item implements Serializable
       int result = 1;
       result = prime * result + ((id == null) ? 0 : id.hashCode());
       return result;
-   }
-
-   public String getTitle()
-   {
-      return title;
-   }
-
-   public void setTitle(String title)
-   {
-      this.title = title;
-   }
-
-   public String getDescription()
-   {
-      return description;
-   }
-
-   public void setDescription(String description)
-   {
-      this.description = description;
-   }
-
-   public Float getUnitCost()
-   {
-      return unitCost;
-   }
-
-   public void setUnitCost(Float unitCost)
-   {
-      this.unitCost = unitCost;
    }
 
    @Override

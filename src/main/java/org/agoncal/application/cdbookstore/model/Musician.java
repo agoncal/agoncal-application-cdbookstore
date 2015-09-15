@@ -3,6 +3,7 @@ package org.agoncal.application.cdbookstore.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
@@ -10,6 +11,7 @@ import javax.persistence.ManyToMany;
 public class Musician extends Artist
 {
 
+   @Column(name = "preferred_instrument")
    private String preferredInstrument;
 
    @ManyToMany

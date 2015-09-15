@@ -173,10 +173,10 @@ java-new-enum-const RUSSIAN ;
 #  Artist Mapped Superclass
 #  ############
 jpa-new-mapped-superclass --named Artist ;
-jpa-new-field --named firstName --length 50 ;
-jpa-new-field --named lastName --length 50 ;
+jpa-new-field --named firstName --length 50 --columnName first_name  --not-nullable ;
+jpa-new-field --named lastName --length 50 --columnName last_name --not-nullable ;
 jpa-new-field --named bio --length 5000 ;
-jpa-new-field --named dateOfBirth --type java.util.Date --temporalType DATE ;
+jpa-new-field --named dateOfBirth --type java.util.Date --temporalType DATE --columnName date_of_birth ;
 jpa-new-field --named age --type java.lang.Integer --transient ;
 # Constraints
 constraint-add --onProperty firstName --constraint NotNull ;
@@ -197,10 +197,10 @@ java-add-annotation --annotation javax.persistence.PostUpdate --onMethod calcula
 jpa-new-entity --named Author ;
 
 # TODO extends Artist
-jpa-new-field --named firstName --length 50 ;
-jpa-new-field --named lastName --length 50 ;
+jpa-new-field --named firstName --length 50 --columnName first_name  --not-nullable ;
+jpa-new-field --named lastName --length 50 --columnName last_name --not-nullable ;
 jpa-new-field --named bio --length 5000 ;
-jpa-new-field --named dateOfBirth --type java.util.Date --temporalType DATE ;
+jpa-new-field --named dateOfBirth --type java.util.Date --temporalType DATE --columnName date_of_birth ;
 jpa-new-field --named age --type java.lang.Integer --transient ;
 constraint-add --onProperty firstName --constraint NotNull ;
 constraint-add --onProperty firstName --constraint Size --min 2 --max 50 ;
@@ -211,7 +211,7 @@ constraint-add --onProperty dateOfBirth --constraint Past ;
 
 # TODO FORGE-2464
 # jpa-new-field --named preferredLanguage --type ~.model.Language ;
-jpa-new-field --named preferredLanguage --type org.agoncal.application.cdbookstore.model.Language ;
+jpa-new-field --named preferredLanguage --type org.agoncal.application.cdbookstore.model.Language --columnName preferred_language ;
 
 
 #  Musician Entity
@@ -219,10 +219,10 @@ jpa-new-field --named preferredLanguage --type org.agoncal.application.cdbooksto
 jpa-new-entity --named Musician ;
 
 # TODO extends Artist
-jpa-new-field --named firstName --length 50 ;
-jpa-new-field --named lastName --length 50 ;
+jpa-new-field --named firstName --length 50 --columnName first_name  --not-nullable ;
+jpa-new-field --named lastName --length 50 --columnName last_name --not-nullable ;
 jpa-new-field --named bio --length 5000 ;
-jpa-new-field --named dateOfBirth --type java.util.Date --temporalType DATE ;
+jpa-new-field --named dateOfBirth --type java.util.Date --temporalType DATE --columnName date_of_birth ;
 jpa-new-field --named age --type java.lang.Integer --transient ;
 constraint-add --onProperty firstName --constraint NotNull ;
 constraint-add --onProperty firstName --constraint Size --min 2 --max 50 ;
@@ -231,7 +231,7 @@ constraint-add --onProperty lastName --constraint Size --min 2 --max 50 ;
 constraint-add --onProperty bio --constraint Size --max 5000 ;
 constraint-add --onProperty dateOfBirth --constraint Past ;
 
-jpa-new-field --named preferredInstrument ;
+jpa-new-field --named preferredInstrument  --columnName preferred_instrument ;
 
 
 #  Publisher Entity
@@ -248,6 +248,8 @@ jpa-new-entity --named Item ;
 jpa-new-field --named title --length 30 ;
 jpa-new-field --named description --length 3000 ;
 jpa-new-field --named unitCost --type java.lang.Float ;
+jpa-new-field --named smallImageURL --columnName small_image_url ;
+jpa-new-field --named mediumImageURL --columnName medium_image_url ;
 # Constraints
 constraint-add --onProperty title --constraint NotNull ;
 constraint-add --onProperty title --constraint Size --min 1 --max 30 ;
@@ -278,8 +280,8 @@ constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
 constraint-add --onProperty unitCost --constraint Min --value 1 ;
 
 jpa-new-field --named isbn --length 15 ;
-jpa-new-field --named nbOfPage --type java.lang.Integer ;
-jpa-new-field --named publicationDate --type java.util.Date --temporalType DATE ;
+jpa-new-field --named nbOfPage --type java.lang.Integer --columnName nb_of_pages ;
+jpa-new-field --named publicationDate --type java.util.Date --temporalType DATE --columnName publication_date ;
 # TODO FORGE-2464
 # jpa-new-field --named language --type ~.model.Language ;
 jpa-new-field --named language --type org.agoncal.application.cdbookstore.model.Language ;

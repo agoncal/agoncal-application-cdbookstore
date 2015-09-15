@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
+@DiscriminatorValue("B")
 public class Book extends Item
 {
 
@@ -20,11 +21,11 @@ public class Book extends Item
    @Size(max = 15)
    private String isbn;
 
-   @Column
+   @Column(name = "nb_of_pages")
    @Min(1)
    private Integer nbOfPage;
 
-   @Column
+   @Column(name = "publication_date")
    @Temporal(TemporalType.DATE)
    private Date publicationDate;
 
