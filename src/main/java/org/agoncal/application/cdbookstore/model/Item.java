@@ -21,9 +21,9 @@ public class Item implements Serializable
    @Column(name = "version")
    protected int version;
 
-   @Column(length = 50)
+   @Column(length = 150)
    @NotNull
-   @Size(min = 1, max = 50)
+   @Size(min = 1, max = 150)
    protected String title;
 
    @Column(length = 3000)
@@ -33,6 +33,8 @@ public class Item implements Serializable
    @Column(name = "unit_cost")
    @Min(1)
    protected Float unitCost;
+
+   protected Integer rank;
 
    @Column(name = "small_image_url")
    protected String smallImageURL;
@@ -88,6 +90,14 @@ public class Item implements Serializable
    public void setUnitCost(Float unitCost)
    {
       this.unitCost = unitCost;
+   }
+
+   public Integer getRank() {
+      return rank;
+   }
+
+   public void setRank(Integer rank) {
+      this.rank = rank;
    }
 
    public String getSmallImageURL()

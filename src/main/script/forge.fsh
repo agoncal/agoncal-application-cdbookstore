@@ -248,14 +248,15 @@ constraint-add --onProperty name --constraint Size --max 30 ;
 #  Item Entity
 #  ############
 jpa-new-entity --named Item ;
-jpa-new-field --named title --length 50 ;
+jpa-new-field --named title --length 150 ;
 jpa-new-field --named description --length 3000 ;
 jpa-new-field --named unitCost --type java.lang.Float ;
+jpa-new-field --named rank --type java.lang.Integer ;
 jpa-new-field --named smallImageURL --columnName small_image_url ;
 jpa-new-field --named mediumImageURL --columnName medium_image_url ;
 # Constraints
 constraint-add --onProperty title --constraint NotNull ;
-constraint-add --onProperty title --constraint Size --min 1 --max 50 ;
+constraint-add --onProperty title --constraint Size --min 1 --max 150 ;
 constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
 constraint-add --onProperty unitCost --constraint Min --value 1 ;
 
@@ -274,11 +275,11 @@ constraint-add --onProperty name --constraint Size --max 100 ;
 jpa-new-entity --named Book ;
 
 # TODO extends Item
-jpa-new-field --named title --length 50 ;
+jpa-new-field --named title --length 150 ;
 jpa-new-field --named description --length 3000 ;
 jpa-new-field --named unitCost --type java.lang.Float ;
 constraint-add --onProperty title --constraint NotNull ;
-constraint-add --onProperty title --constraint Size --min 1 --max 50 ;
+constraint-add --onProperty title --constraint Size --min 1 --max 150 ;
 constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
 constraint-add --onProperty unitCost --constraint Min --value 1 ;
 
@@ -321,11 +322,11 @@ constraint-add --onProperty name --constraint Size --max 30 ;
 jpa-new-entity --named CD ;
 
 # TODO extends Item
-jpa-new-field --named title --length 50 ;
+jpa-new-field --named title --length 150 ;
 jpa-new-field --named description --length 3000 ;
 jpa-new-field --named unitCost --type java.lang.Float ;
 constraint-add --onProperty title --constraint NotNull ;
-constraint-add --onProperty title --constraint Size --min 1 --max 50 ;
+constraint-add --onProperty title --constraint Size --min 1 --max 150 ;
 constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
 constraint-add --onProperty unitCost --constraint Min --value 1 ;
 
