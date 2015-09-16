@@ -2,7 +2,9 @@ package org.agoncal.application.cdbookstore.view.account;
 
 import javax.inject.Inject;
 
-import org.agoncal.application.cdbookstore.view.account.AccountBean;
+import org.agoncal.application.cdbookstore.model.User;
+import org.agoncal.application.cdbookstore.model.UserRole;
+import org.agoncal.application.cdbookstore.util.ResourceProducer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -25,6 +27,9 @@ public class AccountBeanTest
       return ShrinkWrap
                .create(JavaArchive.class)
                .addClass(AccountBean.class)
+               .addClass(User.class)
+               .addClass(UserRole.class)
+               .addClass(ResourceProducer.class)
                .addAsManifestResource("META-INF/persistence-test.xml", "persistence.xml")
                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }

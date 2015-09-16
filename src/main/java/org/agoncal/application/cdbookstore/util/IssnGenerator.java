@@ -1,8 +1,7 @@
 package org.agoncal.application.cdbookstore.util;
 
 import javax.inject.Inject;
-
-import org.apache.logging.log4j.Logger;
+import java.util.logging.Logger;
 
 @EightDigits
 public class IssnGenerator

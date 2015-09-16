@@ -4,10 +4,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
+import java.util.logging.Logger;
 
-import org.apache.logging.log4j.Logger;
-
-public class ResourcProducer
+public class ResourceProducer
 {
 
    @Produces

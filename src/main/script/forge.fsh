@@ -409,7 +409,7 @@ java-new-package --named org.agoncal.application.cdbookstore.model --createPacka
 #  #######################  #
 
 
-#  Resource Producer
+#  Password Utils
 #  ############
 java-new-class --named PasswordUtils --targetPackage ~.util ;
 java-new-method --methodName digestPassword --returnType String --accessType public ;
@@ -417,7 +417,7 @@ java-new-method --methodName digestPassword --returnType String --accessType pub
 
 #  Resource Producer
 #  ############
-java-new-class --named ResourcProducer --targetPackage ~.util ;
+java-new-class --named ResourceProducer --targetPackage ~.util ;
 
 java-new-method --methodName produceFacesContext --returnType javax.faces.context.FacesContext --accessType private ;
 java-add-annotation --annotation javax.enterprise.inject.Produces --onMethod produceFacesContext ;
@@ -427,7 +427,7 @@ java-new-method --methodName produceHttpServletResponse --returnType javax.servl
 java-add-annotation --annotation javax.enterprise.inject.Produces --onMethod produceHttpServletResponse ;
 java-add-annotation --annotation javax.enterprise.context.RequestScoped --onMethod produceHttpServletResponse ;
 
-java-new-method --methodName produceLogger --returnType org.apache.logging.log4j.Logger --accessType private ;
+java-new-method --methodName produceLogger --returnType java.util.logging.Logger --accessType private ;
 java-add-annotation --annotation javax.enterprise.inject.Produces --onMethod produceLogger ;
 
 
@@ -436,7 +436,7 @@ java-add-annotation --annotation javax.enterprise.inject.Produces --onMethod pro
 cdi-new-interceptor-binding --named Loggable --targetPackage ~.util ;
 # TODO --interceptorBinding does not have autocompletion
 cdi-new-interceptor --named LoggingInterceptor --interceptorBinding org.agoncal.application.cdbookstore.util.Loggable --targetPackage ~.util ;
-cdi-add-injection-point --named logger --type org.apache.logging.log4j.Logger ;
+cdi-add-injection-point --named logger --type java.util.logging.Logger ;
 
 
 #  Exception Interceptor
@@ -445,7 +445,7 @@ cdi-new-interceptor-binding --named CatchException --targetPackage ~.view.util ;
 # TODO FORGE-2466
 # cdi-new-interceptor --named CatchExceptionInterceptor --interceptorBinding ~.view.util.CatchException  --targetPackage ~.view.util ;
 cdi-new-interceptor --named CatchExceptionInterceptor --interceptorBinding org.agoncal.application.cdbookstore.view.util.CatchException  --targetPackage ~.view.util ;
-cdi-add-injection-point --named logger --type org.apache.logging.log4j.Logger ;
+cdi-add-injection-point --named logger --type java.util.logging.Logger ;
 
 
 #  Number generators interface and qualifier
@@ -462,7 +462,7 @@ java-new-method --methodName generateNumber --returnType String --accessType pub
 #  ############
 # TODO FORGE-2466
 cdi-new-bean --named IsbnGenerator --qualifier org.agoncal.application.cdbookstore.util.ThirteenDigits --targetPackage ~.util ;
-cdi-add-injection-point --named logger --type org.apache.logging.log4j.Logger ;
+cdi-add-injection-point --named logger --type java.util.logging.Logger ;
 # TODO FORGE-2466
 cdi-add-injection-point --named prefix --type String --qualifiers org.agoncal.application.cdbookstore.util.ThirteenDigits ;
 cdi-add-injection-point --named postfix --type int --qualifiers org.agoncal.application.cdbookstore.util.ThirteenDigits ;
@@ -472,7 +472,7 @@ java-new-method --methodName generateNumber --returnType String --accessType pub
 #  IssnGenerator
 #  ############
 cdi-new-bean --named IssnGenerator --qualifier org.agoncal.application.cdbookstore.util.EightDigits --targetPackage ~.util ;
-cdi-add-injection-point --named logger --type org.apache.logging.log4j.Logger ;
+cdi-add-injection-point --named logger --type java.util.logging.Logger ;
 # TODO FORGE-2466
 cdi-add-injection-point --named prefix --type String --qualifiers org.agoncal.application.cdbookstore.util.EightDigits ;
 cdi-add-injection-point --named postfix --type int --qualifiers org.agoncal.application.cdbookstore.util.EightDigits ;
@@ -592,8 +592,6 @@ project-remove-managed-dependencies javax.ws.rs:javax.ws.rs-api:jar::2.0 ;
 
 #  Adding Java EE and Web Jars dependencies
 #  ############################
-project-add-dependencies org.apache.logging.log4j:log4j-api:2.3 ;
-project-add-dependencies org.apache.logging.log4j:log4j-core:2.3 ;
 project-add-dependencies com.thedeanda:lorem:1.2 ;
 project-add-dependencies org.webjars:bootstrap:3.3.5 ;
 project-add-dependencies org.webjars:jquery:2.1.4 ;

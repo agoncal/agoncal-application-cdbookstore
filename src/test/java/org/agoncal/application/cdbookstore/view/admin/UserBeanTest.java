@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.agoncal.application.cdbookstore.model.User;
 import org.agoncal.application.cdbookstore.model.UserRole;
+import org.agoncal.application.cdbookstore.util.PasswordUtils;
 import org.agoncal.application.cdbookstore.view.admin.UserBean;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -31,6 +32,7 @@ public class UserBeanTest
                .addClass(UserBean.class)
                .addClass(User.class)
                .addClass(UserRole.class)
+               .addClass(PasswordUtils.class)
                .addAsManifestResource("META-INF/persistence-test.xml", "persistence.xml")
                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }

@@ -4,8 +4,7 @@ import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
-
-import org.apache.logging.log4j.Logger;
+import java.util.logging.Logger;
 
 @Loggable
 @Interceptor
