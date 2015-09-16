@@ -127,7 +127,7 @@ public class CD extends Item
       if (unitCost != null)
          result += ", unitCost: " + unitCost;
       if (nbOfDiscs != null)
-         result += ", totalDuration: " + nbOfDiscs;
+         result += ", nbOfDiscs: " + nbOfDiscs;
       return result;
    }
 
