@@ -48,13 +48,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <h:link class="navbar-brand" outcome="index.xhtml" value="CD Book Store"/>
+                    <h:link class="navbar-brand" outcome="/main.xhtml" value="CD Book Store"/>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <h:form>
                         <ul class="nav navbar-nav">
-                            <li><h:link outcome="admin" value="Shopping cart"/></li>
-                            <li><h:link outcome="admin" value="Admin" rendered="#{accountBean.admin}"/></li>
+                            <li><h:link outcome="/shopping/main.xhtml" value="Shopping cart"/></li>
+                            <li><h:link outcome="/admin/main.xhtml" value="Admin" rendered="#{accountBean.admin}"/></li>
                         </ul>
                     </h:form>
                     <h:form class="navbar-form navbar-right">
@@ -66,7 +66,7 @@
                         <h:panelGroup layout="block" class="form-group" rendered="#{!accountBean.loggedIn}">
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown active">
-                                    <h:link outcome="signin.xhtml" value="Connexion"/>
+                                    <h:link outcome="/account/signin.xhtml" value="Connexion"/>
                                 </li>
                             </ul>
                         </h:panelGroup>
@@ -77,7 +77,7 @@
                                        aria-haspopup="true" aria-expanded="false">#{accountBean.user.fullName} <span
                                             class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><h:link outcome="profile" value="Profile"/></li>
+                                        <li><h:link outcome="/account/profile.xhtml" value="Profile"/></li>
                                         <li role="separator" class="divider"></li>
                                         <li><h:commandLink action="#{accountBean.doLogout}" value="Logout"/></li>
                                         <li><h:commandLink action="#{accountBean.doLogoutAndRemoveCookie}" value="Logout and remove cookie"/></li>

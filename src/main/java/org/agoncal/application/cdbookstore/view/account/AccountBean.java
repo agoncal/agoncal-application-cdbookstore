@@ -24,9 +24,11 @@ import javax.persistence.TypedQuery;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 
 @Named
 @SessionScoped
+@Transactional
 public class AccountBean implements Serializable
 {
 
@@ -312,5 +314,10 @@ public class AccountBean implements Serializable
    public void setPassword2(String password2)
    {
       this.password2 = password2;
+   }
+
+   public UserRole[] getRoles()
+   {
+      return UserRole.values();
    }
 }

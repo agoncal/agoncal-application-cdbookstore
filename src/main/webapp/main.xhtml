@@ -1,5 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 template="/resources/scaffold/template.xhtml">
 
     <ui:define name="title">CD Book Store</ui:define>
@@ -31,6 +33,21 @@
                 <p><a class="btn btn-default" href="#" role="button">View details </a></p>
             </div>
         </div>
+
+        <p:carousel value="#{ratedItemsBean.topRatedItems}" headerText="Top rated items" var="_item" responsive="true">
+            <p:panelGrid columns="2" layout="grid" columnClasses="label,value" style="width:100%;margin:10px 0px" >
+                <f:facet name="header">
+                    <h:outputText value="#{fn:substring(_item.title, 0, 30)}..." />
+                </f:facet>
+
+                <p:graphicImage url="#{_item.smallImageURL}"/>
+
+            </p:panelGrid>
+
+            <f:facet name="footer">
+                In total there are #{fn:length(ratedItemsBean.topRatedItems)} top rated items.
+            </f:facet>
+        </p:carousel>
 
     </ui:define>
 

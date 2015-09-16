@@ -10,8 +10,13 @@ import javax.validation.constraints.Size;
 @Entity
 @DiscriminatorColumn(name = "discriminator", discriminatorType = DiscriminatorType.CHAR)
 @DiscriminatorValue("I")
+@NamedQueries({
+         @NamedQuery(name = Item.FIND_TOP_RATED, query = "SELECT i FROM Item i WHERE i.rank = 5")
+})
 public class Item implements Serializable
 {
+
+   public static final String FIND_TOP_RATED = "Item.findTopRated";
 
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -92,11 +97,13 @@ public class Item implements Serializable
       this.unitCost = unitCost;
    }
 
-   public Integer getRank() {
+   public Integer getRank()
+   {
       return rank;
    }
 
-   public void setRank(Integer rank) {
+   public void setRank(Integer rank)
+   {
       this.rank = rank;
    }
 
