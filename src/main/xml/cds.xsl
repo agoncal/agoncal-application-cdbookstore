@@ -7,7 +7,7 @@
 
     <xsl:template match="Items">
 
-        <xsl:for-each select="Item">INSERT INTO ITEM (id, version, discriminator, title, rank, small_image_url, medium_image_url, language, unit_cost, nb_of_pages, publication_date, category_id, publisher_id, description) VALUES ( <xsl:variable name="i" select="position()+2000" /> <xsl:value-of select="$i"/> <xsl:text>, 1, 'C', </xsl:text>
+        <xsl:for-each select="Item">INSERT INTO ITEM (id, version, discriminator, title, nb_of_discs, rank, small_image_url, medium_image_url, language, unit_cost, publication_date, genre_id, label_id, description) VALUES ( <xsl:variable name="i" select="position()+2000" /> <xsl:value-of select="$i"/> <xsl:text>, 1, 'C', </xsl:text>
 
             <xsl:if test="ItemAttributes/Title">'<xsl:call-template name="escapeQuotes"><xsl:with-param name="txt" select="normalize-space(ItemAttributes/Title)"/></xsl:call-template>'</xsl:if>
             <xsl:if test="not(ItemAttributes/Title)">null</xsl:if>
@@ -36,18 +36,14 @@
             <xsl:if test="not(ItemAttributes/ListPrice/FormattedPrice)">null</xsl:if>
             <xsl:text>, </xsl:text>
 
-            <xsl:if test="ItemAttributes/NumberOfPages"><xsl:value-of select="normalize-space(ItemAttributes/NumberOfPages)"/></xsl:if>
-            <xsl:if test="not(ItemAttributes/NumberOfPages)">null</xsl:if>
-            <xsl:text>, </xsl:text>
-
             <xsl:if test="ItemAttributes/PublicationDate">to_date('<xsl:value-of select="normalize-space(ItemAttributes/PublicationDate)"/>', 'YYYY-MM-DD')</xsl:if>
             <xsl:if test="not(ItemAttributes/PublicationDate)">null</xsl:if>
             <xsl:text>, </xsl:text>
 
-            <xsl:value-of select="floor(math:random()*13) + 1000"/>
+            <xsl:value-of select="floor(math:random()*15) + 1000"/>
             <xsl:text>, </xsl:text>
 
-            <xsl:value-of select="floor(math:random()*11) + 1000"/>
+            <xsl:value-of select="floor(math:random()*9) + 1000"/>
             <xsl:text>, </xsl:text>
 
             <xsl:if test="EditorialReviews/EditorialReview/Content">'<xsl:call-template name="escapeQuotes"><xsl:with-param name="txt" select="normalize-space(EditorialReviews/EditorialReview/Content)"/></xsl:call-template>'</xsl:if>
