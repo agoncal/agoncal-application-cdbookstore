@@ -21,13 +21,13 @@ public class Item implements Serializable
    @Column(name = "version")
    protected int version;
 
-   @Column(length = 150)
+   @Column(length = 200)
    @NotNull
-   @Size(min = 1, max = 150)
+   @Size(min = 1, max = 200)
    protected String title;
 
-   @Column(length = 3000)
-   @Size(min = 1, max = 3000)
+   @Column(length = 10000)
+   @Size(min = 1, max = 10000)
    protected String description;
 
    @Column(name = "unit_cost")

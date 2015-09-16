@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class CD extends Item
 {
 
-   @Column
-   private Float totalDuration;
+   @Column(name = "nb_of_discs")
+   private Integer nbOfDiscs;
 
    @ManyToOne
    private Label label;
@@ -74,14 +74,12 @@ public class CD extends Item
       this.unitCost = unitCost;
    }
 
-   public Float getTotalDuration()
-   {
-      return totalDuration;
+   public Integer getNbOfDiscs() {
+      return nbOfDiscs;
    }
 
-   public void setTotalDuration(Float totalDuration)
-   {
-      this.totalDuration = totalDuration;
+   public void setNbOfDiscs(Integer nbOfDiscs) {
+      this.nbOfDiscs = nbOfDiscs;
    }
 
    @Override
@@ -128,8 +126,8 @@ public class CD extends Item
          result += ", description: " + description;
       if (unitCost != null)
          result += ", unitCost: " + unitCost;
-      if (totalDuration != null)
-         result += ", totalDuration: " + totalDuration;
+      if (nbOfDiscs != null)
+         result += ", totalDuration: " + nbOfDiscs;
       return result;
    }
 

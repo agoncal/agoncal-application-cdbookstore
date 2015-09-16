@@ -7,14 +7,14 @@
 
     <xsl:template match="Items">
 
-        <xsl:for-each select="Item">INSERT INTO ITEM (id, version, discriminator, isbn, title, rank, small_image_url, medium_image_url, language, unit_cost, nb_of_pages, publication_date, category_id, publisher_id, description) VALUES ( <xsl:variable name="i" select="position()+1000" /> <xsl:value-of select="$i"/> <xsl:text>, 1, 'B', </xsl:text>
-
-            <xsl:if test="ItemAttributes/ISBN">'<xsl:value-of select="normalize-space(ItemAttributes/ISBN)"/>'</xsl:if>
-            <xsl:if test="not(ItemAttributes/ISBN)">null</xsl:if>
-            <xsl:text>, </xsl:text>
+        <xsl:for-each select="Item">INSERT INTO ITEM (id, version, discriminator, title, rank, small_image_url, medium_image_url, language, unit_cost, nb_of_pages, publication_date, category_id, publisher_id, description) VALUES ( <xsl:variable name="i" select="position()+2000" /> <xsl:value-of select="$i"/> <xsl:text>, 1, 'C', </xsl:text>
 
             <xsl:if test="ItemAttributes/Title">'<xsl:call-template name="escapeQuotes"><xsl:with-param name="txt" select="normalize-space(ItemAttributes/Title)"/></xsl:call-template>'</xsl:if>
             <xsl:if test="not(ItemAttributes/Title)">null</xsl:if>
+            <xsl:text>, </xsl:text>
+
+            <xsl:if test="ItemAttributes/NumberOfDiscs"><xsl:value-of select="normalize-space(ItemAttributes/NumberOfDiscs)"/></xsl:if>
+            <xsl:if test="not(ItemAttributes/NumberOfDiscs)">null</xsl:if>
             <xsl:text>, </xsl:text>
 
             <xsl:if test="SalesRank"><xsl:value-of select="substring(normalize-space(SalesRank), 1, 1)"/></xsl:if>
