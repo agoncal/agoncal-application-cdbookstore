@@ -39,6 +39,11 @@
                 <version>5.2</version>
             </dependency>
             <dependency>
+                <groupId>org.primefaces.themes</groupId>
+                <artifactId>all-themes</artifactId>
+                <version>1.0.10</version>
+            </dependency>
+            <dependency>
                 <groupId>org.jboss.spec</groupId>
                 <artifactId>jboss-javaee-7.0</artifactId>
                 <version>1.0.3.Final</version>
@@ -81,6 +86,10 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>all-themes</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec</groupId>
