@@ -1,6 +1,6 @@
 package org.agoncal.application.cdbookstore.view.shopping;
 
-import java.util.List;
+import java.util.*;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -27,13 +27,34 @@ public class RatedItemsBean
    private EntityManager em;
 
    List<Item> topRatedItems;
+   Set<Item> randomItems = new HashSet<>();
 
    @PostConstruct
+   private void init()
+   {
+      doFindTopRated();
+      doFindRandomThree();
+
+   }
+
+   private void doFindRandomThree()
+   {
+      int min = em.createQuery("select min (i.id) from Item i", Long.class).getSingleResult().intValue();
+      int max = em.createQuery("select max (i.id) from Item i", Long.class).getSingleResult().intValue();
+
+      while (randomItems.size() < 3)
+      {
+         long id = new Random().nextInt((max - min) + 1) + min;
+         Item item = em.find(Item.class, id);
+         if (item != null)
+            randomItems.add(item);
+      }
+   }
+
    private void doFindTopRated()
    {
       TypedQuery<Item> query = em.createNamedQuery(Item.FIND_TOP_RATED, Item.class);
       topRatedItems = query.getResultList();
-
    }
 
    public List<Item> getTopRatedItems()
@@ -44,5 +65,10 @@ public class RatedItemsBean
    public void setTopRatedItems(List<Item> topRatedItems)
    {
       this.topRatedItems = topRatedItems;
+   }
+
+   public List<Item> getRandomItems()
+   {
+      return new ArrayList<>(randomItems);
    }
 }

@@ -11,27 +11,17 @@
     <ui:define name="body">
 
         <div class="row">
-            <div class="col-md-4">
-                <h2>Heading</h2>
+            <ui:repeat value="#{ratedItemsBean.randomItems}" var="_item">
+                <div class="col-md-4">
+                    <h3>#{fn:substring(_item.title, 0, 30)}</h3>
 
-                <p>#{lorem}</p>
+                    <p><p:graphicImage url="#{_item.smallImageURL}"/></p>
 
-                <p><a class="btn btn-default" href="#" role="button">View details </a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>Heading</h2>
+                    <p>#{fn:substring(_item.description, 0, 150)}...</p>
 
-                <p>#{lorem}</p>
-
-                <p><a class="btn btn-default" href="#" role="button">View details </a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>Heading</h2>
-
-                <p>#{lorem}</p>
-
-                <p><a class="btn btn-default" href="#" role="button">View details </a></p>
-            </div>
+                    <p><a class="btn btn-default" href="#" role="button">View details </a></p>
+                </div>
+            </ui:repeat>
         </div>
 
         <p:carousel value="#{ratedItemsBean.topRatedItems}" headerText="Top rated items" var="_item" responsive="true">
