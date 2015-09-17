@@ -214,11 +214,6 @@ public class AccountBean implements Serializable
       return null;
    }
 
-   public String doSearch()
-   {
-      return "search";
-   }
-
    // Cookie
    private String getCookieValue()
    {

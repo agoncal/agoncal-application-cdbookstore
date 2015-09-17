@@ -59,9 +59,10 @@
                     </h:form>
                     <h:form class="navbar-form navbar-right">
                         <div class="form-group">
-                            <h:inputText pt:placeholder="Search" class="form-control"/>
+                            <h:inputText pt:placeholder="Search" class="form-control" value="#{catalogBean.keyword}"/>
                         </div>
-                        <h:commandButton type="submit" class="btn btn-success" action="#{accountBean.doSearch}"
+                        <h:commandButton type="submit" class="btn btn-success"
+                                         action="/shopping/searchItems.xhtml?faces-redirect=true&amp;includeViewParams=true"
                                          value="Search"/>
                         <h:panelGroup layout="block" class="form-group" rendered="#{!accountBean.loggedIn}">
                             <ul class="nav navbar-nav navbar-right">
@@ -80,7 +81,8 @@
                                         <li><h:link outcome="/account/profile.xhtml" value="Profile"/></li>
                                         <li role="separator" class="divider"></li>
                                         <li><h:commandLink action="#{accountBean.doLogout}" value="Logout"/></li>
-                                        <li><h:commandLink action="#{accountBean.doLogoutAndRemoveCookie}" value="Logout and remove cookie"/></li>
+                                        <li><h:commandLink action="#{accountBean.doLogoutAndRemoveCookie}"
+                                                           value="Logout and remove cookie"/></li>
                                     </ul>
                                 </li>
                             </ul>
