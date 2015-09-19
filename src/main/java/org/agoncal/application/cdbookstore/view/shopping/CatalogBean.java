@@ -21,6 +21,8 @@ public class CatalogBean
 
    private String keyword;
    private List<Item> items;
+   private Item item;
+   private Long itemId;
 
    @Inject
    private FacesContext facesContext;
@@ -33,6 +35,12 @@ public class CatalogBean
       TypedQuery<Item> typedQuery = em.createNamedQuery(Item.SEARCH, Item.class);
       typedQuery.setParameter("keyword", "%" + keyword.toUpperCase() + "%");
       items = typedQuery.getResultList();
+      return null;
+   }
+
+   public String doViewItemById()
+   {
+      item  = em.find(Item.class, itemId);
       return null;
    }
 
@@ -54,5 +62,21 @@ public class CatalogBean
    public void setItems(List<Item> items)
    {
       this.items = items;
+   }
+
+   public Long getItemId() {
+      return itemId;
+   }
+
+   public void setItemId(Long itemId) {
+      this.itemId = itemId;
+   }
+
+   public Item getItem() {
+      return item;
+   }
+
+   public void setItem(Item item) {
+      this.item = item;
    }
 }

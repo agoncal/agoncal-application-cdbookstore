@@ -1,12 +1,35 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui"
                 template="/resources/scaffold/template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{catalogBean.itemId}"/>
+        <f:viewAction action="#{catalogBean.doViewItemById}"/>
+    </f:metadata>
 
     <ui:define name="title">View Item</ui:define>
 
+    <ui:define name="message">#{catalogBean.item.title}</ui:define>
+
     <ui:define name="body">
-        <div style="text-align: center; margin-top:50px;">
-            View Item
-        </div>
+
+        <h:panelGrid columns="2">
+            <h:graphicImage id="itemBeanBookImageURL" url="#{catalogBean.item.mediumImageURL}"/>
+            <h:outputText id="itemBeanItemDescription" value="#{catalogBean.item.description}"/>
+            <h:outputLabel for="itemBeanItemUnitCost" value="Unit Cost:"/>
+            <h:outputText id="itemBeanItemUnitCost" value="#{catalogBean.item.unitCost}"/>
+            <h:outputLabel for="itemBeanItemRank" value="Rank:"/>
+            <p:rating id="itemBeanItemRank" value="#{catalogBean.item.rank}" readonly="true"/>
+        </h:panelGrid>
+
+        <h:form>
+            <div class="buttons">
+                <h:commandLink action="#{shoppingCartBean.addItemToCart}" styleClass="btn btn-primary" value="Buy">
+                    <f:param name="itemId" value="#{catalogBean.itemId}"/>
+                </h:commandLink>
+            </div>
+        </h:form>
+
     </ui:define>
 </ui:composition>

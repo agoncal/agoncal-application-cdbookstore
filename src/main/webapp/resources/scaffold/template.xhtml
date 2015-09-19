@@ -53,7 +53,7 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <h:form>
                         <ul class="nav navbar-nav">
-                            <li><h:link outcome="/shopping/shoppingCart.xhtml" value="Shopping cart"/></li>
+                            <li><h:link outcome="/shopping/showShoppingCart.xhtml" value="Shopping cart" rendered="#{!shoppingCartBean.shoppingCartIsEmpty()}"/></li>
                             <li><h:link outcome="/admin/main.xhtml" value="Admin" rendered="#{accountBean.admin}"/></li>
                         </ul>
                     </h:form>
