@@ -13,7 +13,7 @@
         <div class="row">
             <ui:repeat value="#{ratedItemsBean.randomItems}" var="_item">
                 <div class="col-md-4">
-                    <h3>#{fn:substring(_item.title, 0, 30)}</h3>
+                    <h3>#{fn:substring(_item.title, 0, 22)}</h3>
 
                     <p>
                         <h:link outcome="/shopping/viewItem.xhtml">
@@ -24,7 +24,12 @@
 
                     <p>#{fn:substring(_item.description, 0, 150)}...</p>
 
-                    <p><a class="btn btn-default" href="#" role="button">View details </a></p>
+                    <p>
+                        <h:button outcome="/shopping/viewItem.xhtml" styleClass="btn btn-default" value="View details ">
+                            <f:param name="id" value="#{_item.id}"/>
+                        </h:button>
+                    </p>
+                    <p/>
                 </div>
             </ui:repeat>
         </div>
