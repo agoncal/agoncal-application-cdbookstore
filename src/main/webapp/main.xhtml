@@ -36,14 +36,13 @@
 
         <p:carousel value="#{ratedItemsBean.topRatedItems}" headerText="Top rated items" var="_item" responsive="true">
             <p:panelGrid columns="2" layout="grid" columnClasses="label,value" style="width:100%;margin:10px 0px">
-                <f:facet name="header">
-                    <h:outputText value="#{fn:substring(_item.title, 0, 30)}..."/>
-                </f:facet>
 
                 <h:link outcome="/shopping/viewItem.xhtml">
                     <f:param name="id" value="#{_item.id}"/>
                     <p:graphicImage url="#{_item.smallImageURL}"/>
                 </h:link>
+
+                <h:outputText value="#{fn:substring(_item.title, 0, 35)}..."/>
             </p:panelGrid>
 
             <f:facet name="footer">
