@@ -37,10 +37,10 @@
                 </h:column>
                 <h:column>
                     x
-                    <h:outputText value="#{_item.item.unitCost}"/> $
+                    <h:outputText value="$#{_item.item.unitCost}"/>
                 </h:column>
                 <h:column>
-                    = <h:outputText value="#{_item.subTotal}"/> $
+                    = <h:outputText value="$#{_item.subTotal}"/>
                 </h:column>
                 <h:column>
                     <h:commandLink action="#{shoppingCartBean.removeItemFromCart}" styleClass="remove-from-cart">
@@ -50,14 +50,22 @@
                 </h:column>
             </h:dataTable>
 
-            <br/>
+            <hr/>
 
-            <div>
-                Total $
-                <h:outputText value="#{shoppingCartBean.total}"/>
-                <h:commandLink action="#{shoppingCartBean.checkout}" value="Check Out"
-                               styleClass="checkout-cart"/>
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-1">
+                    <h:outputLabel value="Total"/>
+                </div>
+                <div class="col-md-3">
+                    <h:outputLabel value="$#{shoppingCartBean.total}"/>
+                </div>
             </div>
+
+            <div class="buttons">
+                <h:commandLink action="#{shoppingCartBean.checkout}" styleClass="btn btn-primary" value="Check Out"/>
+            </div>
+
         </h:form>
 
     </ui:define>

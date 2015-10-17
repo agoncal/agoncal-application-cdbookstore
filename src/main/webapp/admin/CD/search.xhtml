@@ -5,7 +5,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:forgeview="http://jboss.org/forge/view"
+                xmlns:forgeview="http://jboss.org/forge/view" xmlns:p="http://primefaces.org/ui"
                 template="/resources/scaffold/templateAdmin.xhtml">
 
     <f:metadata>
@@ -82,6 +82,12 @@
                         <f:param name="id" value="#{_item.id}"/>
                         <h:outputText id="itemTitle" value="#{_item.title}"/>
                     </h:link>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Small Image URL"/>
+                    </f:facet>
+                    <p:graphicImage url="#{_item.smallImageURL}" id="smallImageURL"/>
                 </h:column>
             </h:dataTable>
             <ui:include src="/resources/scaffold/paginator.xhtml">

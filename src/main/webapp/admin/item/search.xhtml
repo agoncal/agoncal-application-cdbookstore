@@ -75,12 +75,6 @@
                     </f:facet>
                     <p:graphicImage url="#{_item.smallImageURL}" id="smallImageURL"/>
                 </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Medium Image URL"/>
-                    </f:facet>
-                    <p:graphicImage url="#{_item.mediumImageURL}" id="mediumImageURL"/>
-                </h:column>
             </h:dataTable>
             <ui:include src="/resources/scaffold/paginator.xhtml">
                 <ui:param name="paginatorBean" value='#{itemBean}'/>

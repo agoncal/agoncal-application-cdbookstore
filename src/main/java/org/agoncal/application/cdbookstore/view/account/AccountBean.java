@@ -4,6 +4,7 @@ import com.thedeanda.lorem.Lorem;
 import org.agoncal.application.cdbookstore.model.User;
 import org.agoncal.application.cdbookstore.model.UserRole;
 import org.agoncal.application.cdbookstore.util.PasswordUtils;
+import org.agoncal.application.cdbookstore.view.shopping.ShoppingCartBean;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -167,6 +168,8 @@ public class AccountBean implements Serializable
       AlterableContext ctx = (AlterableContext) beanManager.getContext(SessionScoped.class);
       Bean<?> myBean = beanManager.getBeans(AccountBean.class).iterator().next();
       ctx.destroy(myBean);
+      myBean = beanManager.getBeans(ShoppingCartBean.class).iterator().next();
+      ctx.destroy(myBean);
       return "index";
    }
 
@@ -177,6 +180,8 @@ public class AccountBean implements Serializable
       em.merge(user);
       AlterableContext ctx = (AlterableContext) beanManager.getContext(SessionScoped.class);
       Bean<?> myBean = beanManager.getBeans(AccountBean.class).iterator().next();
+      ctx.destroy(myBean);
+      myBean = beanManager.getBeans(ShoppingCartBean.class).iterator().next();
       ctx.destroy(myBean);
       return "index";
    }
