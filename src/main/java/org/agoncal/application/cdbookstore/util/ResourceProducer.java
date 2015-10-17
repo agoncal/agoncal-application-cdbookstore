@@ -1,10 +1,12 @@
 package org.agoncal.application.cdbookstore.util;
 
+import java.util.logging.Logger;
+
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.spi.InjectionPoint;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
-import java.util.logging.Logger;
 
 public class ResourceProducer
 {
@@ -13,19 +15,19 @@ public class ResourceProducer
    @RequestScoped
    private FacesContext produceFacesContext()
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      return FacesContext.getCurrentInstance();
    }
 
    @Produces
    @RequestScoped
    private HttpServletResponse produceHttpServletResponse()
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      return (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
    }
 
    @Produces
-   private Logger produceLogger()
+   public Logger produceLogger(InjectionPoint injectionPoint)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
    }
 }

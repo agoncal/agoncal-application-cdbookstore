@@ -62,6 +62,15 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">
+                        <h:outputText value="Unit cost"/>
+                    </f:facet>
+                    <h:link outcome="/admin/item/view">
+                        <f:param name="unitCost" value="#{_item.unitCost}"/>
+                        <h:outputText id="unitCost" value="#{_item.unitCost}"/>
+                    </h:link>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
                         <h:outputText value="Small Image URL"/>
                     </f:facet>
                     <p:graphicImage url="#{_item.smallImageURL}" id="smallImageURL"/>
