@@ -60,8 +60,8 @@
                         <ul class="nav navbar-nav">
                             <li><h:link outcome="/shopping/showShoppingCart.xhtml" value="Shopping cart"
                                         rendered="#{!shoppingCartBean.shoppingCartIsEmpty()}"/></li>
-                            <li><h:link outcome="/admin/main.xhtml" value="Admin"/></li>
-                            <!--<li><h:link outcome="/admin/main.xhtml" value="Admin" rendered="#{accountBean.admin}"/></li>-->
+                            <!--<li><h:link outcome="/admin/main.xhtml" value="Admin"/></li>-->
+                            <li><h:link outcome="/admin/main.xhtml" value="Admin" rendered="#{accountBean.admin}"/></li>
                         </ul>
                     </h:form>
                     <h:form class="navbar-form navbar-right">

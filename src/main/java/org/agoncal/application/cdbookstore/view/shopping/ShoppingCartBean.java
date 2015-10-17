@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +29,9 @@ public class ShoppingCartBean implements Serializable
    // ======================================
    // = Attributes =
    // ======================================
+
+   @Inject
+   private FacesContext facesContext;
 
    @PersistenceContext(unitName = "applicationCDBookStorePU")
    private EntityManager em;
@@ -55,6 +60,9 @@ public class ShoppingCartBean implements Serializable
       if (!itemFound)
          // Otherwise it's added to the shopping cart
          cartItems.add(new ShoppingCartItem(item, 1));
+
+      facesContext.addMessage(null,
+              new FacesMessage(FacesMessage.SEVERITY_INFO, item.getTitle(), "Added to the shopping cart"));
 
       return "/shopping/viewItem.xhtml?faces-redirect=true&includeViewParams=true";
    }

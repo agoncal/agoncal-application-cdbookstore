@@ -32,6 +32,10 @@ import javax.transaction.Transactional;
 public class AccountBean implements Serializable
 {
 
+   // ======================================
+   // = Attributes =
+   // ======================================
+
    private static final long serialVersionUID = 1L;
 
    @Inject
@@ -105,7 +109,7 @@ public class AccountBean implements Serializable
       if (em.createNamedQuery(User.FIND_BY_LOGIN, User.class).setParameter("login", user.getLogin())
               .getResultList().size() > 0)
       {
-         FacesContext.getCurrentInstance().addMessage(null,
+         facesContext.addMessage(null,
                  new FacesMessage(FacesMessage.SEVERITY_WARN, "Login already exists " + user.getLogin(),
                          "You must choose a different login"));
          return null;
@@ -115,10 +119,8 @@ public class AccountBean implements Serializable
       user.setPassword(password1);
       em.persist(user);
       resetPasswords();
-      FacesContext.getCurrentInstance().addMessage(null,
-              new FacesMessage(FacesMessage.SEVERITY_INFO, "Hi " + user.getFirstName(), "Welcome to this website"));
-//      facesContext.addMessage(null,
-//               new FacesMessage(FacesMessage.SEVERITY_INFO, "Hi " + user.getFirstName(), "Welcome to this website"));
+      facesContext.addMessage(null,
+               new FacesMessage(FacesMessage.SEVERITY_INFO, "Hi " + user.getFirstName(), "Welcome to this website"));
       loggedIn = true;
       if (user.getRole().equals(UserRole.ADMIN))
          admin = true;
@@ -154,7 +156,7 @@ public class AccountBean implements Serializable
       }
       catch (NoResultException e)
       {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Wrong user/password",
+         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Wrong user/password",
                  "Check your inputs or ask for a new password"));
          return null;
       }
@@ -189,14 +191,14 @@ public class AccountBean implements Serializable
          String temporaryPassword = Lorem.getWords(1);
          user.setPassword(PasswordUtils.digestPassword(temporaryPassword));
          em.merge(user);
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Email sent",
+         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Email sent",
                  "An email has been sent to " + user.getEmail() + " with temporary password :" + temporaryPassword));
          // send an email with the password "dummyPassword"
          return doLogout();
       }
       catch (NoResultException e)
       {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Unknown email",
+         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Unknown email",
                  "This email address is unknonw in our system"));
          return null;
       }
@@ -208,7 +210,7 @@ public class AccountBean implements Serializable
          user.setPassword(PasswordUtils.digestPassword(password1));
       em.merge(user);
       resetPasswords();
-      FacesContext.getCurrentInstance().addMessage(null,
+      facesContext.addMessage(null,
               new FacesMessage(FacesMessage.SEVERITY_INFO, "Profile has been updated for " + user.getFirstName(),
                       null));
       return null;
