@@ -125,7 +125,7 @@ public class AccountBean implements Serializable
       loggedIn = true;
       if (user.getRole().equals(UserRole.ADMIN))
          admin = true;
-      return "index";
+      return "/main";
    }
 
    public String doSignin()
@@ -153,7 +153,9 @@ public class AccountBean implements Serializable
          }
          // The user is now logged in
          loggedIn = true;
-         return "index";
+         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome back " + user.getFirstName(),
+                 "You can now browse the catalog"));
+         return "/main";
       }
       catch (NoResultException e)
       {
@@ -170,7 +172,7 @@ public class AccountBean implements Serializable
       ctx.destroy(myBean);
       myBean = beanManager.getBeans(ShoppingCartBean.class).iterator().next();
       ctx.destroy(myBean);
-      return "index";
+      return "/main";
    }
 
    public String doLogoutAndRemoveCookie()
@@ -183,7 +185,7 @@ public class AccountBean implements Serializable
       ctx.destroy(myBean);
       myBean = beanManager.getBeans(ShoppingCartBean.class).iterator().next();
       ctx.destroy(myBean);
-      return "index";
+      return "/main";
    }
 
    public String doForgotPassword()

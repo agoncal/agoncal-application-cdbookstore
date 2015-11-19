@@ -77,6 +77,7 @@ public class User implements Serializable
    private Date dateOfBirth;
 
    @PrePersist
+   @PreUpdate
    private void digestPassword()
    {
       password = PasswordUtils.digestPassword(password);

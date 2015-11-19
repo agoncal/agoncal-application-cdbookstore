@@ -76,12 +76,6 @@
                     <h:message for="userBeanUserPassword" styleClass="error"/>
                 </h:panelGroup>
                 <h:outputText value="*"/>
-                <h:outputLabel for="userBeanUserUuid" value="Uuid:"/>
-                <h:panelGroup>
-                    <h:inputText id="userBeanUserUuid" maxLength="256" value="#{userBean.user.uuid}"/>
-                    <h:message for="userBeanUserUuid" styleClass="error"/>
-                </h:panelGroup>
-                <h:outputText/>
                 <h:outputLabel for="userBeanUserRole" value="Role:"/>
                 <h:panelGroup>
                     <h:selectOneMenu id="userBeanUserRole" value="#{userBean.user.role}">

@@ -1,8 +1,7 @@
 package org.agoncal.application.cdbookstore.util;
 
 import java.security.MessageDigest;
-
-import sun.misc.BASE64Encoder;
+import java.util.Base64;
 
 public class PasswordUtils
 {
@@ -14,7 +13,7 @@ public class PasswordUtils
          MessageDigest md = MessageDigest.getInstance("SHA-256");
          md.update(plainTextPassword.getBytes("UTF-8"));
          byte[] passwordDigest = md.digest();
-         return new BASE64Encoder().encode(passwordDigest);
+         return new String(Base64.getEncoder().encode(passwordDigest));
       }
       catch (Exception e)
       {

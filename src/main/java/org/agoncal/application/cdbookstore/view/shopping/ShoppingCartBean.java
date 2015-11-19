@@ -61,8 +61,8 @@ public class ShoppingCartBean implements Serializable
          // Otherwise it's added to the shopping cart
          cartItems.add(new ShoppingCartItem(item, 1));
 
-      facesContext.addMessage(null,
-              new FacesMessage(FacesMessage.SEVERITY_INFO, item.getTitle(), "Added to the shopping cart"));
+      facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, item.getTitle() + " added to the shopping cart",
+              "You can now add more stuff if you want"));
 
       return "/shopping/viewItem.xhtml?faces-redirect=true&includeViewParams=true";
    }
@@ -90,20 +90,11 @@ public class ShoppingCartBean implements Serializable
 
    public String checkout()
    {
-      return "confirmorder.faces";
-   }
+      facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Order created",
+              "You will receive a confirmation email"));
 
-   // public String confirmOrder() {
-   // order = orderBean.createOrder(getCustomer(), creditCard, getCartItems());
-   // cartItems.clear();
-   //
-   // // Stop conversation
-   // if (!conversation.isTransient()) {
-   // conversation.end();
-   // }
-   //
-   // return "orderconfirmed.faces";
-   // }
+      return "/main";
+   }
 
    public List<ShoppingCartItem> getCartItems()
    {
