@@ -292,7 +292,7 @@ INSERT INTO ITEM (id, version, discriminator, title, nb_of_discs, rank, small_im
 INSERT INTO ITEM (id, version, discriminator, title, nb_of_discs, rank, small_image_url, medium_image_url, language, unit_cost, publication_date, genre_id, label_id, description) VALUES ( 1199, 1, 'C', 'Picture Disk', 1, 1, 'http://ecx.images-amazon.com/images/I/41Br41ruENL._SL75_.jpg', 'http://ecx.images-amazon.com/images/I/41Br41ruENL._SL160_.jpg', 6, 11.98, null, 1002, 1003, '10" picture disc w. 3 tracks from the CD "Back in Chicago" - "The Thrill Is Gone", "Sleepwalk" & "Laundry Mat Blues", nearly 20 min. altogether');
 INSERT INTO ITEM (id, version, discriminator, title, nb_of_discs, rank, small_image_url, medium_image_url, language, unit_cost, publication_date, genre_id, label_id, description) VALUES ( 1200, 1, 'C', 'Sides Of Ethel Ennis', 1, null, 'http://ecx.images-amazon.com/images/I/41Br41ruENL._SL75_.jpg', 'http://ecx.images-amazon.com/images/I/41Br41ruENL._SL160_.jpg', 8, 9.99, null, 1004, 1007, 'Sealed 1973 Gatefold Original. Small Saw-Cut.');
 
--- CD_MUSICIAN
+-- ITEM{CD}_MUSICIAN
 INSERT INTO ITEM_MUSICIAN (cd_id, musicians_id) VALUES (1113, 1001);
 INSERT INTO ITEM_MUSICIAN (cd_id, musicians_id) VALUES (1113, 1002);
 INSERT INTO ITEM_MUSICIAN (cd_id, musicians_id) VALUES (1113, 1003);
