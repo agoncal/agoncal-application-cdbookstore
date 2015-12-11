@@ -114,6 +114,12 @@
     </repositories>
     <build>
         <finalName>applicationCDBookStore</finalName>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>   
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
