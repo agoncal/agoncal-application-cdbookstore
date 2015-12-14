@@ -14,7 +14,7 @@ public class Musician extends Artist
    @Column(name = "preferred_instrument")
    private String preferredInstrument;
 
-   @ManyToMany
+   @ManyToMany(mappedBy="musicians")
    private Set<CD> cds = new HashSet<>();
 
    public String getPreferredInstrument()
