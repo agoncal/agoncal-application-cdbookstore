@@ -1,8 +1,7 @@
 package org.agoncal.application.cdbookstore.view.admin;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import org.agoncal.application.cdbookstore.model.Item;
+import org.agoncal.application.cdbookstore.model.OrderLine;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -23,9 +22,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.agoncal.application.cdbookstore.model.Item;
-import org.agoncal.application.cdbookstore.model.OrderLine;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Backing bean for OrderLine entities.
@@ -38,293 +37,242 @@ import org.agoncal.application.cdbookstore.model.OrderLine;
 @Named
 @Stateful
 @ConversationScoped
-public class OrderLineBean implements Serializable
-{
+public class OrderLineBean implements Serializable {
 
-   private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
    /*
     * Support creating and retrieving OrderLine entities
     */
 
-   private Long id;
+    private Long id;
+    private OrderLine orderLine;
+    @Inject
+    private Conversation conversation;
+    @PersistenceContext(unitName = "applicationCDBookStorePU", type = PersistenceContextType.EXTENDED)
+    private EntityManager entityManager;
+    private int page;
+    private long count;
+    private List<OrderLine> pageItems;
+    private OrderLine example = new OrderLine();
+    @Resource
+    private SessionContext sessionContext;
+    private OrderLine add = new OrderLine();
 
-   public Long getId()
-   {
-      return this.id;
-   }
-
-   public void setId(Long id)
-   {
-      this.id = id;
-   }
-
-   private OrderLine orderLine;
-
-   public OrderLine getOrderLine()
-   {
-      return this.orderLine;
-   }
-
-   public void setOrderLine(OrderLine orderLine)
-   {
-      this.orderLine = orderLine;
-   }
-
-   @Inject
-   private Conversation conversation;
-
-   @PersistenceContext(unitName = "applicationCDBookStorePU", type = PersistenceContextType.EXTENDED)
-   private EntityManager entityManager;
-
-   public String create()
-   {
-
-      this.conversation.begin();
-      this.conversation.setTimeout(1800000L);
-      return "create?faces-redirect=true";
-   }
-
-   public void retrieve()
-   {
-
-      if (FacesContext.getCurrentInstance().isPostback())
-      {
-         return;
-      }
-
-      if (this.conversation.isTransient())
-      {
-         this.conversation.begin();
-         this.conversation.setTimeout(1800000L);
-      }
-
-      if (this.id == null)
-      {
-         this.orderLine = this.example;
-      }
-      else
-      {
-         this.orderLine = findById(getId());
-      }
-   }
-
-   public OrderLine findById(Long id)
-   {
-
-      return this.entityManager.find(OrderLine.class, id);
-   }
+    public Long getId() {
+        return this.id;
+    }
 
    /*
     * Support updating and deleting OrderLine entities
     */
 
-   public String update()
-   {
-      this.conversation.end();
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-      try
-      {
-         if (this.id == null)
-         {
-            this.entityManager.persist(this.orderLine);
-            return "search?faces-redirect=true";
-         }
-         else
-         {
-            this.entityManager.merge(this.orderLine);
-            return "view?faces-redirect=true&id=" + this.orderLine.getId();
-         }
-      }
-      catch (Exception e)
-      {
-         FacesContext.getCurrentInstance().addMessage(null,
-                  new FacesMessage(e.getMessage()));
-         return null;
-      }
-   }
-
-   public String delete()
-   {
-      this.conversation.end();
-
-      try
-      {
-         OrderLine deletableEntity = findById(getId());
-
-         this.entityManager.remove(deletableEntity);
-         this.entityManager.flush();
-         return "search?faces-redirect=true";
-      }
-      catch (Exception e)
-      {
-         FacesContext.getCurrentInstance().addMessage(null,
-                  new FacesMessage(e.getMessage()));
-         return null;
-      }
-   }
+    public OrderLine getOrderLine() {
+        return this.orderLine;
+    }
 
    /*
     * Support searching OrderLine entities with pagination
     */
 
-   private int page;
-   private long count;
-   private List<OrderLine> pageItems;
+    public void setOrderLine(OrderLine orderLine) {
+        this.orderLine = orderLine;
+    }
 
-   private OrderLine example = new OrderLine();
+    public String create() {
 
-   public int getPage()
-   {
-      return this.page;
-   }
+        this.conversation.begin();
+        this.conversation.setTimeout(1800000L);
+        return "create?faces-redirect=true";
+    }
 
-   public void setPage(int page)
-   {
-      this.page = page;
-   }
+    public void retrieve() {
 
-   public int getPageSize()
-   {
-      return 10;
-   }
+        if (FacesContext.getCurrentInstance().isPostback()) {
+            return;
+        }
 
-   public OrderLine getExample()
-   {
-      return this.example;
-   }
+        if (this.conversation.isTransient()) {
+            this.conversation.begin();
+            this.conversation.setTimeout(1800000L);
+        }
 
-   public void setExample(OrderLine example)
-   {
-      this.example = example;
-   }
+        if (this.id == null) {
+            this.orderLine = this.example;
+        } else {
+            this.orderLine = findById(getId());
+        }
+    }
 
-   public String search()
-   {
-      this.page = 0;
-      return null;
-   }
+    public OrderLine findById(Long id) {
 
-   public void paginate()
-   {
+        return this.entityManager.find(OrderLine.class, id);
+    }
 
-      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+    public String update() {
+        this.conversation.end();
 
-      // Populate this.count
+        try {
+            if (this.id == null) {
+                this.entityManager.persist(this.orderLine);
+                return "search?faces-redirect=true";
+            } else {
+                this.entityManager.merge(this.orderLine);
+                return "view?faces-redirect=true&id=" + this.orderLine.getId();
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(e.getMessage()));
+            return null;
+        }
+    }
 
-      CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-      Root<OrderLine> root = countCriteria.from(OrderLine.class);
-      countCriteria = countCriteria.select(builder.count(root)).where(
-               getSearchPredicates(root));
-      this.count = this.entityManager.createQuery(countCriteria)
-               .getSingleResult();
+    public String delete() {
+        this.conversation.end();
 
-      // Populate this.pageItems
+        try {
+            OrderLine deletableEntity = findById(getId());
 
-      CriteriaQuery<OrderLine> criteria = builder
-               .createQuery(OrderLine.class);
-      root = criteria.from(OrderLine.class);
-      TypedQuery<OrderLine> query = this.entityManager.createQuery(criteria
-               .select(root).where(getSearchPredicates(root)));
-      query.setFirstResult(this.page * getPageSize()).setMaxResults(
-               getPageSize());
-      this.pageItems = query.getResultList();
-   }
+            this.entityManager.remove(deletableEntity);
+            this.entityManager.flush();
+            return "search?faces-redirect=true";
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(e.getMessage()));
+            return null;
+        }
+    }
 
-   private Predicate[] getSearchPredicates(Root<OrderLine> root)
-   {
+    public int getPage() {
+        return this.page;
+    }
 
-      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-      List<Predicate> predicatesList = new ArrayList<>();
+    public void setPage(int page) {
+        this.page = page;
+    }
 
-      Integer quantity = this.example.getQuantity();
-      if (quantity != null && quantity.intValue() != 0)
-      {
-         predicatesList.add(builder.equal(root.get("quantity"), quantity));
-      }
-      Item item = this.example.getItem();
-      if (item != null)
-      {
-         predicatesList.add(builder.equal(root.get("item"), item));
-      }
+    public int getPageSize() {
+        return 10;
+    }
 
-      return predicatesList.toArray(new Predicate[predicatesList.size()]);
-   }
+    public OrderLine getExample() {
+        return this.example;
+    }
 
-   public List<OrderLine> getPageItems()
-   {
-      return this.pageItems;
-   }
+    public void setExample(OrderLine example) {
+        this.example = example;
+    }
 
-   public long getCount()
-   {
-      return this.count;
-   }
+    public String search() {
+        this.page = 0;
+        return null;
+    }
+
+    public void paginate() {
+
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+
+        // Populate this.count
+
+        CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+        Root<OrderLine> root = countCriteria.from(OrderLine.class);
+        countCriteria = countCriteria.select(builder.count(root)).where(
+                getSearchPredicates(root));
+        this.count = this.entityManager.createQuery(countCriteria)
+                .getSingleResult();
+
+        // Populate this.pageItems
+
+        CriteriaQuery<OrderLine> criteria = builder
+                .createQuery(OrderLine.class);
+        root = criteria.from(OrderLine.class);
+        TypedQuery<OrderLine> query = this.entityManager.createQuery(criteria
+                .select(root).where(getSearchPredicates(root)));
+        query.setFirstResult(this.page * getPageSize()).setMaxResults(
+                getPageSize());
+        this.pageItems = query.getResultList();
+    }
+
+    private Predicate[] getSearchPredicates(Root<OrderLine> root) {
+
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+        List<Predicate> predicatesList = new ArrayList<>();
+
+        Integer quantity = this.example.getQuantity();
+        if (quantity != null && quantity.intValue() != 0) {
+            predicatesList.add(builder.equal(root.get("quantity"), quantity));
+        }
+        Item item = this.example.getItem();
+        if (item != null) {
+            predicatesList.add(builder.equal(root.get("item"), item));
+        }
+
+        return predicatesList.toArray(new Predicate[predicatesList.size()]);
+    }
 
    /*
     * Support listing and POSTing back OrderLine entities (e.g. from inside an HtmlSelectOneMenu)
     */
 
-   public List<OrderLine> getAll()
-   {
+    public List<OrderLine> getPageItems() {
+        return this.pageItems;
+    }
 
-      CriteriaQuery<OrderLine> criteria = this.entityManager
-               .getCriteriaBuilder().createQuery(OrderLine.class);
-      return this.entityManager.createQuery(
-               criteria.select(criteria.from(OrderLine.class)))
-               .getResultList();
-   }
+    public long getCount() {
+        return this.count;
+    }
 
-   @Resource
-   private SessionContext sessionContext;
+    public List<OrderLine> getAll() {
 
-   public Converter getConverter()
-   {
-
-      final OrderLineBean ejbProxy = this.sessionContext
-               .getBusinessObject(OrderLineBean.class);
-
-      return new Converter()
-      {
-
-         @Override
-         public Object getAsObject(FacesContext context,
-                  UIComponent component, String value)
-         {
-
-            return ejbProxy.findById(Long.valueOf(value));
-         }
-
-         @Override
-         public String getAsString(FacesContext context,
-                  UIComponent component, Object value)
-         {
-
-            if (value == null)
-            {
-               return "";
-            }
-
-            return String.valueOf(((OrderLine) value).getId());
-         }
-      };
-   }
+        CriteriaQuery<OrderLine> criteria = this.entityManager
+                .getCriteriaBuilder().createQuery(OrderLine.class);
+        return this.entityManager.createQuery(
+                criteria.select(criteria.from(OrderLine.class)))
+                .getResultList();
+    }
 
    /*
     * Support adding children to bidirectional, one-to-many tables
     */
 
-   private OrderLine add = new OrderLine();
+    public Converter getConverter() {
 
-   public OrderLine getAdd()
-   {
-      return this.add;
-   }
+        final OrderLineBean ejbProxy = this.sessionContext
+                .getBusinessObject(OrderLineBean.class);
 
-   public OrderLine getAdded()
-   {
-      OrderLine added = this.add;
-      this.add = new OrderLine();
-      return added;
-   }
+        return new Converter() {
+
+            @Override
+            public Object getAsObject(FacesContext context,
+                                      UIComponent component, String value) {
+
+                return ejbProxy.findById(Long.valueOf(value));
+            }
+
+            @Override
+            public String getAsString(FacesContext context,
+                                      UIComponent component, Object value) {
+
+                if (value == null) {
+                    return "";
+                }
+
+                return String.valueOf(((OrderLine) value).getId());
+            }
+        };
+    }
+
+    public OrderLine getAdd() {
+        return this.add;
+    }
+
+    public OrderLine getAdded() {
+        OrderLine added = this.add;
+        this.add = new OrderLine();
+        return added;
+    }
 }

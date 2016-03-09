@@ -1,8 +1,6 @@
 package org.agoncal.application.cdbookstore.view.admin;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import org.agoncal.application.cdbookstore.model.Publisher;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -23,8 +21,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.agoncal.application.cdbookstore.model.Publisher;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Backing bean for Publisher entities.
@@ -37,290 +36,240 @@ import org.agoncal.application.cdbookstore.model.Publisher;
 @Named
 @Stateful
 @ConversationScoped
-public class PublisherBean implements Serializable
-{
+public class PublisherBean implements Serializable {
 
-   private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
    /*
     * Support creating and retrieving Publisher entities
     */
 
-   private Long id;
+    private Long id;
+    private Publisher publisher;
+    @Inject
+    private Conversation conversation;
+    @PersistenceContext(unitName = "applicationCDBookStorePU", type = PersistenceContextType.EXTENDED)
+    private EntityManager entityManager;
+    private int page;
+    private long count;
+    private List<Publisher> pageItems;
+    private Publisher example = new Publisher();
+    @Resource
+    private SessionContext sessionContext;
+    private Publisher add = new Publisher();
 
-   public Long getId()
-   {
-      return this.id;
-   }
-
-   public void setId(Long id)
-   {
-      this.id = id;
-   }
-
-   private Publisher publisher;
-
-   public Publisher getPublisher()
-   {
-      return this.publisher;
-   }
-
-   public void setPublisher(Publisher publisher)
-   {
-      this.publisher = publisher;
-   }
-
-   @Inject
-   private Conversation conversation;
-
-   @PersistenceContext(unitName = "applicationCDBookStorePU", type = PersistenceContextType.EXTENDED)
-   private EntityManager entityManager;
-
-   public String create()
-   {
-
-      this.conversation.begin();
-      this.conversation.setTimeout(1800000L);
-      return "create?faces-redirect=true";
-   }
-
-   public void retrieve()
-   {
-
-      if (FacesContext.getCurrentInstance().isPostback())
-      {
-         return;
-      }
-
-      if (this.conversation.isTransient())
-      {
-         this.conversation.begin();
-         this.conversation.setTimeout(1800000L);
-      }
-
-      if (this.id == null)
-      {
-         this.publisher = this.example;
-      }
-      else
-      {
-         this.publisher = findById(getId());
-      }
-   }
-
-   public Publisher findById(Long id)
-   {
-
-      return this.entityManager.find(Publisher.class, id);
-   }
+    public Long getId() {
+        return this.id;
+    }
 
    /*
     * Support updating and deleting Publisher entities
     */
 
-   public String update()
-   {
-      this.conversation.end();
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-      try
-      {
-         if (this.id == null)
-         {
-            this.entityManager.persist(this.publisher);
-            return "search?faces-redirect=true";
-         }
-         else
-         {
-            this.entityManager.merge(this.publisher);
-            return "view?faces-redirect=true&id=" + this.publisher.getId();
-         }
-      }
-      catch (Exception e)
-      {
-         FacesContext.getCurrentInstance().addMessage(null,
-                  new FacesMessage(e.getMessage()));
-         return null;
-      }
-   }
-
-   public String delete()
-   {
-      this.conversation.end();
-
-      try
-      {
-         Publisher deletableEntity = findById(getId());
-
-         this.entityManager.remove(deletableEntity);
-         this.entityManager.flush();
-         return "search?faces-redirect=true";
-      }
-      catch (Exception e)
-      {
-         FacesContext.getCurrentInstance().addMessage(null,
-                  new FacesMessage(e.getMessage()));
-         return null;
-      }
-   }
+    public Publisher getPublisher() {
+        return this.publisher;
+    }
 
    /*
     * Support searching Publisher entities with pagination
     */
 
-   private int page;
-   private long count;
-   private List<Publisher> pageItems;
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
 
-   private Publisher example = new Publisher();
+    public String create() {
 
-   public int getPage()
-   {
-      return this.page;
-   }
+        this.conversation.begin();
+        this.conversation.setTimeout(1800000L);
+        return "create?faces-redirect=true";
+    }
 
-   public void setPage(int page)
-   {
-      this.page = page;
-   }
+    public void retrieve() {
 
-   public int getPageSize()
-   {
-      return 10;
-   }
+        if (FacesContext.getCurrentInstance().isPostback()) {
+            return;
+        }
 
-   public Publisher getExample()
-   {
-      return this.example;
-   }
+        if (this.conversation.isTransient()) {
+            this.conversation.begin();
+            this.conversation.setTimeout(1800000L);
+        }
 
-   public void setExample(Publisher example)
-   {
-      this.example = example;
-   }
+        if (this.id == null) {
+            this.publisher = this.example;
+        } else {
+            this.publisher = findById(getId());
+        }
+    }
 
-   public String search()
-   {
-      this.page = 0;
-      return null;
-   }
+    public Publisher findById(Long id) {
 
-   public void paginate()
-   {
+        return this.entityManager.find(Publisher.class, id);
+    }
 
-      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+    public String update() {
+        this.conversation.end();
 
-      // Populate this.count
+        try {
+            if (this.id == null) {
+                this.entityManager.persist(this.publisher);
+                return "search?faces-redirect=true";
+            } else {
+                this.entityManager.merge(this.publisher);
+                return "view?faces-redirect=true&id=" + this.publisher.getId();
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(e.getMessage()));
+            return null;
+        }
+    }
 
-      CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-      Root<Publisher> root = countCriteria.from(Publisher.class);
-      countCriteria = countCriteria.select(builder.count(root)).where(
-               getSearchPredicates(root));
-      this.count = this.entityManager.createQuery(countCriteria)
-               .getSingleResult();
+    public String delete() {
+        this.conversation.end();
 
-      // Populate this.pageItems
+        try {
+            Publisher deletableEntity = findById(getId());
 
-      CriteriaQuery<Publisher> criteria = builder
-               .createQuery(Publisher.class);
-      root = criteria.from(Publisher.class);
-      TypedQuery<Publisher> query = this.entityManager.createQuery(criteria
-               .select(root).where(getSearchPredicates(root)));
-      query.setFirstResult(this.page * getPageSize()).setMaxResults(
-               getPageSize());
-      this.pageItems = query.getResultList();
-   }
+            this.entityManager.remove(deletableEntity);
+            this.entityManager.flush();
+            return "search?faces-redirect=true";
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(e.getMessage()));
+            return null;
+        }
+    }
 
-   private Predicate[] getSearchPredicates(Root<Publisher> root)
-   {
+    public int getPage() {
+        return this.page;
+    }
 
-      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-      List<Predicate> predicatesList = new ArrayList<>();
+    public void setPage(int page) {
+        this.page = page;
+    }
 
-      String name = this.example.getName();
-      if (name != null && !"".equals(name))
-      {
-         predicatesList.add(builder.like(
-                  builder.lower(root.<String> get("name")),
-                  '%' + name.toLowerCase() + '%'));
-      }
+    public int getPageSize() {
+        return 10;
+    }
 
-      return predicatesList.toArray(new Predicate[predicatesList.size()]);
-   }
+    public Publisher getExample() {
+        return this.example;
+    }
 
-   public List<Publisher> getPageItems()
-   {
-      return this.pageItems;
-   }
+    public void setExample(Publisher example) {
+        this.example = example;
+    }
 
-   public long getCount()
-   {
-      return this.count;
-   }
+    public String search() {
+        this.page = 0;
+        return null;
+    }
+
+    public void paginate() {
+
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+
+        // Populate this.count
+
+        CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+        Root<Publisher> root = countCriteria.from(Publisher.class);
+        countCriteria = countCriteria.select(builder.count(root)).where(
+                getSearchPredicates(root));
+        this.count = this.entityManager.createQuery(countCriteria)
+                .getSingleResult();
+
+        // Populate this.pageItems
+
+        CriteriaQuery<Publisher> criteria = builder
+                .createQuery(Publisher.class);
+        root = criteria.from(Publisher.class);
+        TypedQuery<Publisher> query = this.entityManager.createQuery(criteria
+                .select(root).where(getSearchPredicates(root)));
+        query.setFirstResult(this.page * getPageSize()).setMaxResults(
+                getPageSize());
+        this.pageItems = query.getResultList();
+    }
+
+    private Predicate[] getSearchPredicates(Root<Publisher> root) {
+
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+        List<Predicate> predicatesList = new ArrayList<>();
+
+        String name = this.example.getName();
+        if (name != null && !"".equals(name)) {
+            predicatesList.add(builder.like(
+                    builder.lower(root.<String>get("name")),
+                    '%' + name.toLowerCase() + '%'));
+        }
+
+        return predicatesList.toArray(new Predicate[predicatesList.size()]);
+    }
 
    /*
     * Support listing and POSTing back Publisher entities (e.g. from inside an HtmlSelectOneMenu)
     */
 
-   public List<Publisher> getAll()
-   {
+    public List<Publisher> getPageItems() {
+        return this.pageItems;
+    }
 
-      CriteriaQuery<Publisher> criteria = this.entityManager
-               .getCriteriaBuilder().createQuery(Publisher.class);
-      return this.entityManager.createQuery(
-               criteria.select(criteria.from(Publisher.class)))
-               .getResultList();
-   }
+    public long getCount() {
+        return this.count;
+    }
 
-   @Resource
-   private SessionContext sessionContext;
+    public List<Publisher> getAll() {
 
-   public Converter getConverter()
-   {
-
-      final PublisherBean ejbProxy = this.sessionContext
-               .getBusinessObject(PublisherBean.class);
-
-      return new Converter()
-      {
-
-         @Override
-         public Object getAsObject(FacesContext context,
-                  UIComponent component, String value)
-         {
-
-            return ejbProxy.findById(Long.valueOf(value));
-         }
-
-         @Override
-         public String getAsString(FacesContext context,
-                  UIComponent component, Object value)
-         {
-
-            if (value == null)
-            {
-               return "";
-            }
-
-            return String.valueOf(((Publisher) value).getId());
-         }
-      };
-   }
+        CriteriaQuery<Publisher> criteria = this.entityManager
+                .getCriteriaBuilder().createQuery(Publisher.class);
+        return this.entityManager.createQuery(
+                criteria.select(criteria.from(Publisher.class)))
+                .getResultList();
+    }
 
    /*
     * Support adding children to bidirectional, one-to-many tables
     */
 
-   private Publisher add = new Publisher();
+    public Converter getConverter() {
 
-   public Publisher getAdd()
-   {
-      return this.add;
-   }
+        final PublisherBean ejbProxy = this.sessionContext
+                .getBusinessObject(PublisherBean.class);
 
-   public Publisher getAdded()
-   {
-      Publisher added = this.add;
-      this.add = new Publisher();
-      return added;
-   }
+        return new Converter() {
+
+            @Override
+            public Object getAsObject(FacesContext context,
+                                      UIComponent component, String value) {
+
+                return ejbProxy.findById(Long.valueOf(value));
+            }
+
+            @Override
+            public String getAsString(FacesContext context,
+                                      UIComponent component, Object value) {
+
+                if (value == null) {
+                    return "";
+                }
+
+                return String.valueOf(((Publisher) value).getId());
+            }
+        };
+    }
+
+    public Publisher getAdd() {
+        return this.add;
+    }
+
+    public Publisher getAdded() {
+        Publisher added = this.add;
+        this.add = new Publisher();
+        return added;
+    }
 }

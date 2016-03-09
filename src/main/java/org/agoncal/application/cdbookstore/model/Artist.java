@@ -1,155 +1,157 @@
 package org.agoncal.application.cdbookstore.model;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+/**
+ * @author Antonio Goncalves
+ *         http://www.antoniogoncalves.org
+ *         --
+ */
 
 @MappedSuperclass
-public class Artist
-{
+public class Artist {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id", updatable = false, nullable = false)
-   protected Long id;
-   @Version
-   @Column(name = "version")
-   protected int version;
+    // ======================================
+    // =             Attributes             =
+    // ======================================
 
-   @Column(length = 50, name = "first_name", nullable = false)
-   @NotNull
-   @Size(min = 2, max = 50)
-   protected String firstName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
+    protected Long id;
+    @Version
+    @Column(name = "version")
+    protected int version;
 
-   @Column(length = 50, name = "last_name", nullable = false)
-   @NotNull
-   @Size(min = 2, max = 50)
-   protected String lastName;
+    @Column(length = 50, name = "first_name", nullable = false)
+    @NotNull
+    @Size(min = 2, max = 50)
+    protected String firstName;
 
-   @Column(length = 5000)
-   @Size(max = 5000)
-   protected String bio;
+    @Column(length = 50, name = "last_name", nullable = false)
+    @NotNull
+    @Size(min = 2, max = 50)
+    protected String lastName;
 
-   @Column(name = "date_of_birth")
-   @Temporal(TemporalType.DATE)
-   @Past
-   protected Date dateOfBirth;
+    @Column(length = 5000)
+    @Size(max = 5000)
+    protected String bio;
 
-   @Transient
-   protected Integer age;
+    @Column(name = "date_of_birth")
+    @Temporal(TemporalType.DATE)
+    @Past
+    protected Date dateOfBirth;
 
-   @PostLoad
-   @PostPersist
-   @PostUpdate
-   private void calculateAge()
-   {
-      if (dateOfBirth == null)
-      {
-         age = null;
-         return;
-      }
+    @Transient
+    protected Integer age;
 
-      Calendar birth = new GregorianCalendar();
-      birth.setTime(dateOfBirth);
-      Calendar now = new GregorianCalendar();
-      now.setTime(new Date());
-      int adjust = 0;
-      if (now.get(Calendar.DAY_OF_YEAR) - birth.get(Calendar.DAY_OF_YEAR) < 0)
-      {
-         adjust = -1;
-      }
-      age = now.get(Calendar.YEAR) - birth.get(Calendar.YEAR) + adjust;
-   }
+    // ======================================
+    // =         Lifecycle methods          =
+    // ======================================
 
-   public Long getId()
-   {
-      return this.id;
-   }
+    @PostLoad
+    @PostPersist
+    @PostUpdate
+    private void calculateAge() {
+        if (dateOfBirth == null) {
+            age = null;
+            return;
+        }
 
-   public void setId(final Long id)
-   {
-      this.id = id;
-   }
+        Calendar birth = new GregorianCalendar();
+        birth.setTime(dateOfBirth);
+        Calendar now = new GregorianCalendar();
+        now.setTime(new Date());
+        int adjust = 0;
+        if (now.get(Calendar.DAY_OF_YEAR) - birth.get(Calendar.DAY_OF_YEAR) < 0) {
+            adjust = -1;
+        }
+        age = now.get(Calendar.YEAR) - birth.get(Calendar.YEAR) + adjust;
+    }
 
-   public int getVersion()
-   {
-      return this.version;
-   }
+    // ======================================
+    // =        Getters and Setters         =
+    // ======================================
 
-   public void setVersion(final int version)
-   {
-      this.version = version;
-   }
+    public Long getId() {
+        return this.id;
+    }
 
-   public String getFirstName()
-   {
-      return firstName;
-   }
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-   public void setFirstName(String firstName)
-   {
-      this.firstName = firstName;
-   }
+    public int getVersion() {
+        return this.version;
+    }
 
-   public String getLastName()
-   {
-      return lastName;
-   }
+    public void setVersion(final int version) {
+        this.version = version;
+    }
 
-   public void setLastName(String lastName)
-   {
-      this.lastName = lastName;
-   }
+    public String getFirstName() {
+        return firstName;
+    }
 
-   public String getBio()
-   {
-      return bio;
-   }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-   public void setBio(String bio)
-   {
-      this.bio = bio;
-   }
+    public String getLastName() {
+        return lastName;
+    }
 
-   public Date getDateOfBirth()
-   {
-      return dateOfBirth;
-   }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-   public void setDateOfBirth(Date dateOfBirth)
-   {
-      this.dateOfBirth = dateOfBirth;
-   }
+    public String getBio() {
+        return bio;
+    }
 
-   public Integer getAge()
-   {
-      return age;
-   }
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 
-   public void setAge(Integer age)
-   {
-      this.age = age;
-   }
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
 
-   @Override
-   public String toString()
-   {
-      String result = getClass().getSimpleName() + " ";
-      if (firstName != null && !firstName.trim().isEmpty())
-         result += "firstName: " + firstName;
-      if (lastName != null && !lastName.trim().isEmpty())
-         result += ", lastName: " + lastName;
-      if (bio != null && !bio.trim().isEmpty())
-         result += ", bio: " + bio;
-      if (dateOfBirth != null)
-         result += ", dateOfBirth: " + dateOfBirth;
-      if (age != null)
-         result += ", age: " + age;
-      return result;
-   }
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    // ======================================
+    // =   Methods hash, equals, toString   =
+    // ======================================
+
+    @Override
+    public String toString() {
+        String result = getClass().getSimpleName() + " ";
+        if (firstName != null && !firstName.trim().isEmpty())
+            result += "firstName: " + firstName;
+        if (lastName != null && !lastName.trim().isEmpty())
+            result += ", lastName: " + lastName;
+        if (bio != null && !bio.trim().isEmpty())
+            result += ", bio: " + bio;
+        if (dateOfBirth != null)
+            result += ", dateOfBirth: " + dateOfBirth;
+        if (age != null)
+            result += ", age: " + age;
+        return result;
+    }
 }

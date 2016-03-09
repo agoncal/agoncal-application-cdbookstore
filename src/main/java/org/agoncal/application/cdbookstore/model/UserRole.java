@@ -1,6 +1,16 @@
 package org.agoncal.application.cdbookstore.model;
 
-public enum UserRole
-{
-   USER, ADMIN
+/**
+ * @author Antonio Goncalves
+ *         http://www.antoniogoncalves.org
+ *         --
+ */
+
+public enum UserRole {
+
+    // ======================================
+    // =             Constants              =
+    // ======================================
+
+    USER, ADMIN
 }

@@ -1,7 +1,6 @@
 package org.agoncal.application.cdbookstore.util;
 
-public interface NumberGenerator
-{
+public interface NumberGenerator {
 
-   public String generateNumber();
+    public String generateNumber();
 }

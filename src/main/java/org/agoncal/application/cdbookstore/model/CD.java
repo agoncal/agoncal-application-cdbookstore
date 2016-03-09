@@ -1,163 +1,156 @@
 package org.agoncal.application.cdbookstore.model;
 
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
+/**
+ * @author Antonio Goncalves
+ *         http://www.antoniogoncalves.org
+ *         --
+ */
 
 @Entity
 @XmlRootElement
 @DiscriminatorValue("C")
-public class CD extends Item
-{
+public class CD extends Item {
 
-   @Column(name = "nb_of_discs")
-   private Integer nbOfDiscs;
+    // ======================================
+    // =             Attributes             =
+    // ======================================
 
-   @ManyToOne
-   private Label label;
+    @Column(name = "nb_of_discs")
+    private Integer nbOfDiscs;
 
-   @ManyToMany
-   private Set<Musician> musicians = new HashSet<>();
+    @ManyToOne
+    private Label label;
 
-   @ManyToOne
-   private Genre genre;
+    @ManyToMany
+    private Set<Musician> musicians = new HashSet<>();
 
-   public Long getId()
-   {
-      return this.id;
-   }
+    @ManyToOne
+    private Genre genre;
 
-   public void setId(final Long id)
-   {
-      this.id = id;
-   }
+    // ======================================
+    // =        Getters and Setters         =
+    // ======================================
 
-   public int getVersion()
-   {
-      return this.version;
-   }
+    public Long getId() {
+        return this.id;
+    }
 
-   public void setVersion(final int version)
-   {
-      this.version = version;
-   }
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-   public String getTitle()
-   {
-      return title;
-   }
+    public int getVersion() {
+        return this.version;
+    }
 
-   public void setTitle(String title)
-   {
-      this.title = title;
-   }
+    public void setVersion(final int version) {
+        this.version = version;
+    }
 
-   public String getDescription()
-   {
-      return description;
-   }
+    public String getTitle() {
+        return title;
+    }
 
-   public void setDescription(String description)
-   {
-      this.description = description;
-   }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-   public Float getUnitCost()
-   {
-      return unitCost;
-   }
+    public String getDescription() {
+        return description;
+    }
 
-   public void setUnitCost(Float unitCost)
-   {
-      this.unitCost = unitCost;
-   }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-   public Integer getNbOfDiscs() {
-      return nbOfDiscs;
-   }
+    public Float getUnitCost() {
+        return unitCost;
+    }
 
-   public void setNbOfDiscs(Integer nbOfDiscs) {
-      this.nbOfDiscs = nbOfDiscs;
-   }
+    public void setUnitCost(Float unitCost) {
+        this.unitCost = unitCost;
+    }
 
-   @Override
-   public boolean equals(Object obj)
-   {
-      if (this == obj)
-      {
-         return true;
-      }
-      if (!(obj instanceof CD))
-      {
-         return false;
-      }
-      CD other = (CD) obj;
-      if (id != null)
-      {
-         if (!id.equals(other.id))
-         {
+    public Integer getNbOfDiscs() {
+        return nbOfDiscs;
+    }
+
+    public void setNbOfDiscs(Integer nbOfDiscs) {
+        this.nbOfDiscs = nbOfDiscs;
+    }
+
+    public Label getLabel() {
+        return this.label;
+    }
+
+    public void setLabel(final Label label) {
+        this.label = label;
+    }
+
+    public Set<Musician> getMusicians() {
+        return this.musicians;
+    }
+
+    public void setMusicians(final Set<Musician> musicians) {
+        this.musicians = musicians;
+    }
+
+    public Genre getGenre() {
+        return this.genre;
+    }
+
+    public void setGenre(final Genre genre) {
+        this.genre = genre;
+    }
+
+    // ======================================
+    // =   Methods hash, equals, toString   =
+    // ======================================
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof CD)) {
             return false;
-         }
-      }
-      return true;
-   }
+        }
+        CD other = (CD) obj;
+        if (id != null) {
+            if (!id.equals(other.id)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-   @Override
-   public int hashCode()
-   {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((id == null) ? 0 : id.hashCode());
-      return result;
-   }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
 
-   @Override
-   public String toString()
-   {
-      String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
-      if (title != null && !title.trim().isEmpty())
-         result += ", title: " + title;
-      if (description != null && !description.trim().isEmpty())
-         result += ", description: " + description;
-      if (unitCost != null)
-         result += ", unitCost: " + unitCost;
-      if (nbOfDiscs != null)
-         result += ", nbOfDiscs: " + nbOfDiscs;
-      return result;
-   }
-
-   public Label getLabel()
-   {
-      return this.label;
-   }
-
-   public void setLabel(final Label label)
-   {
-      this.label = label;
-   }
-
-   public Set<Musician> getMusicians()
-   {
-      return this.musicians;
-   }
-
-   public void setMusicians(final Set<Musician> musicians)
-   {
-      this.musicians = musicians;
-   }
-
-   public Genre getGenre()
-   {
-      return this.genre;
-   }
-
-   public void setGenre(final Genre genre)
-   {
-      this.genre = genre;
-   }
+    @Override
+    public String toString() {
+        String result = getClass().getSimpleName() + " ";
+        if (id != null)
+            result += "id: " + id;
+        result += ", version: " + version;
+        if (title != null && !title.trim().isEmpty())
+            result += ", title: " + title;
+        if (description != null && !description.trim().isEmpty())
+            result += ", description: " + description;
+        if (unitCost != null)
+            result += ", unitCost: " + unitCost;
+        if (nbOfDiscs != null)
+            result += ", nbOfDiscs: " + nbOfDiscs;
+        return result;
+    }
 }

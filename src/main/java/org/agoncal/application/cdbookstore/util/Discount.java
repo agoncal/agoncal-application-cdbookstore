@@ -1,14 +1,12 @@
 package org.agoncal.application.cdbookstore.util;
 
-import java.lang.annotation.*;
-
 import javax.inject.Qualifier;
+import java.lang.annotation.*;
 
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER,
-         ElementType.TYPE })
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER,
+        ElementType.TYPE})
 @Documented
-public @interface Discount
-{
+public @interface Discount {
 }

@@ -1,46 +1,67 @@
-<xsl:stylesheet version="1.0"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:math="http://exslt.org/math"
+                version="1.0"
                 extension-element-prefixes="math">
     <xsl:output method="xml" encoding="UTF-8" omit-xml-declaration="yes" indent="yes"/>
     <xsl:strip-space elements="*"/>
 
     <xsl:template match="Items">
 
-        <xsl:for-each select="Item">INSERT INTO ITEM (id, version, discriminator, isbn, title, rank, small_image_url, medium_image_url, language, unit_cost, nb_of_pages, publication_date, category_id, publisher_id, description) VALUES ( <xsl:variable name="i" select="position()+1000" /> <xsl:value-of select="$i"/> <xsl:text>, 1, 'B', </xsl:text>
+        <xsl:for-each select="Item">INSERT INTO ITEM (id, version, discriminator, isbn, title, rank, small_image_url,
+            medium_image_url, language, unit_cost, nb_of_pages, publication_date, category_id, publisher_id,
+            description) VALUES (
+            <xsl:variable name="i" select="position()+1000"/>
+            <xsl:value-of select="$i"/>
+            <xsl:text>, 1, 'B', </xsl:text>
 
-            <xsl:if test="ItemAttributes/ISBN">'<xsl:value-of select="normalize-space(ItemAttributes/ISBN)"/>'</xsl:if>
+            <xsl:if test="ItemAttributes/ISBN">'<xsl:value-of select="normalize-space(ItemAttributes/ISBN)"/>'
+            </xsl:if>
             <xsl:if test="not(ItemAttributes/ISBN)">null</xsl:if>
             <xsl:text>, </xsl:text>
 
-            <xsl:if test="ItemAttributes/Title">'<xsl:call-template name="escapeQuotes"><xsl:with-param name="txt" select="normalize-space(ItemAttributes/Title)"/></xsl:call-template>'</xsl:if>
+            <xsl:if test="ItemAttributes/Title">'
+                <xsl:call-template name="escapeQuotes">
+                    <xsl:with-param name="txt" select="normalize-space(ItemAttributes/Title)"/>
+                </xsl:call-template>
+                '
+            </xsl:if>
             <xsl:if test="not(ItemAttributes/Title)">null</xsl:if>
             <xsl:text>, </xsl:text>
 
-            <xsl:if test="SalesRank"><xsl:value-of select="substring(normalize-space(SalesRank), 1, 1)"/></xsl:if>
+            <xsl:if test="SalesRank">
+                <xsl:value-of select="substring(normalize-space(SalesRank), 1, 1)"/>
+            </xsl:if>
             <xsl:if test="not(SalesRank)">null</xsl:if>
             <xsl:text>, </xsl:text>
 
-            <xsl:if test="SmallImage/URL">'<xsl:value-of select="normalize-space(SmallImage/URL)"/>'</xsl:if>
+            <xsl:if test="SmallImage/URL">'<xsl:value-of select="normalize-space(SmallImage/URL)"/>'
+            </xsl:if>
             <xsl:if test="not(SmallImage/URL)">null</xsl:if>
             <xsl:text>, </xsl:text>
 
-            <xsl:if test="MediumImage/URL">'<xsl:value-of select="normalize-space(MediumImage/URL)"/>'</xsl:if>
+            <xsl:if test="MediumImage/URL">'<xsl:value-of select="normalize-space(MediumImage/URL)"/>'
+            </xsl:if>
             <xsl:if test="not(MediumImage/URL)">null</xsl:if>
             <xsl:text>, </xsl:text>
 
             <xsl:value-of select="floor(math:random()*8) + 1"/>
             <xsl:text>, </xsl:text>
 
-            <xsl:if test="ItemAttributes/ListPrice/FormattedPrice"><xsl:value-of select="substring(normalize-space(ItemAttributes/ListPrice/FormattedPrice), 2, 10)"/></xsl:if>
+            <xsl:if test="ItemAttributes/ListPrice/FormattedPrice">
+                <xsl:value-of select="substring(normalize-space(ItemAttributes/ListPrice/FormattedPrice), 2, 10)"/>
+            </xsl:if>
             <xsl:if test="not(ItemAttributes/ListPrice/FormattedPrice)">null</xsl:if>
             <xsl:text>, </xsl:text>
 
-            <xsl:if test="ItemAttributes/NumberOfPages"><xsl:value-of select="normalize-space(ItemAttributes/NumberOfPages)"/></xsl:if>
+            <xsl:if test="ItemAttributes/NumberOfPages">
+                <xsl:value-of select="normalize-space(ItemAttributes/NumberOfPages)"/>
+            </xsl:if>
             <xsl:if test="not(ItemAttributes/NumberOfPages)">null</xsl:if>
             <xsl:text>, </xsl:text>
 
-            <xsl:if test="ItemAttributes/PublicationDate">to_date('<xsl:value-of select="normalize-space(ItemAttributes/PublicationDate)"/>', 'YYYY-MM-DD')</xsl:if>
+            <xsl:if test="ItemAttributes/PublicationDate">to_date('<xsl:value-of
+                    select="normalize-space(ItemAttributes/PublicationDate)"/>', 'YYYY-MM-DD')
+            </xsl:if>
             <xsl:if test="not(ItemAttributes/PublicationDate)">null</xsl:if>
             <xsl:text>, </xsl:text>
 
@@ -50,7 +71,12 @@
             <xsl:value-of select="floor(math:random()*11) + 1000"/>
             <xsl:text>, </xsl:text>
 
-            <xsl:if test="EditorialReviews/EditorialReview/Content">'<xsl:call-template name="escapeQuotes"><xsl:with-param name="txt" select="normalize-space(EditorialReviews/EditorialReview/Content)"/></xsl:call-template>'</xsl:if>
+            <xsl:if test="EditorialReviews/EditorialReview/Content">'
+                <xsl:call-template name="escapeQuotes">
+                    <xsl:with-param name="txt" select="normalize-space(EditorialReviews/EditorialReview/Content)"/>
+                </xsl:call-template>
+                '
+            </xsl:if>
             <xsl:if test="not(EditorialReviews/EditorialReview/Content)">null</xsl:if>
 
             <xsl:text>);&#xA;</xsl:text>
@@ -74,7 +100,8 @@
             </xsl:when>
 
             <xsl:when test="contains($txt, $singleQuote)">
-                <xsl:value-of disable-output-escaping="yes" select="concat(substring-before($txt, $singleQuote), $backSlashQuote)"/>
+                <xsl:value-of disable-output-escaping="yes"
+                              select="concat(substring-before($txt, $singleQuote), $backSlashQuote)"/>
 
                 <xsl:call-template name="escapeQuotes">
                     <xsl:with-param name="txt" select="substring-after($txt, $singleQuote)"/>

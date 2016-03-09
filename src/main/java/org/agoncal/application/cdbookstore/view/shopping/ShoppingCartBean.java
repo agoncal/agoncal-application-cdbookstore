@@ -1,9 +1,8 @@
 package org.agoncal.application.cdbookstore.view.shopping;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import org.agoncal.application.cdbookstore.model.CreditCard;
+import org.agoncal.application.cdbookstore.model.CreditCardType;
+import org.agoncal.application.cdbookstore.model.Item;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -12,10 +11,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import org.agoncal.application.cdbookstore.model.CreditCard;
-import org.agoncal.application.cdbookstore.model.CreditCardType;
-import org.agoncal.application.cdbookstore.model.Item;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Antonio Goncalves http://www.antoniogoncalves.org --
@@ -23,127 +22,110 @@ import org.agoncal.application.cdbookstore.model.Item;
 
 @Named
 @SessionScoped
-public class ShoppingCartBean implements Serializable
-{
+public class ShoppingCartBean implements Serializable {
 
-   // ======================================
-   // = Attributes =
-   // ======================================
+    // ======================================
+    // = Attributes =
+    // ======================================
 
-   @Inject
-   private FacesContext facesContext;
+    @Inject
+    private FacesContext facesContext;
 
-   @PersistenceContext(unitName = "applicationCDBookStorePU")
-   private EntityManager em;
+    @PersistenceContext(unitName = "applicationCDBookStorePU")
+    private EntityManager em;
 
-   private List<ShoppingCartItem> cartItems = new ArrayList<>();
-   private CreditCard creditCard = new CreditCard();
+    private List<ShoppingCartItem> cartItems = new ArrayList<>();
+    private CreditCard creditCard = new CreditCard();
 
-   // ======================================
-   // = Public Methods =
-   // ======================================
+    // ======================================
+    // = Public Methods =
+    // ======================================
 
-   public String addItemToCart()
-   {
-      Item item = em.find(Item.class, getParamId("itemId"));
+    public String addItemToCart() {
+        Item item = em.find(Item.class, getParamId("itemId"));
 
-      boolean itemFound = false;
-      for (ShoppingCartItem cartItem : cartItems)
-      {
-         // If item already exists in the shopping cart we just change the quantity
-         if (cartItem.getItem().equals(item))
-         {
-            cartItem.setQuantity(cartItem.getQuantity() + 1);
-            itemFound = true;
-         }
-      }
-      if (!itemFound)
-         // Otherwise it's added to the shopping cart
-         cartItems.add(new ShoppingCartItem(item, 1));
+        boolean itemFound = false;
+        for (ShoppingCartItem cartItem : cartItems) {
+            // If item already exists in the shopping cart we just change the quantity
+            if (cartItem.getItem().equals(item)) {
+                cartItem.setQuantity(cartItem.getQuantity() + 1);
+                itemFound = true;
+            }
+        }
+        if (!itemFound)
+            // Otherwise it's added to the shopping cart
+            cartItems.add(new ShoppingCartItem(item, 1));
 
-      facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, item.getTitle() + " added to the shopping cart",
-              "You can now add more stuff if you want"));
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, item.getTitle() + " added to the shopping cart",
+                "You can now add more stuff if you want"));
 
-      return "/shopping/viewItem.xhtml?faces-redirect=true&includeViewParams=true";
-   }
+        return "/shopping/viewItem.xhtml?faces-redirect=true&includeViewParams=true";
+    }
 
-   public String removeItemFromCart()
-   {
-      Item item = em.find(Item.class, getParamId("itemId"));
+    public String removeItemFromCart() {
+        Item item = em.find(Item.class, getParamId("itemId"));
 
-      for (ShoppingCartItem cartItem : cartItems)
-      {
-         if (cartItem.getItem().equals(item))
-         {
-            cartItems.remove(cartItem);
-            return null;
-         }
-      }
+        for (ShoppingCartItem cartItem : cartItems) {
+            if (cartItem.getItem().equals(item)) {
+                cartItems.remove(cartItem);
+                return null;
+            }
+        }
 
-      return null;
-   }
+        return null;
+    }
 
-   public String updateQuantity()
-   {
-      return null;
-   }
+    public String updateQuantity() {
+        return null;
+    }
 
-   public String checkout()
-   {
-      facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Order created",
-              "You will receive a confirmation email"));
+    public String checkout() {
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Order created",
+                "You will receive a confirmation email"));
 
-      return "/main";
-   }
+        return "/main";
+    }
 
-   public List<ShoppingCartItem> getCartItems()
-   {
-      return cartItems;
-   }
+    public List<ShoppingCartItem> getCartItems() {
+        return cartItems;
+    }
 
-   public boolean shoppingCartIsEmpty()
-   {
-      return getCartItems() == null || getCartItems().size() == 0;
-   }
+    public boolean shoppingCartIsEmpty() {
+        return getCartItems() == null || getCartItems().size() == 0;
+    }
 
-   public Float getTotal()
-   {
-      if (cartItems == null || cartItems.isEmpty())
-         return 0f;
+    public Float getTotal() {
+        if (cartItems == null || cartItems.isEmpty())
+            return 0f;
 
-      Float total = 0f;
+        Float total = 0f;
 
-      // Sum up the quantities
-      for (ShoppingCartItem cartItem : cartItems)
-      {
-         total += (cartItem.getSubTotal());
-      }
-      return total;
-   }
+        // Sum up the quantities
+        for (ShoppingCartItem cartItem : cartItems) {
+            total += (cartItem.getSubTotal());
+        }
+        return total;
+    }
 
-   protected Long getParamId(String param)
-   {
-      FacesContext context = FacesContext.getCurrentInstance();
-      Map<String, String> map = context.getExternalContext().getRequestParameterMap();
-      return Long.valueOf(map.get(param));
-   }
+    protected Long getParamId(String param) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+        return Long.valueOf(map.get(param));
+    }
 
-   // ======================================
-   // = Getters & setters =
-   // ======================================
+    // ======================================
+    // = Getters & setters =
+    // ======================================
 
-   public CreditCard getCreditCard()
-   {
-      return creditCard;
-   }
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
 
-   public void setCreditCard(CreditCard creditCard)
-   {
-      this.creditCard = creditCard;
-   }
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
+    }
 
-   public CreditCardType[] getCreditCardTypes()
-   {
-      return CreditCardType.values();
-   }
+    public CreditCardType[] getCreditCardTypes() {
+        return CreditCardType.values();
+    }
 }

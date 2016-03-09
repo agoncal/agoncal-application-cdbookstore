@@ -1,110 +1,111 @@
 package org.agoncal.application.cdbookstore.model;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
+
+/**
+ * @author Antonio Goncalves
+ *         http://www.antoniogoncalves.org
+ *         --
+ */
 
 @Entity
 @Table(name = "order_line")
-public class OrderLine implements Serializable
-{
+public class OrderLine implements Serializable {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id", updatable = false, nullable = false)
-   private Long id;
-   @Version
-   @Column(name = "version")
-   private int version;
+    // ======================================
+    // =             Attributes             =
+    // ======================================
 
-   @Column(nullable = false)
-   @Min(1)
-   private Integer quantity;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
+    @Version
+    @Column(name = "version")
+    private int version;
 
-   @ManyToOne(cascade = CascadeType.PERSIST)
-   private Item item;
+    @Column(nullable = false)
+    @Min(1)
+    private Integer quantity;
 
-   public Long getId()
-   {
-      return this.id;
-   }
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Item item;
 
-   public void setId(final Long id)
-   {
-      this.id = id;
-   }
+    // ======================================
+    // =        Getters and Setters         =
+    // ======================================
 
-   public int getVersion()
-   {
-      return this.version;
-   }
+    public Long getId() {
+        return this.id;
+    }
 
-   public void setVersion(final int version)
-   {
-      this.version = version;
-   }
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-   public Integer getQuantity()
-   {
-      return quantity;
-   }
+    public int getVersion() {
+        return this.version;
+    }
 
-   public void setQuantity(Integer quantity)
-   {
-      this.quantity = quantity;
-   }
+    public void setVersion(final int version) {
+        this.version = version;
+    }
 
-   public Item getItem()
-   {
-      return this.item;
-   }
+    public Integer getQuantity() {
+        return quantity;
+    }
 
-   public void setItem(final Item item)
-   {
-      this.item = item;
-   }
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 
-   @Override
-   public boolean equals(Object obj)
-   {
-      if (this == obj)
-      {
-         return true;
-      }
-      if (!(obj instanceof OrderLine))
-      {
-         return false;
-      }
-      OrderLine other = (OrderLine) obj;
-      if (id != null)
-      {
-         if (!id.equals(other.id))
-         {
+    public Item getItem() {
+        return this.item;
+    }
+
+    public void setItem(final Item item) {
+        this.item = item;
+    }
+
+    // ======================================
+    // =   Methods hash, equals, toString   =
+    // ======================================
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof OrderLine)) {
             return false;
-         }
-      }
-      return true;
-   }
+        }
+        OrderLine other = (OrderLine) obj;
+        if (id != null) {
+            if (!id.equals(other.id)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-   @Override
-   public int hashCode()
-   {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((id == null) ? 0 : id.hashCode());
-      return result;
-   }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
 
-   @Override
-   public String toString()
-   {
-      String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
-      if (quantity != null)
-         result += ", quantity: " + quantity;
-      return result;
-   }
+    @Override
+    public String toString() {
+        String result = getClass().getSimpleName() + " ";
+        if (id != null)
+            result += "id: " + id;
+        result += ", version: " + version;
+        if (quantity != null)
+            result += ", quantity: " + quantity;
+        return result;
+    }
 }

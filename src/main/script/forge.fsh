@@ -27,7 +27,7 @@ rest-setup --jaxrsVersion 2.0 ;
 
 #  Setup Arquillian
 #  ############
-arquillian-setup --arquillianVersion 1.1.9.Final --testFramework junit --testFrameworkVersion 4.12 --containerAdapter wildfly-remote --containerAdapterVersion 8.2.1.Final ;
+arquillian-setup --arquillianVersion 1.1.11.Final --testFramework junit --testFrameworkVersion 4.12 --containerAdapter wildfly-remote --containerAdapterVersion 8.2.1.Final ;
 
 
 
@@ -592,10 +592,10 @@ project-remove-managed-dependencies javax.ws.rs:javax.ws.rs-api:jar::2.0 ;
 
 #  Adding Java EE and Web Jars dependencies
 #  ############################
-project-add-dependencies com.thedeanda:lorem:1.2 ;
-project-add-dependencies org.webjars:bootstrap:3.3.5 ;
+project-add-dependencies com.thedeanda:lorem:2.0 ;
+project-add-dependencies org.webjars:bootstrap:3.3.6 ;
 project-add-dependencies org.webjars:jquery:2.1.4 ;
-project-add-dependencies org.primefaces:primefaces:5.2 ;
+project-add-dependencies org.primefaces:primefaces:5.3 ;
 project-add-dependencies org.jboss.spec:jboss-javaee-7.0:1.0.3.Final:provided:pom ;
 project-add-dependencies org.jboss.resteasy:resteasy-client:3.0.12.Final:test ;
 

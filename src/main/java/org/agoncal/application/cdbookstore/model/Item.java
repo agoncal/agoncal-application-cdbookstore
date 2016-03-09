@@ -1,179 +1,176 @@
 package org.agoncal.application.cdbookstore.model;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
+
+/**
+ * @author Antonio Goncalves
+ *         http://www.antoniogoncalves.org
+ *         --
+ */
 
 @Entity
 @DiscriminatorColumn(name = "discriminator", discriminatorType = DiscriminatorType.CHAR)
 @DiscriminatorValue("I")
 @NamedQueries({
-         @NamedQuery(name = Item.FIND_TOP_RATED, query = "SELECT i FROM Item i WHERE i.rank = 5"),
-         @NamedQuery(name = Item.SEARCH, query = "SELECT i FROM Item i WHERE UPPER(i.title) LIKE :keyword OR UPPER(i.description) LIKE :keyword ORDER BY i.title")
+        @NamedQuery(name = Item.FIND_TOP_RATED, query = "SELECT i FROM Item i WHERE i.rank = 5"),
+        @NamedQuery(name = Item.SEARCH, query = "SELECT i FROM Item i WHERE UPPER(i.title) LIKE :keyword OR UPPER(i.description) LIKE :keyword ORDER BY i.title")
 
 })
-public class Item implements Serializable
-{
+public class Item implements Serializable {
 
-   public static final String FIND_TOP_RATED = "Item.findTopRated";
-   public static final String SEARCH = "Item.search";
+    // ======================================
+    // =             Constants              =
+    // ======================================
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id", updatable = false, nullable = false)
-   protected Long id;
-   @Version
-   @Column(name = "version")
-   protected int version;
+    public static final String FIND_TOP_RATED = "Item.findTopRated";
+    public static final String SEARCH = "Item.search";
 
-   @Column(length = 200)
-   @NotNull
-   @Size(min = 1, max = 200)
-   protected String title;
+    // ======================================
+    // =             Attributes             =
+    // ======================================
 
-   @Column(length = 10000)
-   @Size(min = 1, max = 10000)
-   protected String description;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
+    protected Long id;
+    @Version
+    @Column(name = "version")
+    protected int version;
 
-   @Column(name = "unit_cost")
-   @Min(1)
-   protected Float unitCost;
+    @Column(length = 200)
+    @NotNull
+    @Size(min = 1, max = 200)
+    protected String title;
 
-   protected Integer rank;
+    @Column(length = 10000)
+    @Size(min = 1, max = 10000)
+    protected String description;
 
-   @Column(name = "small_image_url")
-   protected String smallImageURL;
+    @Column(name = "unit_cost")
+    @Min(1)
+    protected Float unitCost;
 
-   @Column(name = "medium_image_url")
-   protected String mediumImageURL;
+    protected Integer rank;
 
-   public Long getId()
-   {
-      return this.id;
-   }
+    @Column(name = "small_image_url")
+    protected String smallImageURL;
 
-   public void setId(final Long id)
-   {
-      this.id = id;
-   }
+    @Column(name = "medium_image_url")
+    protected String mediumImageURL;
 
-   public int getVersion()
-   {
-      return this.version;
-   }
+    // ======================================
+    // =        Getters and Setters         =
+    // ======================================
 
-   public void setVersion(final int version)
-   {
-      this.version = version;
-   }
+    public Long getId() {
+        return this.id;
+    }
 
-   public String getTitle()
-   {
-      return title;
-   }
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-   public void setTitle(String title)
-   {
-      this.title = title;
-   }
+    public int getVersion() {
+        return this.version;
+    }
 
-   public String getDescription()
-   {
-      return description;
-   }
+    public void setVersion(final int version) {
+        this.version = version;
+    }
 
-   public void setDescription(String description)
-   {
-      this.description = description;
-   }
+    public String getTitle() {
+        return title;
+    }
 
-   public Float getUnitCost()
-   {
-      return unitCost;
-   }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-   public void setUnitCost(Float unitCost)
-   {
-      this.unitCost = unitCost;
-   }
+    public String getDescription() {
+        return description;
+    }
 
-   public Integer getRank()
-   {
-      return rank;
-   }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-   public void setRank(Integer rank)
-   {
-      this.rank = rank;
-   }
+    public Float getUnitCost() {
+        return unitCost;
+    }
 
-   public String getSmallImageURL()
-   {
-      return smallImageURL;
-   }
+    public void setUnitCost(Float unitCost) {
+        this.unitCost = unitCost;
+    }
 
-   public void setSmallImageURL(String smallImageURL)
-   {
-      this.smallImageURL = smallImageURL;
-   }
+    public Integer getRank() {
+        return rank;
+    }
 
-   public String getMediumImageURL()
-   {
-      return mediumImageURL;
-   }
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
 
-   public void setMediumImageURL(String mediumImageURL)
-   {
-      this.mediumImageURL = mediumImageURL;
-   }
+    public String getSmallImageURL() {
+        return smallImageURL;
+    }
 
-   @Override
-   public boolean equals(Object obj)
-   {
-      if (this == obj)
-      {
-         return true;
-      }
-      if (!(obj instanceof Item))
-      {
-         return false;
-      }
-      Item other = (Item) obj;
-      if (id != null)
-      {
-         if (!id.equals(other.id))
-         {
+    public void setSmallImageURL(String smallImageURL) {
+        this.smallImageURL = smallImageURL;
+    }
+
+    public String getMediumImageURL() {
+        return mediumImageURL;
+    }
+
+    public void setMediumImageURL(String mediumImageURL) {
+        this.mediumImageURL = mediumImageURL;
+    }
+
+    // ======================================
+    // =   Methods hash, equals, toString   =
+    // ======================================
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Item)) {
             return false;
-         }
-      }
-      return true;
-   }
+        }
+        Item other = (Item) obj;
+        if (id != null) {
+            if (!id.equals(other.id)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-   @Override
-   public int hashCode()
-   {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((id == null) ? 0 : id.hashCode());
-      return result;
-   }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
 
-   @Override
-   public String toString()
-   {
-      String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
-      if (title != null && !title.trim().isEmpty())
-         result += ", title: " + title;
-      if (description != null && !description.trim().isEmpty())
-         result += ", description: " + description;
-      if (unitCost != null)
-         result += ", unitCost: " + unitCost;
-      return result;
-   }
+    @Override
+    public String toString() {
+        String result = getClass().getSimpleName() + " ";
+        if (id != null)
+            result += "id: " + id;
+        result += ", version: " + version;
+        if (title != null && !title.trim().isEmpty())
+            result += ", title: " + title;
+        if (description != null && !description.trim().isEmpty())
+            result += ", description: " + description;
+        if (unitCost != null)
+            result += ", unitCost: " + unitCost;
+        return result;
+    }
 }

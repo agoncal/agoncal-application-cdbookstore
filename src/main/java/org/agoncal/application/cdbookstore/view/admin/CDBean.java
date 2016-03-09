@@ -1,8 +1,8 @@
 package org.agoncal.application.cdbookstore.view.admin;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import org.agoncal.application.cdbookstore.model.CD;
+import org.agoncal.application.cdbookstore.model.Genre;
+import org.agoncal.application.cdbookstore.model.Label;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -23,10 +23,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.agoncal.application.cdbookstore.model.CD;
-import org.agoncal.application.cdbookstore.model.Genre;
-import org.agoncal.application.cdbookstore.model.Label;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Backing bean for CD entities.
@@ -39,305 +38,252 @@ import org.agoncal.application.cdbookstore.model.Label;
 @Named("CDBean")
 @Stateful
 @ConversationScoped
-public class CDBean implements Serializable
-{
+public class CDBean implements Serializable {
 
-   private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
    /*
     * Support creating and retrieving CD entities
     */
 
-   private Long id;
+    private Long id;
+    private CD CD;
+    @Inject
+    private Conversation conversation;
+    @PersistenceContext(unitName = "applicationCDBookStorePU", type = PersistenceContextType.EXTENDED)
+    private EntityManager entityManager;
+    private int page;
+    private long count;
+    private List<CD> pageItems;
+    private CD example = new CD();
+    @Resource
+    private SessionContext sessionContext;
+    private CD add = new CD();
 
-   public Long getId()
-   {
-      return this.id;
-   }
-
-   public void setId(Long id)
-   {
-      this.id = id;
-   }
-
-   private CD CD;
-
-   public CD getCD()
-   {
-      return this.CD;
-   }
-
-   public void setCD(CD CD)
-   {
-      this.CD = CD;
-   }
-
-   @Inject
-   private Conversation conversation;
-
-   @PersistenceContext(unitName = "applicationCDBookStorePU", type = PersistenceContextType.EXTENDED)
-   private EntityManager entityManager;
-
-   public String create()
-   {
-
-      this.conversation.begin();
-      this.conversation.setTimeout(1800000L);
-      return "create?faces-redirect=true";
-   }
-
-   public void retrieve()
-   {
-
-      if (FacesContext.getCurrentInstance().isPostback())
-      {
-         return;
-      }
-
-      if (this.conversation.isTransient())
-      {
-         this.conversation.begin();
-         this.conversation.setTimeout(1800000L);
-      }
-
-      if (this.id == null)
-      {
-         this.CD = this.example;
-      }
-      else
-      {
-         this.CD = findById(getId());
-      }
-   }
-
-   public CD findById(Long id)
-   {
-
-      return this.entityManager.find(CD.class, id);
-   }
+    public Long getId() {
+        return this.id;
+    }
 
    /*
     * Support updating and deleting CD entities
     */
 
-   public String update()
-   {
-      this.conversation.end();
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-      try
-      {
-         if (this.id == null)
-         {
-            this.entityManager.persist(this.CD);
-            return "search?faces-redirect=true";
-         }
-         else
-         {
-            this.entityManager.merge(this.CD);
-            return "view?faces-redirect=true&id=" + this.CD.getId();
-         }
-      }
-      catch (Exception e)
-      {
-         FacesContext.getCurrentInstance().addMessage(null,
-                  new FacesMessage(e.getMessage()));
-         return null;
-      }
-   }
-
-   public String delete()
-   {
-      this.conversation.end();
-
-      try
-      {
-         CD deletableEntity = findById(getId());
-
-         this.entityManager.remove(deletableEntity);
-         this.entityManager.flush();
-         return "search?faces-redirect=true";
-      }
-      catch (Exception e)
-      {
-         FacesContext.getCurrentInstance().addMessage(null,
-                  new FacesMessage(e.getMessage()));
-         return null;
-      }
-   }
+    public CD getCD() {
+        return this.CD;
+    }
 
    /*
     * Support searching CD entities with pagination
     */
 
-   private int page;
-   private long count;
-   private List<CD> pageItems;
+    public void setCD(CD CD) {
+        this.CD = CD;
+    }
 
-   private CD example = new CD();
+    public String create() {
 
-   public int getPage()
-   {
-      return this.page;
-   }
+        this.conversation.begin();
+        this.conversation.setTimeout(1800000L);
+        return "create?faces-redirect=true";
+    }
 
-   public void setPage(int page)
-   {
-      this.page = page;
-   }
+    public void retrieve() {
 
-   public int getPageSize()
-   {
-      return 10;
-   }
+        if (FacesContext.getCurrentInstance().isPostback()) {
+            return;
+        }
 
-   public CD getExample()
-   {
-      return this.example;
-   }
+        if (this.conversation.isTransient()) {
+            this.conversation.begin();
+            this.conversation.setTimeout(1800000L);
+        }
 
-   public void setExample(CD example)
-   {
-      this.example = example;
-   }
+        if (this.id == null) {
+            this.CD = this.example;
+        } else {
+            this.CD = findById(getId());
+        }
+    }
 
-   public String search()
-   {
-      this.page = 0;
-      return null;
-   }
+    public CD findById(Long id) {
 
-   public void paginate()
-   {
+        return this.entityManager.find(CD.class, id);
+    }
 
-      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+    public String update() {
+        this.conversation.end();
 
-      // Populate this.count
+        try {
+            if (this.id == null) {
+                this.entityManager.persist(this.CD);
+                return "search?faces-redirect=true";
+            } else {
+                this.entityManager.merge(this.CD);
+                return "view?faces-redirect=true&id=" + this.CD.getId();
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(e.getMessage()));
+            return null;
+        }
+    }
 
-      CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-      Root<CD> root = countCriteria.from(CD.class);
-      countCriteria = countCriteria.select(builder.count(root)).where(
-               getSearchPredicates(root));
-      this.count = this.entityManager.createQuery(countCriteria)
-               .getSingleResult();
+    public String delete() {
+        this.conversation.end();
 
-      // Populate this.pageItems
+        try {
+            CD deletableEntity = findById(getId());
 
-      CriteriaQuery<CD> criteria = builder.createQuery(CD.class);
-      root = criteria.from(CD.class);
-      TypedQuery<CD> query = this.entityManager.createQuery(criteria.select(
-               root).where(getSearchPredicates(root)));
-      query.setFirstResult(this.page * getPageSize()).setMaxResults(
-               getPageSize());
-      this.pageItems = query.getResultList();
-   }
+            this.entityManager.remove(deletableEntity);
+            this.entityManager.flush();
+            return "search?faces-redirect=true";
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(e.getMessage()));
+            return null;
+        }
+    }
 
-   private Predicate[] getSearchPredicates(Root<CD> root)
-   {
+    public int getPage() {
+        return this.page;
+    }
 
-      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-      List<Predicate> predicatesList = new ArrayList<>();
+    public void setPage(int page) {
+        this.page = page;
+    }
 
-      String title = this.example.getTitle();
-      if (title != null && !"".equals(title))
-      {
-         predicatesList.add(builder.like(
-                  builder.lower(root.<String> get("title")),
-                  '%' + title.toLowerCase() + '%'));
-      }
-      String description = this.example.getDescription();
-      if (description != null && !"".equals(description))
-      {
-         predicatesList.add(builder.like(
-                  builder.lower(root.<String> get("description")),
-                  '%' + description.toLowerCase() + '%'));
-      }
-      Label label = this.example.getLabel();
-      if (label != null)
-      {
-         predicatesList.add(builder.equal(root.get("label"), label));
-      }
-      Genre genre = this.example.getGenre();
-      if (genre != null)
-      {
-         predicatesList.add(builder.equal(root.get("genre"), genre));
-      }
+    public int getPageSize() {
+        return 10;
+    }
 
-      return predicatesList.toArray(new Predicate[predicatesList.size()]);
-   }
+    public CD getExample() {
+        return this.example;
+    }
 
-   public List<CD> getPageItems()
-   {
-      return this.pageItems;
-   }
+    public void setExample(CD example) {
+        this.example = example;
+    }
 
-   public long getCount()
-   {
-      return this.count;
-   }
+    public String search() {
+        this.page = 0;
+        return null;
+    }
+
+    public void paginate() {
+
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+
+        // Populate this.count
+
+        CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+        Root<CD> root = countCriteria.from(CD.class);
+        countCriteria = countCriteria.select(builder.count(root)).where(
+                getSearchPredicates(root));
+        this.count = this.entityManager.createQuery(countCriteria)
+                .getSingleResult();
+
+        // Populate this.pageItems
+
+        CriteriaQuery<CD> criteria = builder.createQuery(CD.class);
+        root = criteria.from(CD.class);
+        TypedQuery<CD> query = this.entityManager.createQuery(criteria.select(
+                root).where(getSearchPredicates(root)));
+        query.setFirstResult(this.page * getPageSize()).setMaxResults(
+                getPageSize());
+        this.pageItems = query.getResultList();
+    }
+
+    private Predicate[] getSearchPredicates(Root<CD> root) {
+
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+        List<Predicate> predicatesList = new ArrayList<>();
+
+        String title = this.example.getTitle();
+        if (title != null && !"".equals(title)) {
+            predicatesList.add(builder.like(
+                    builder.lower(root.<String>get("title")),
+                    '%' + title.toLowerCase() + '%'));
+        }
+        String description = this.example.getDescription();
+        if (description != null && !"".equals(description)) {
+            predicatesList.add(builder.like(
+                    builder.lower(root.<String>get("description")),
+                    '%' + description.toLowerCase() + '%'));
+        }
+        Label label = this.example.getLabel();
+        if (label != null) {
+            predicatesList.add(builder.equal(root.get("label"), label));
+        }
+        Genre genre = this.example.getGenre();
+        if (genre != null) {
+            predicatesList.add(builder.equal(root.get("genre"), genre));
+        }
+
+        return predicatesList.toArray(new Predicate[predicatesList.size()]);
+    }
 
    /*
     * Support listing and POSTing back CD entities (e.g. from inside an HtmlSelectOneMenu)
     */
 
-   public List<CD> getAll()
-   {
+    public List<CD> getPageItems() {
+        return this.pageItems;
+    }
 
-      CriteriaQuery<CD> criteria = this.entityManager.getCriteriaBuilder()
-               .createQuery(CD.class);
-      return this.entityManager.createQuery(
-               criteria.select(criteria.from(CD.class))).getResultList();
-   }
+    public long getCount() {
+        return this.count;
+    }
 
-   @Resource
-   private SessionContext sessionContext;
+    public List<CD> getAll() {
 
-   public Converter getConverter()
-   {
-
-      final CDBean ejbProxy = this.sessionContext
-               .getBusinessObject(CDBean.class);
-
-      return new Converter()
-      {
-
-         @Override
-         public Object getAsObject(FacesContext context,
-                  UIComponent component, String value)
-         {
-
-            return ejbProxy.findById(Long.valueOf(value));
-         }
-
-         @Override
-         public String getAsString(FacesContext context,
-                  UIComponent component, Object value)
-         {
-
-            if (value == null)
-            {
-               return "";
-            }
-
-            return String.valueOf(((CD) value).getId());
-         }
-      };
-   }
+        CriteriaQuery<CD> criteria = this.entityManager.getCriteriaBuilder()
+                .createQuery(CD.class);
+        return this.entityManager.createQuery(
+                criteria.select(criteria.from(CD.class))).getResultList();
+    }
 
    /*
     * Support adding children to bidirectional, one-to-many tables
     */
 
-   private CD add = new CD();
+    public Converter getConverter() {
 
-   public CD getAdd()
-   {
-      return this.add;
-   }
+        final CDBean ejbProxy = this.sessionContext
+                .getBusinessObject(CDBean.class);
 
-   public CD getAdded()
-   {
-      CD added = this.add;
-      this.add = new CD();
-      return added;
-   }
+        return new Converter() {
+
+            @Override
+            public Object getAsObject(FacesContext context,
+                                      UIComponent component, String value) {
+
+                return ejbProxy.findById(Long.valueOf(value));
+            }
+
+            @Override
+            public String getAsString(FacesContext context,
+                                      UIComponent component, Object value) {
+
+                if (value == null) {
+                    return "";
+                }
+
+                return String.valueOf(((CD) value).getId());
+            }
+        };
+    }
+
+    public CD getAdd() {
+        return this.add;
+    }
+
+    public CD getAdded() {
+        CD added = this.add;
+        this.add = new CD();
+        return added;
+    }
 }

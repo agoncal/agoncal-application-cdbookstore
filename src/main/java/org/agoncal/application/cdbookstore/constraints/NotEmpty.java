@@ -1,32 +1,40 @@
 package org.agoncal.application.cdbookstore.constraints;
 
-import java.lang.annotation.*;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import javax.validation.ReportAsSingleViolation;
+import java.lang.annotation.*;
+
+/**
+ * @author Antonio Goncalves
+ *         http://www.antoniogoncalves.org
+ *         --
+ */
 
 @Constraint(validatedBy = {})
 @ReportAsSingleViolation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER,
-         ElementType.TYPE, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR })
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.TYPE, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR})
 @Documented
-public @interface NotEmpty
-{
+public @interface NotEmpty {
 
-   String message() default "Invalid value";
+    // ======================================
+    // =             Attributes             =
+    // ======================================
 
-   Class<?>[]groups() default {};
+    String message() default "{org.agoncal.application.cdbookstore.constraints.NotEmpty.message}";
 
-   Class<? extends Payload>[]payload() default {};
+    Class<?>[] groups() default {};
 
-   @Retention(RetentionPolicy.RUNTIME)
-   @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER,
-            ElementType.TYPE, ElementType.ANNOTATION_TYPE,
-            ElementType.CONSTRUCTOR })
-   public @interface List
-   {
-      NotEmpty[]value();
-   }
+    Class<? extends Payload>[] payload() default {};
+
+    // ======================================
+    // =          Inner Annotation          =
+    // ======================================
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.TYPE, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR})
+    @interface List {
+        NotEmpty[] value();
+    }
 }

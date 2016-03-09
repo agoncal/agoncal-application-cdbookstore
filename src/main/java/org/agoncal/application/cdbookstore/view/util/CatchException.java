@@ -1,13 +1,11 @@
 package org.agoncal.application.cdbookstore.view.util;
 
-import java.lang.annotation.*;
-
 import javax.interceptor.InterceptorBinding;
+import java.lang.annotation.*;
 
 @InterceptorBinding
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD, ElementType.TYPE })
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Documented
-public @interface CatchException
-{
+public @interface CatchException {
 }

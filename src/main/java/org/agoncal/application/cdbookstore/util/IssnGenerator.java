@@ -4,20 +4,18 @@ import javax.inject.Inject;
 import java.util.logging.Logger;
 
 @EightDigits
-public class IssnGenerator
-{
+public class IssnGenerator {
 
-   @Inject
-   private Logger logger;
-   @Inject
-   @EightDigits
-   private String prefix;
-   @Inject
-   @EightDigits
-   private int postfix;
+    @Inject
+    private Logger logger;
+    @Inject
+    @EightDigits
+    private String prefix;
+    @Inject
+    @EightDigits
+    private int postfix;
 
-   public String generateNumber()
-   {
-      throw new UnsupportedOperationException("Not supported yet.");
-   }
+    public String generateNumber() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
