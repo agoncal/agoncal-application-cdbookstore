@@ -17,16 +17,28 @@ import java.util.List;
 @Transactional
 public class CatalogBean {
 
-    private String keyword;
-    private List<Item> items;
-    private Item item;
-    private Long itemId;
+    // ======================================
+    // =          Injection Points          =
+    // ======================================
 
     @Inject
     private FacesContext facesContext;
 
     @PersistenceContext(unitName = "applicationCDBookStorePU")
     private EntityManager em;
+
+    // ======================================
+    // =             Attributes             =
+    // ======================================
+
+    private String keyword;
+    private List<Item> items;
+    private Item item;
+    private Long itemId;
+
+    // ======================================
+    // =          Business methods          =
+    // ======================================
 
     public String doSearch() {
         TypedQuery<Item> typedQuery = em.createNamedQuery(Item.SEARCH, Item.class);
@@ -39,6 +51,10 @@ public class CatalogBean {
         item = em.find(Item.class, itemId);
         return null;
     }
+
+    // ======================================
+    // =        Getters and Setters         =
+    // ======================================
 
     public String getKeyword() {
         return keyword;

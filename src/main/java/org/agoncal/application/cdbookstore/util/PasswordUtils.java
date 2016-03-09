@@ -3,7 +3,17 @@ package org.agoncal.application.cdbookstore.util;
 import java.security.MessageDigest;
 import java.util.Base64;
 
+/**
+ * @author Antonio Goncalves
+ *         http://www.antoniogoncalves.org
+ *         --
+ */
+
 public class PasswordUtils {
+
+    // ======================================
+    // =          Business methods          =
+    // ======================================
 
     public static String digestPassword(String plainTextPassword) {
         try {

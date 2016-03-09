@@ -7,7 +7,17 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import java.util.logging.Logger;
 
+/**
+ * @author Antonio Goncalves
+ *         http://www.antoniogoncalves.org
+ *         --
+ */
+
 public class ResourceProducer {
+
+    // ======================================
+    // =              Producers             =
+    // ======================================
 
     @Produces
     @RequestScoped

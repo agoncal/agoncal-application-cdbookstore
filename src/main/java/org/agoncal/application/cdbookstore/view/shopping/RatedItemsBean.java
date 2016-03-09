@@ -18,12 +18,22 @@ import java.util.*;
 @Transactional
 public class RatedItemsBean {
 
-    List<Item> topRatedItems;
-    Set<Item> randomItems = new HashSet<>();
+    // ======================================
+    // =          Injection Points          =
+    // ======================================
+
     @Inject
     private FacesContext facesContext;
+
     @PersistenceContext(unitName = "applicationCDBookStorePU")
     private EntityManager em;
+
+    // ======================================
+    // =             Attributes             =
+    // ======================================
+
+    List<Item> topRatedItems;
+    Set<Item> randomItems = new HashSet<>();
 
     // ======================================
     // =         Lifecycle methods          =
@@ -35,6 +45,10 @@ public class RatedItemsBean {
         doFindRandomThree();
 
     }
+
+    // ======================================
+    // =          Business methods          =
+    // ======================================
 
     private void doFindRandomThree() {
         int min = em.createQuery("select min (i.id) from Item i", Long.class).getSingleResult().intValue();
@@ -52,6 +66,10 @@ public class RatedItemsBean {
         TypedQuery<Item> query = em.createNamedQuery(Item.FIND_TOP_RATED, Item.class);
         topRatedItems = query.getResultList();
     }
+
+    // ======================================
+    // =        Getters and Setters         =
+    // ======================================
 
     public List<Item> getTopRatedItems() {
         return topRatedItems;

@@ -25,7 +25,7 @@ import java.util.Map;
 public class ShoppingCartBean implements Serializable {
 
     // ======================================
-    // = Attributes =
+    // =          Injection Points          =
     // ======================================
 
     @Inject
@@ -34,11 +34,15 @@ public class ShoppingCartBean implements Serializable {
     @PersistenceContext(unitName = "applicationCDBookStorePU")
     private EntityManager em;
 
+    // ======================================
+    // =             Attributes             =
+    // ======================================
+
     private List<ShoppingCartItem> cartItems = new ArrayList<>();
     private CreditCard creditCard = new CreditCard();
 
     // ======================================
-    // = Public Methods =
+    // =          Business methods          =
     // ======================================
 
     public String addItemToCart() {
@@ -114,7 +118,7 @@ public class ShoppingCartBean implements Serializable {
     }
 
     // ======================================
-    // = Getters & setters =
+    // =        Getters and Setters         =
     // ======================================
 
     public CreditCard getCreditCard() {

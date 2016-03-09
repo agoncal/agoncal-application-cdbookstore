@@ -32,23 +32,35 @@ import java.util.UUID;
 public class AccountBean implements Serializable {
 
     // ======================================
-    // = Attributes =
+    // =          Injection Points          =
     // ======================================
 
-    private static final long serialVersionUID = 1L;
-    // Remember me and cookie
-    private static final String COOKIE_NAME = "applicationCDBookStoreCookie";
-    private static final int COOKIE_AGE = 60; // Expires after 60 seconds or even 2_592_000 for one month
     @Inject
     private BeanManager beanManager;
+
     @Inject
     private FacesContext facesContext;
+
     @Inject
     private HttpServletResponse response;
+
     @Inject
     private HttpServletRequest request;
+
     @PersistenceContext(unitName = "applicationCDBookStorePU")
     private EntityManager em;
+
+    // ======================================
+    // =             Constants              =
+    // ======================================
+
+    private static final String COOKIE_NAME = "applicationCDBookStoreCookie";
+    private static final int COOKIE_AGE = 60; // Expires after 60 seconds or even 2_592_000 for one month
+
+    // ======================================
+    // =             Attributes             =
+    // ======================================
+
     // Logged user
     private User user = new User();
     private boolean loggedIn;
@@ -56,7 +68,6 @@ public class AccountBean implements Serializable {
     private String password1;
     private String password2;
     private boolean rememberMe;
-
 
     // ======================================
     // =         Lifecycle methods          =
@@ -84,7 +95,7 @@ public class AccountBean implements Serializable {
     }
 
     // ======================================
-    // = Business methods =
+    // =          Business methods          =
     // ======================================
 
     public String doSignup() {
@@ -221,6 +232,9 @@ public class AccountBean implements Serializable {
         password2 = null;
     }
 
+    // ======================================
+    // =        Getters and Setters         =
+    // ======================================
 
     public User getUser() {
         return user;

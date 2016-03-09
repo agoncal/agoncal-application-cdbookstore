@@ -21,7 +21,7 @@ import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
 public class CatchExceptionInterceptor {
 
     // ======================================
-    // =             Attributes             =
+    // =          Injection Points          =
     // ======================================
 
     @Inject

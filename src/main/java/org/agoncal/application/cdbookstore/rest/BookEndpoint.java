@@ -21,7 +21,7 @@ import java.util.List;
 public class BookEndpoint {
 
     // ======================================
-    // =             Attributes             =
+    // =          Injection Points          =
     // ======================================
 
     @PersistenceContext(unitName = "applicationCDBookStorePU")

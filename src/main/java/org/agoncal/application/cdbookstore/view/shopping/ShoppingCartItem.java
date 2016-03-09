@@ -33,7 +33,7 @@ public class ShoppingCartItem {
     }
 
     // ======================================
-    // =              Public Methods        =
+    // =          Business methods          =
     // ======================================
 
     public Float getSubTotal() {
