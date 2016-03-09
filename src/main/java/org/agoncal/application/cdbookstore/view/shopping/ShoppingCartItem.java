@@ -86,11 +86,9 @@ public class ShoppingCartItem {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("CartItem");
-        sb.append("{item='").append(item).append('\'');
-        sb.append(", quantity='").append(quantity).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "ShoppingCartItem{" +
+                "item=" + item +
+                ", quantity=" + quantity +
+                '}';
     }
 }
