@@ -3,6 +3,7 @@ package org.agoncal.application.cdbookstore.view.admin;
 import org.agoncal.application.cdbookstore.model.Artist;
 import org.agoncal.application.cdbookstore.model.Author;
 import org.agoncal.application.cdbookstore.model.Language;
+import org.agoncal.application.cdbookstore.model.LanguageConverter;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -13,6 +14,7 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
+import static org.agoncal.application.cdbookstore.model.Language.ENGLISH;
 import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
@@ -29,6 +31,7 @@ public class AuthorBeanTest {
                 .addClass(Author.class)
                 .addClass(Artist.class)
                 .addClass(Language.class)
+                .addClass(LanguageConverter.class)
                 .addAsManifestResource("META-INF/persistence-test.xml", "persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
@@ -44,6 +47,7 @@ public class AuthorBeanTest {
         Author author = new Author();
         author.setFirstName("Dummy value");
         author.setLastName("Dummy value");
+        author.setPreferredLanguage(ENGLISH);
 
         // Inserts the object into the database
         authorBean.setAuthor(author);

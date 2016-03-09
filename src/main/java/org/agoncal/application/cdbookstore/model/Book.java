@@ -50,6 +50,22 @@ public class Book extends Item {
     private Publisher publisher;
 
     // ======================================
+    // =            Constructors            =
+    // ======================================
+
+    public Book() {
+    }
+
+    public Book(String isbn, String title, String description, Float unitCost, Integer nbOfPages, Language language) {
+        this.isbn = isbn;
+        this.title = title;
+        this.description = description;
+        this.unitCost = unitCost;
+        this.nbOfPage = nbOfPages;
+        this.language = language;
+    }
+
+    // ======================================
     // =        Getters and Setters         =
     // ======================================
 

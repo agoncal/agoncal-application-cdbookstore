@@ -30,6 +30,7 @@ public class PurchaseOrderBeanTest {
                 .addClass(User.class)
                 .addClass(UserRole.class)
                 .addClass(CreditCard.class)
+                .addClass(CreditCardConverter.class)
                 .addClass(CreditCardType.class)
                 .addClass(OrderLine.class)
                 .addClass(Item.class)

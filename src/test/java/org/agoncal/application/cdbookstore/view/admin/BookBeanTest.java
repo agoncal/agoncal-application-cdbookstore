@@ -27,6 +27,7 @@ public class BookBeanTest {
                 .addClass(Book.class)
                 .addClass(Item.class)
                 .addClass(Language.class)
+                .addClass(LanguageConverter.class)
                 .addClass(Category.class)
                 .addClass(Publisher.class)
                 .addClass(Artist.class)

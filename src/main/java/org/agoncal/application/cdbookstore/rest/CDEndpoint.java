@@ -11,13 +11,25 @@ import javax.ws.rs.core.UriBuilder;
 import java.util.List;
 
 /**
- *
+ * @author Antonio Goncalves
+ *         http://www.antoniogoncalves.org
+ *         --
  */
+
 @Stateless
 @Path("/cds")
 public class CDEndpoint {
+
+    // ======================================
+    // =             Attributes             =
+    // ======================================
+
     @PersistenceContext(unitName = "applicationCDBookStorePU")
     private EntityManager em;
+
+    // ======================================
+    // =          Business methods          =
+    // ======================================
 
     @POST
     @Consumes({"application/xml", "application/json"})
