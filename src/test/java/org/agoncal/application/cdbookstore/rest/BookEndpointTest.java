@@ -56,56 +56,27 @@ public class BookEndpointTest {
         assertEquals(Response.Status.OK.getStatusCode(), target.request(MediaType.APPLICATION_XML).get().getStatus());
     }
 
-//    @Test
-//    public void should_crud() {
-//        Client client = ClientBuilder.newClient();
-//        WebTarget target = client.target(baseURL).path("rest").path("books");
-//
-//        int initialSize = client.target(URL + "/books").request(MediaType.APPLICATION_XML).get(Books.class).size();
-//
-//        // Creates an object
-//        Book book = new Book();
-//        book.setTitle("Dummy value");
-//        book.setIsbn("Dummy value");
-//
-//        // Inserts the object into the database
-//        Response response = target.request(MediaType.APPLICATION_JSON).post(Entity.entity(book, MediaType.APPLICATION_XML));
-//        assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
-//        URI locationNewBook = response.getLocation();
-
-        // Finds the object from the database and checks it's the right one
-//        book = bookBean.findById(book.getId());
-//        assertEquals("Dummy value", book.getTitle());
-
-        // Deletes the object from the database and checks it's not there anymore
-//        bookBean.setId(book.getId());
-//        bookBean.create();
-//        bookBean.delete();
-//        book = bookBean.findById(book.getId());
-//        assertNull(book);
-//    }
-
     @Test
     public void shouldCRUDBooks() throws IOException {
 
         Client client = ClientBuilder.newClient();
-        String URL = "http://localhost:8080/applicationCDBookStore/rest";
-        int initialSize = client.target(URL + "/books").request(MediaType.APPLICATION_XML).get(Books.class).size();
+        WebTarget target = client.target(baseURL).path("rest").path("books");
+        int initialSize = target.request(MediaType.APPLICATION_XML).get(Books.class).size();
 
         // creates a book
         Book book = new Book("1234-5678", "H2G2", "The best Scifi book", 45.5f, 345, Language.ENGLISH);
-        Response response = client.target(URL + "/books").request().post(Entity.entity(book, MediaType.APPLICATION_XML));
+        Response response = target.request().post(Entity.entity(book, MediaType.APPLICATION_XML));
         assertEquals(201, response.getStatus());
         URI locationNewBook = response.getLocation();
 
         // checks there is one more book
-        assertEquals(initialSize + 1, client.target(URL + "/books").request(MediaType.APPLICATION_XML).get(Books.class).size());
+        assertEquals(initialSize + 1, target.request(MediaType.APPLICATION_XML).get(Books.class).size());
 
         // deletes the created book
-        response = client.target(URL + locationNewBook).request().delete();
+        response = client.target(locationNewBook).request().delete();
         assertEquals(204, response.getStatus());
 
         // checks there is one less book
-        assertEquals(initialSize, client.target(URL + "/books").request(MediaType.APPLICATION_XML).get(Books.class).size());
+        assertEquals(initialSize, target.request(MediaType.APPLICATION_XML).get(Books.class).size());
     }
 }

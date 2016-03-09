@@ -48,6 +48,11 @@
                 <type>pom</type>
                 <scope>provided</scope>
             </dependency>
+            <!--<dependency>-->
+                <!--<groupId>org.jboss.resteasy</groupId>-->
+                <!--<artifactId>resteasy-jackson-provider</artifactId>-->
+                <!--<version>3.0.12.Final</version>-->
+            <!--</dependency>-->
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-client</artifactId>
