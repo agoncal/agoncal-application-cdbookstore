@@ -1,6 +1,6 @@
 package org.agoncal.application.cdbookstore.view.account;
 
-import com.thedeanda.lorem.Lorem;
+import com.thedeanda.lorem.LoremIpsum;
 import org.agoncal.application.cdbookstore.model.User;
 import org.agoncal.application.cdbookstore.model.UserRole;
 import org.agoncal.application.cdbookstore.util.PasswordUtils;
@@ -195,7 +195,7 @@ public class AccountBean implements Serializable
       try
       {
          user = query.getSingleResult();
-         String temporaryPassword = Lorem.getWords(1);
+         String temporaryPassword = LoremIpsum.getInstance().getWords(1);
          user.setPassword(PasswordUtils.digestPassword(temporaryPassword));
          em.merge(user);
          facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Email sent",
