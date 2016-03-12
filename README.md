@@ -33,6 +33,14 @@ The application is divided in several modules:
 
 Being Maven centric, you can compile and package it without tests using `mvn clean compile -Dmaven.test.skip=true`, `mvn clean package -Dmaven.test.skip=true` or `mvn clean install -Dmaven.test.skip=true`. Once you have your war file, you can deploy it.
 
+### Starting JBoss/WildFly
+
+The invoice is an MDB, so you need to start the full profile of JBoss : 
+
+* `./standalone.sh -c standalone-full.xml`
+
+Then you need to create a Queue with the following command in `jboss_cli.sh` : `jms-queue add --queue-address=invoiceQueue --entries=jms/queue/invoiceQueue`
+
 ### Test with Arquillian
 
 Launching tests under [WildFly](http://www.wildfly.org/) is straight forward. You only have to launch WidlFly and execute the tests using the Maven profile :

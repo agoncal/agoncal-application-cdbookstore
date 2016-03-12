@@ -1,4 +1,4 @@
-package org.agoncal.application.topsells;
+package org.agoncal.application.invoice;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -13,12 +13,11 @@ public class ResourceProducer {
     // ======================================
 
     @Produces
-    @PersistenceContext(unitName = "applicationTopSellsPU")
+    @PersistenceContext(unitName = "applicationInvoicePU")
     private EntityManager em;
 
     @Produces
-    public Logger produceLogger(InjectionPoint injectionPoint)
-    {
+    public Logger produceLogger(InjectionPoint injectionPoint) {
         return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
     }
 }

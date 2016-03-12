@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -26,6 +27,7 @@ public class Invoice implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
+
     @Version
     @Column(name = "version")
     private int version;
@@ -34,20 +36,13 @@ public class Invoice implements Serializable {
     @Temporal(TemporalType.DATE)
     @Past
     private Date invoiceDate;
-
-    @Column
     private Float totalWithoutVat;
 
     @Column(name = "vat_rate")
     private Float vatRate;
 
-    @Column
     private Float vat;
-
-    @Column
     private Float totalWithVat;
-
-    @Column
     private Float total;
 
     @Column(length = 50, name = "first_name", nullable = false)
@@ -59,8 +54,6 @@ public class Invoice implements Serializable {
     @NotNull
     @Size(min = 2, max = 50)
     private String lastName;
-
-    @Column
     private String telephone;
 
     @Column
@@ -71,28 +64,39 @@ public class Invoice implements Serializable {
     @Size(min = 5, max = 50)
     @NotNull
     private String street1;
-
-    @Column
     private String street2;
 
     @Column(length = 50, nullable = false)
     @Size(min = 2, max = 50)
     @NotNull
     private String city;
-
-    @Column
     private String state;
 
     @Column(length = 10, name = "zip_code", nullable = false)
     @Size(min = 1, max = 10)
     @NotNull
     private String zipcode;
-
-    @NotNull
     private String country;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<InvoiceLine> invoiceLines = new HashSet<>();
+
+    // ======================================
+    // =            Constructors            =
+    // ======================================
+
+    public Invoice() {
+    }
+
+    public Invoice(String firstName, String lastName, String email, String street1, String city, String zipcode, String country) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.street1 = street1;
+        this.city = city;
+        this.country = country;
+        this.zipcode = zipcode;
+    }
 
     // ======================================
     // =        Getters and Setters         =
@@ -250,66 +254,53 @@ public class Invoice implements Serializable {
         this.invoiceLines = invoiceLines;
     }
 
+    public void addInvoiceLine(InvoiceLine invoiceLine) {
+        invoiceLines.add(invoiceLine);
+    }
 
     // ======================================
     // =   Methods hash, equals, toString   =
     // ======================================
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Invoice)) {
-            return false;
-        }
-        Invoice other = (Invoice) obj;
-        if (id != null) {
-            if (!id.equals(other.id)) {
-                return false;
-            }
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Invoice invoice = (Invoice) o;
+        return Objects.equals(invoiceDate, invoice.invoiceDate) &&
+                Objects.equals(firstName, invoice.firstName) &&
+                Objects.equals(lastName, invoice.lastName) &&
+                Objects.equals(email, invoice.email) &&
+                Objects.equals(invoiceLines, invoice.invoiceLines);
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
+        return Objects.hash(invoiceDate, firstName, lastName, email, invoiceLines);
     }
 
     @Override
     public String toString() {
-        String result = getClass().getSimpleName() + " ";
-        if (id != null)
-            result += "id: " + id;
-        result += ", version: " + version;
-        if (invoiceDate != null)
-            result += ", orderDate: " + invoiceDate;
-        if (totalWithoutVat != null)
-            result += ", totalWithoutVat: " + totalWithoutVat;
-        if (vatRate != null)
-            result += ", vatRate: " + vatRate;
-        if (vat != null)
-            result += ", vat: " + vat;
-        if (totalWithVat != null)
-            result += ", totalWithVat: " + totalWithVat;
-        if (total != null)
-            result += ", total: " + total;
-        if (invoiceLines != null)
-            result += ", orderLines: " + invoiceLines;
-        if (getStreet1() != null && !getStreet1().trim().isEmpty())
-            result += ", street1: " + getStreet1();
-        if (getStreet2() != null && !getStreet2().trim().isEmpty())
-            result += ", street2: " + getStreet2();
-        if (getCity() != null && !getCity().trim().isEmpty())
-            result += ", city: " + getCity();
-        if (getState() != null && !getState().trim().isEmpty())
-            result += ", state: " + getState();
-        if (getZipcode() != null && !getZipcode().trim().isEmpty())
-            result += ", zipcode: " + getZipcode();
-        return result;
+        return "Invoice{" +
+                "city='" + city + '\'' +
+                ", id=" + id +
+                ", version=" + version +
+                ", invoiceDate=" + invoiceDate +
+                ", totalWithoutVat=" + totalWithoutVat +
+                ", vatRate=" + vatRate +
+                ", vat=" + vat +
+                ", totalWithVat=" + totalWithVat +
+                ", total=" + total +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", street1='" + street1 + '\'' +
+                ", street2='" + street2 + '\'' +
+                ", state='" + state + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", country='" + country + '\'' +
+                ", invoiceLines=" + invoiceLines +
+                '}';
     }
 }

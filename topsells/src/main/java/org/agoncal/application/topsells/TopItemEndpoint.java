@@ -13,11 +13,20 @@ import java.util.logging.Logger;
 @Path("/topitems")
 @Transactional
 public class TopItemEndpoint {
+
+    // ======================================
+    // =          Injection Points          =
+    // ======================================
+
     @Inject
     private EntityManager em;
 
     @Inject
     private Logger logger;
+
+    // ======================================
+    // =          Business methods          =
+    // ======================================
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

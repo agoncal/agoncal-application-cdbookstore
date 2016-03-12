@@ -37,6 +37,7 @@ public class Item implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
     protected Long id;
+
     @Version
     @Column(name = "version")
     protected int version;

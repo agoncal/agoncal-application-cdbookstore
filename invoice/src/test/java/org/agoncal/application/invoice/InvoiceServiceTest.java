@@ -1,0 +1,75 @@
+package org.agoncal.application.invoice;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+@RunWith(Arquillian.class)
+public class InvoiceServiceTest {
+
+    @Inject
+    private InvoiceService invoiceService;
+
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+                .addClass(Invoice.class)
+                .addClass(InvoiceLine.class)
+                .addClass(InvoiceService.class)
+                .addClass(ResourceProducer.class)
+                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
+
+    @Test
+    public void should_be_deployed() {
+        Assert.assertNotNull(invoiceService);
+    }
+
+    @Test
+    public void should_crud() {
+        // Gets all the objects
+        int initialSize = invoiceService.listAll().size();
+        assertEquals(initialSize, invoiceService.listAll(0, 10).size());
+
+        // Creates an object
+        Invoice invoice = new Invoice("First name", "Last name", "email", "street1", "city", "zipcode", "country");
+        InvoiceLine line1 = new InvoiceLine(1, "item1", 2.25F);
+        InvoiceLine line2 = new InvoiceLine(3, "item2", 12.5F);
+        invoice.addInvoiceLine(line1);
+        invoice.addInvoiceLine(line2);
+
+        // Inserts the object into the database
+        invoice = invoiceService.persist(invoice);
+        assertNotNull(invoice.getId());
+        assertEquals(initialSize + 1, invoiceService.listAll().size());
+        assertEquals(initialSize + 1, invoiceService.listAll(0, 10).size());
+
+        // Finds the object from the database and checks it's the right one
+        invoice = invoiceService.findById(invoice.getId());
+        assertEquals(2, invoice.getInvoiceLines().size());
+        assertEquals("First name", invoice.getFirstName());
+
+        // Updates the object
+        invoice.setFirstName("A new first name");
+        invoice = invoiceService.merge(invoice);
+
+        // Finds the object from the database and checks it has been updated
+        invoice = invoiceService.findById(invoice.getId());
+        assertEquals("A new first name", invoice.getFirstName());
+
+        // Deletes the object from the database and checks it's not there anymore
+        invoiceService.remove(invoice);
+        assertEquals(initialSize, invoiceService.listAll().size());
+    }
+}

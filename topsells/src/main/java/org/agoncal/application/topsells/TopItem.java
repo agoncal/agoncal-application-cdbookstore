@@ -1,68 +1,93 @@
 package org.agoncal.application.topsells;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @NamedQueries({
-         @NamedQuery(name = TopItem.FIND_TOP_ITEMS, query = "SELECT b FROM Book b")
+        @NamedQuery(name = TopItem.FIND_TOP_ITEMS, query = "SELECT b FROM Book b")
 })
-public class TopItem implements Serializable
-{
+public class TopItem implements Serializable {
 
-   public static final String FIND_TOP_ITEMS = "TopItem.findTopRated";
+    // ======================================
+    // =             Constants              =
+    // ======================================
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id", updatable = false, nullable = false)
-   protected Long id;
+    public static final String FIND_TOP_ITEMS = "TopItem.findTopRated";
 
-   private String isbn;
+    // ======================================
+    // =             Attributes             =
+    // ======================================
 
-   public Long getId()
-   {
-      return this.id;
-   }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
+    protected Long id;
 
-   public void setId(final Long id)
-   {
-      this.id = id;
-   }
+    @Version
+    @Column(name = "version")
+    protected int version;
 
-   public String getIsbn()
-   {
-      return isbn;
-   }
+    @Column(length = 200)
+    @NotNull
+    @Size(min = 1, max = 200)
+    protected String title;
 
-   public void setIsbn(String isbn)
-   {
-      this.isbn = isbn;
-   }
+    // ======================================
+    // =        Getters and Setters         =
+    // ======================================
 
-   @Override
-   public boolean equals(Object o)
-   {
-      if (this == o)
-         return true;
-      if (o == null || getClass() != o.getClass())
-         return false;
-      TopItem book = (TopItem) o;
-      return Objects.equals(isbn, book.isbn);
-   }
+    public Long getId() {
+        return id;
+    }
 
-   @Override
-   public int hashCode()
-   {
-      return Objects.hash(isbn);
-   }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-   @Override
-   public String toString()
-   {
-      return "Book{" +
-               "id=" + id +
-               ", isbn='" + isbn + '\'' +
-               '}';
-   }
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    // ======================================
+    // =   Methods hash, equals, toString   =
+    // ======================================
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TopItem topItem = (TopItem) o;
+        return Objects.equals(id, topItem.id) &&
+                Objects.equals(title, topItem.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title);
+    }
+
+    @Override
+    public String toString() {
+        return "TopItem{" +
+                "id=" + id +
+                ", version=" + version +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }
