@@ -21,6 +21,14 @@ The only external framework used are [Arquillian](http://arquillian.org/), [Twit
 
 To fill up the database, I've used some Amazon Web Services. You will find the raw XML data in the `xml` directory with XSLT transformation (zipped so it's not too big).
 
+## Architecture
+
+The application is divided in several modules: 
+
+* The CD-Boostore is the main web app that allows you to buy CDs and Books.
+* The Top Sells is a REST service that calculates the top sells. This REST service is invoked by CD-Boostore to display the top sells on the main page
+* Billing : is a Message Driven Bean that receives all the sells that have been done and creates invoices  
+
 ## Compile and package
 
 Being Maven centric, you can compile and package it without tests using `mvn clean compile -Dmaven.test.skip=true`, `mvn clean package -Dmaven.test.skip=true` or `mvn clean install -Dmaven.test.skip=true`. Once you have your war file, you can deploy it.

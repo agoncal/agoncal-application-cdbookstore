@@ -12,7 +12,7 @@
     
     <modules>
         <module>cdbookstore</module>
-        <module>billing</module>
+        <module>invoice</module>
         <module>topsells</module>
     </modules>
 

@@ -10,7 +10,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>billing</artifactId>
+    <artifactId>invoice</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
@@ -30,6 +30,6 @@
     </dependencies>
 
     <build>
-        <finalName>applicationBilling</finalName>
+        <finalName>applicationInvoice</finalName>
     </build>
 </project>
