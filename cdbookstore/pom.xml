@@ -4,68 +4,21 @@
          xmlns="http://maven.apache.org/POM/4.0.0">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.agoncal.application.cdbookstore</groupId>
-    <artifactId>agoncal-application-cdbookstore</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <parent>
+        <groupId>org.agoncal.application.cdbookstore</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>cdbookstore</artifactId>
+    <version>1.0</version>
     <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.arquillian_core>1.1.11.Final</version.arquillian_core>
-        <version.junit>4.12</version.junit>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>${version.arquillian_core}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>bootstrap</artifactId>
-                <version>3.3.6</version>
-            </dependency>
-            <dependency>
-                <groupId>org.primefaces</groupId>
-                <artifactId>primefaces</artifactId>
-                <version>5.3</version>
-            </dependency>
-            <dependency>
-                <groupId>org.primefaces.themes</groupId>
-                <artifactId>all-themes</artifactId>
-                <version>1.0.10</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-7.0</artifactId>
-                <version>1.0.3.Final</version>
-                <type>pom</type>
-                <scope>provided</scope>
-            </dependency>
-            <!--<dependency>-->
-                <!--<groupId>org.jboss.resteasy</groupId>-->
-                <!--<artifactId>resteasy-jackson-provider</artifactId>-->
-                <!--<version>3.0.12.Final</version>-->
-            <!--</dependency>-->
-            <dependency>
-                <groupId>org.jboss.resteasy</groupId>
-                <artifactId>resteasy-client</artifactId>
-                <version>3.0.12.Final</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.thedeanda</groupId>
-                <artifactId>lorem</artifactId>
-                <version>2.0</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -76,8 +29,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${version.junit}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -109,15 +60,6 @@
 
     <build>
         <finalName>applicationCDBookStore</finalName>
-        <plugins>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 
     <profiles>
@@ -127,12 +69,6 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.19.1</version>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <arquillian.launch>arquillian-wildfly-remote</arquillian.launch>
-                            </systemPropertyVariables>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -140,17 +76,8 @@
                 <dependency>
                     <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <version>8.2.1.Final</version>
-                    <scope>test</scope>
                 </dependency>
             </dependencies>
         </profile>
     </profiles>
-
-    <repositories>
-        <repository>
-            <id>jboss-public</id>
-            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-        </repository>
-    </repositories>
 </project>
