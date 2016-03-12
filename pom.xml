@@ -13,7 +13,7 @@
     <modules>
         <module>cdbookstore</module>
         <module>invoice</module>
-        <module>topsells</module>
+        <module>toprated</module>
     </modules>
 
     <properties>

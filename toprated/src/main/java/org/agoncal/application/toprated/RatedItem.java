@@ -1,4 +1,4 @@
-package org.agoncal.application.topsells;
+package org.agoncal.application.toprated;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,9 +8,9 @@ import java.util.Objects;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = TopItem.FIND_TOP_ITEMS, query = "SELECT b FROM Book b")
+        @NamedQuery(name = RatedItem.FIND_TOP_ITEMS, query = "SELECT i FROM RatedItem i")
 })
-public class TopItem implements Serializable {
+public class RatedItem implements Serializable {
 
     // ======================================
     // =             Constants              =
@@ -35,6 +35,8 @@ public class TopItem implements Serializable {
     @NotNull
     @Size(min = 1, max = 200)
     protected String title;
+
+    protected Integer rank;
 
     // ======================================
     // =        Getters and Setters         =
@@ -64,6 +66,14 @@ public class TopItem implements Serializable {
         this.version = version;
     }
 
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
     // ======================================
     // =   Methods hash, equals, toString   =
     // ======================================
@@ -72,7 +82,7 @@ public class TopItem implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TopItem topItem = (TopItem) o;
+        RatedItem topItem = (RatedItem) o;
         return Objects.equals(id, topItem.id) &&
                 Objects.equals(title, topItem.title);
     }

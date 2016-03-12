@@ -1,4 +1,4 @@
-package org.agoncal.application.topsells;
+package org.agoncal.application.toprated;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 @Path("/topitems")
 @Transactional
-public class TopItemEndpoint {
+public class TopRatedItemEndpoint {
 
     // ======================================
     // =          Injection Points          =
@@ -30,15 +30,15 @@ public class TopItemEndpoint {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public TopItems getTopBooks() {
-        TopItems results = new TopItems();
+    public RatedItems getTopBooks() {
+        RatedItems results = new RatedItems();
 
-        int min = em.createQuery("select min (i.id) from TopItem i", Long.class).getSingleResult().intValue();
-        int max = em.createQuery("select max (i.id) from TopItem i", Long.class).getSingleResult().intValue();
+        int min = em.createQuery("select min (i.id) from RatedItem i", Long.class).getSingleResult().intValue();
+        int max = em.createQuery("select max (i.id) from RatedItem i", Long.class).getSingleResult().intValue();
 
         while (results.size() < 5) {
             long id = new Random().nextInt((max - min) + 1) + min;
-            TopItem item = em.find(TopItem.class, id);
+            RatedItem item = em.find(RatedItem.class, id);
             if (item != null)
                 results.add(item);
         }

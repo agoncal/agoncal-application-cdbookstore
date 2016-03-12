@@ -1,4 +1,4 @@
-package org.agoncal.application.topsells;
+package org.agoncal.application.toprated;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

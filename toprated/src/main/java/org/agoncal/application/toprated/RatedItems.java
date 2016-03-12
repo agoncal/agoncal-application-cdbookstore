@@ -1,4 +1,4 @@
-package org.agoncal.application.topsells;
+package org.agoncal.application.toprated;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -13,18 +13,18 @@ import java.util.List;
  *         --
  */
 @XmlRootElement
-@XmlSeeAlso(TopItem.class)
-public class TopItems extends ArrayList<TopItem> {
+@XmlSeeAlso(RatedItem.class)
+public class RatedItems extends ArrayList<RatedItem> {
 
     // ======================================
     // =            Constructors            =
     // ======================================
 
-    public TopItems() {
+    public RatedItems() {
         super();
     }
 
-    public TopItems(Collection<? extends TopItem> c) {
+    public RatedItems(Collection<? extends RatedItem> c) {
         super(c);
     }
 
@@ -33,7 +33,7 @@ public class TopItems extends ArrayList<TopItem> {
     // ======================================
 
     @XmlElement(name = "topItem")
-    public List<TopItem> getTopItems() {
+    public List<RatedItem> getTopItems() {
         return this;
     }
 }

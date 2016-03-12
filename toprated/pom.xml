@@ -10,7 +10,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>topsells</artifactId>
+    <artifactId>toprated</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
@@ -44,7 +44,7 @@
     </dependencies>
 
     <build>
-        <finalName>applicationTopsells</finalName>
+        <finalName>applicationToprated</finalName>
     </build>
 
     <profiles>

@@ -1,4 +1,4 @@
-package org.agoncal.application.topsells;
+package org.agoncal.application.toprated;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;

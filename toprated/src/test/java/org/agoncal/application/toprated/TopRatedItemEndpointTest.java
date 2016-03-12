@@ -1,4 +1,4 @@
-package org.agoncal.application.topsells;
+package org.agoncal.application.toprated;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Arquillian.class)
 @RunAsClient
-public class TopItemEndpointTest {
+public class TopRatedItemEndpointTest {
 
     @ArquillianResource
     private URI baseURL;
@@ -34,8 +34,8 @@ public class TopItemEndpointTest {
                 .create(WebArchive.class)
                 .addClass(RestApplication.class)
                 .addClass(ResourceProducer.class)
-                .addClass(TopItem.class)
-                .addClass(TopItemEndpoint.class)
+                .addClass(RatedItem.class)
+                .addClass(TopRatedItemEndpoint.class)
                 .addAsResource("META-INF/persistence-test.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
@@ -52,22 +52,22 @@ public class TopItemEndpointTest {
 
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(baseURL).path("rest").path("topitems");
-        int initialSize = target.request(MediaType.APPLICATION_XML).get(TopItems.class).size();
+        int initialSize = target.request(MediaType.APPLICATION_XML).get(RatedItems.class).size();
 
         // creates a book
-        TopItem topItem = new TopItem();
+        RatedItem topItem = new RatedItem();
         Response response = target.request().post(Entity.entity(topItem, MediaType.APPLICATION_XML));
         assertEquals(201, response.getStatus());
         URI locationNewBook = response.getLocation();
 
         // checks there is one more book
-        assertEquals(initialSize + 1, target.request(MediaType.APPLICATION_XML).get(TopItems.class).size());
+        assertEquals(initialSize + 1, target.request(MediaType.APPLICATION_XML).get(RatedItems.class).size());
 
         // deletes the created book
         response = client.target(locationNewBook).request().delete();
         assertEquals(204, response.getStatus());
 
         // checks there is one less book
-        assertEquals(initialSize, target.request(MediaType.APPLICATION_XML).get(TopItems.class).size());
+        assertEquals(initialSize, target.request(MediaType.APPLICATION_XML).get(RatedItems.class).size());
     }
 }
