@@ -1,4 +1,4 @@
-package org.agoncal.application.cdbookstore.util;
+package org.agoncal.application.invoice.util;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.*;
@@ -14,5 +14,5 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER,
         ElementType.TYPE})
 @Documented
-public @interface Discount {
+public @interface Vat {
 }

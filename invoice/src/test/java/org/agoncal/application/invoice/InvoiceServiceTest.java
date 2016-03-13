@@ -1,5 +1,9 @@
 package org.agoncal.application.invoice;
 
+import org.agoncal.application.invoice.model.Invoice;
+import org.agoncal.application.invoice.model.InvoiceLine;
+import org.agoncal.application.invoice.service.InvoiceService;
+import org.agoncal.application.invoice.util.ResourceProducer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -28,7 +32,7 @@ public class InvoiceServiceTest {
                 .addClass(InvoiceService.class)
                 .addClass(ResourceProducer.class)
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+                .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
 
     @Test
@@ -71,5 +75,27 @@ public class InvoiceServiceTest {
         // Deletes the object from the database and checks it's not there anymore
         invoiceService.remove(invoice);
         assertEquals(initialSize, invoiceService.listAll().size());
+    }
+
+    @Test
+    public void should_create_an_invoice() {
+
+        // Creates an object
+        Invoice invoice = new Invoice("First name", "Last name", "email", "street1", "city", "zipcode", "country");
+        InvoiceLine line1 = new InvoiceLine(1, "item1", 25.25F);
+        InvoiceLine line2 = new InvoiceLine(3, "item2", 33.75F);
+        invoice.addInvoiceLine(line1);
+        invoice.addInvoiceLine(line2);
+
+        // Inserts the object into the database
+        invoice = invoiceService.persist(invoice);
+        assertNotNull(invoice.getId());
+
+        // Finds the object from the database and checks it's the right one
+        invoice = invoiceService.findById(invoice.getId());
+        assertEquals(2, invoice.getInvoiceLines().size());
+        assertEquals("First name", invoice.getFirstName());
+        assertEquals(new Float(5.5F), invoice.getVatRate());
+        assertEquals(new Float(12.5F), invoice.getDiscountRate());
     }
 }

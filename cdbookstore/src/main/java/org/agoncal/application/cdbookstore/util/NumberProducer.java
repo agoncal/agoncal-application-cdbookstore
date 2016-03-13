@@ -2,7 +2,6 @@ package org.agoncal.application.cdbookstore.util;
 
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
-import javax.inject.Named;
 
 /**
  * @author Antonio Goncalves
@@ -43,14 +42,4 @@ public class NumberProducer {
     @EightDigits
     @Alternative
     private int postfix3 = 1;
-
-    @Produces
-    @Vat
-    @Named
-    private Float vatRate = 5.5F;
-
-    @Produces
-    @Discount
-    @Named
-    private Float discountRate = 12.5F;
 }

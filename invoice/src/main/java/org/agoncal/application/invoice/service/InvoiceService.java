@@ -1,4 +1,8 @@
-package org.agoncal.application.invoice;
+package org.agoncal.application.invoice.service;
+
+import org.agoncal.application.invoice.model.Invoice;
+import org.agoncal.application.invoice.util.Discount;
+import org.agoncal.application.invoice.util.Vat;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -17,11 +21,19 @@ public class InvoiceService {
     @Inject
     private EntityManager em;
 
+    @Inject @Vat
+    private Float vatRate;
+
+    @Inject @Discount
+    private Float discountRate;
+
     // ======================================
     // =          Business methods          =
     // ======================================
 
     public Invoice persist(Invoice invoice) {
+        invoice.setVatRate(vatRate);
+        invoice.setDiscountRate(discountRate);
         em.persist(invoice);
         return invoice;
     }

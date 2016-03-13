@@ -1,4 +1,4 @@
-package org.agoncal.application.invoice;
+package org.agoncal.application.invoice.util;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;

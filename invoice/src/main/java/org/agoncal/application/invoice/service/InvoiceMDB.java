@@ -1,4 +1,6 @@
-package org.agoncal.application.invoice;
+package org.agoncal.application.invoice.service;
+
+import org.agoncal.application.invoice.model.Invoice;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;

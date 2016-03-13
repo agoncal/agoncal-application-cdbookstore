@@ -1,4 +1,4 @@
-package org.agoncal.application.invoice;
+package org.agoncal.application.invoice.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -40,8 +40,11 @@ public class Invoice implements Serializable {
 
     @Column(name = "vat_rate")
     private Float vatRate;
-
     private Float vat;
+
+    @Column(name = "discount_rate")
+    private Float discountRate;
+    private Float discount;
     private Float totalWithVat;
     private Float total;
 
@@ -148,6 +151,22 @@ public class Invoice implements Serializable {
 
     public void setVat(Float vat) {
         this.vat = vat;
+    }
+
+    public Float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Float discount) {
+        this.discount = discount;
+    }
+
+    public Float getDiscountRate() {
+        return discountRate;
+    }
+
+    public void setDiscountRate(Float discountRate) {
+        this.discountRate = discountRate;
     }
 
     public Float getTotalWithVat() {

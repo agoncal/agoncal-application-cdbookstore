@@ -1,4 +1,4 @@
-package org.agoncal.application.invoice;
+package org.agoncal.application.invoice.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
