@@ -1,4 +1,4 @@
-package org.agoncal.application.cdbookstore.view;
+package org.agoncal.application.invoice.view;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;

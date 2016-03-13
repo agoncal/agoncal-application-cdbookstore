@@ -1,4 +1,4 @@
-package org.agoncal.application.cdbookstore.view;
+package org.agoncal.application.invoice.view;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -30,9 +30,9 @@ public class InvoiceServiceTest {
                 .addClass(Invoice.class)
                 .addClass(InvoiceLine.class)
                 .addClass(InvoiceService.class)
-                .addClass(ResourceProducer.class)
+                .addPackage(ResourceProducer.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-                .addAsManifestResource("META-INF/beans.xml", "beans.xml");
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @Test
