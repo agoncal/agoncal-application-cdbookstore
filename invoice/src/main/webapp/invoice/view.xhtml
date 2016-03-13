@@ -31,8 +31,8 @@
 				<f:convertDateTime type="date"/>
 			</h:outputText>
 			<h:outputText/>
-			<h:outputLabel for="invoiceBeanInvoiceTotalWithoutVat" value="Total Without Vat:"/>
-			<h:outputText id="invoiceBeanInvoiceTotalWithoutVat" value="#{invoiceBean.invoice.totalBeforeDiscount}"/>
+			<h:outputLabel for="invoiceBeanInvoiceTotalBeforeDiscount" value="Total Before Discount:"/>
+			<h:outputText id="invoiceBeanInvoiceTotalBeforeDiscount" value="#{invoiceBean.invoice.totalBeforeDiscount}"/>
 			<h:outputText/>
 			<h:outputLabel for="invoiceBeanInvoiceVatRate" value="Vat Rate:"/>
 			<h:outputText id="invoiceBeanInvoiceVatRate" value="#{invoiceBean.invoice.vatRate}"/>
@@ -46,11 +46,11 @@
 			<h:outputLabel for="invoiceBeanInvoiceDiscountRate" value="Discount Rate:"/>
 			<h:outputText id="invoiceBeanInvoiceDiscountRate" value="#{invoiceBean.invoice.discountRate}"/>
 			<h:outputText/>
-			<h:outputLabel for="invoiceBeanInvoiceTotalWithVat" value="Total With Vat:"/>
-			<h:outputText id="invoiceBeanInvoiceTotalWithVat" value="#{invoiceBean.invoice.totalWithVat}"/>
+			<h:outputLabel for="invoiceBeanInvoiceTotalAfterDiscount" value="Total After Discount:"/>
+			<h:outputText id="invoiceBeanInvoiceTotalAfterDiscount" value="#{invoiceBean.invoice.totalAfterDiscount}"/>
 			<h:outputText/>
-			<h:outputLabel for="invoiceBeanInvoiceTotal" value="Total:"/>
-			<h:outputText id="invoiceBeanInvoiceTotal" value="#{invoiceBean.invoice.totalAfterVat}"/>
+			<h:outputLabel for="invoiceBeanInvoiceTotalAfterVat" value="Total After Vat:"/>
+			<h:outputText id="invoiceBeanInvoiceTotalAfterVat" value="#{invoiceBean.invoice.totalAfterVat}"/>
 			<h:outputText/>
 			<h:outputLabel for="invoiceBeanInvoiceFirstName" value="First Name:"/>
 			<h:outputText id="invoiceBeanInvoiceFirstName" value="#{invoiceBean.invoice.firstName}"/>

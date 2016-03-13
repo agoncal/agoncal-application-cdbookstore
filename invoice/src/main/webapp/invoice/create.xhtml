@@ -45,10 +45,10 @@
 					<h:message for="invoiceBeanInvoiceInvoiceDate" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
-				<h:outputLabel for="invoiceBeanInvoiceTotalWithoutVat" value="Total Without Vat:"/>
+				<h:outputLabel for="invoiceBeanInvoiceTotalBeforeDiscount" value="Total Before Discount:"/>
 				<h:panelGroup>
-					<h:inputText id="invoiceBeanInvoiceTotalWithoutVat" value="#{invoiceBean.invoice.totalBeforeDiscount}"/>
-					<h:message for="invoiceBeanInvoiceTotalWithoutVat" styleClass="error"/>
+					<h:inputText id="invoiceBeanInvoiceTotalBeforeDiscount" value="#{invoiceBean.invoice.totalBeforeDiscount}"/>
+					<h:message for="invoiceBeanInvoiceTotalBeforeDiscount" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
 				<h:outputLabel for="invoiceBeanInvoiceVatRate" value="Vat Rate:"/>
@@ -75,16 +75,16 @@
 					<h:message for="invoiceBeanInvoiceDiscountRate" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
-				<h:outputLabel for="invoiceBeanInvoiceTotalWithVat" value="Total With Vat:"/>
+				<h:outputLabel for="invoiceBeanInvoiceTotalAfterDiscount" value="Total After Discount:"/>
 				<h:panelGroup>
-					<h:inputText id="invoiceBeanInvoiceTotalWithVat" value="#{invoiceBean.invoice.totalWithVat}"/>
-					<h:message for="invoiceBeanInvoiceTotalWithVat" styleClass="error"/>
+					<h:inputText id="invoiceBeanInvoiceTotalAfterDiscount" value="#{invoiceBean.invoice.totalAfterDiscount}"/>
+					<h:message for="invoiceBeanInvoiceTotalAfterDiscount" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
-				<h:outputLabel for="invoiceBeanInvoiceTotal" value="Total:"/>
+				<h:outputLabel for="invoiceBeanInvoiceTotalAfterVat" value="Total After Vat:"/>
 				<h:panelGroup>
-					<h:inputText id="invoiceBeanInvoiceTotal" value="#{invoiceBean.invoice.totalAfterVat}"/>
-					<h:message for="invoiceBeanInvoiceTotal" styleClass="error"/>
+					<h:inputText id="invoiceBeanInvoiceTotalAfterVat" value="#{invoiceBean.invoice.totalAfterVat}"/>
+					<h:message for="invoiceBeanInvoiceTotalAfterVat" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
 				<h:outputLabel for="invoiceBeanInvoiceFirstName" value="First Name:"/>
