@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value='#{invoiceBean.id}'/>
+		<f:event type="preRenderView" listener='#{invoiceBean.retrieve}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create Invoice"/>
+
+	<ui:define name="header">
+		Invoice
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test='#{!empty invoiceBean.id}'>
+				Edit existing Invoice
+			</c:when>
+			<c:otherwise>
+				Create a new Invoice
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error"/>
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="invoiceBeanInvoiceInvoiceDate" value="Invoice Date:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceInvoiceDate" value="#{invoiceBean.invoice.invoiceDate}">
+						<f:convertDateTime type="date"/>
+					</h:inputText>
+					<h:message for="invoiceBeanInvoiceInvoiceDate" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="invoiceBeanInvoiceTotalWithoutVat" value="Total Without Vat:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceTotalWithoutVat" value="#{invoiceBean.invoice.totalWithoutVat}"/>
+					<h:message for="invoiceBeanInvoiceTotalWithoutVat" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="invoiceBeanInvoiceVatRate" value="Vat Rate:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceVatRate" value="#{invoiceBean.invoice.vatRate}"/>
+					<h:message for="invoiceBeanInvoiceVatRate" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="invoiceBeanInvoiceVat" value="Vat:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceVat" value="#{invoiceBean.invoice.vat}"/>
+					<h:message for="invoiceBeanInvoiceVat" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="invoiceBeanInvoiceDiscount" value="Discount:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceDiscount" value="#{invoiceBean.invoice.discount}"/>
+					<h:message for="invoiceBeanInvoiceDiscount" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="invoiceBeanInvoiceDiscountRate" value="Discount Rate:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceDiscountRate" value="#{invoiceBean.invoice.discountRate}"/>
+					<h:message for="invoiceBeanInvoiceDiscountRate" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="invoiceBeanInvoiceTotalWithVat" value="Total With Vat:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceTotalWithVat" value="#{invoiceBean.invoice.totalWithVat}"/>
+					<h:message for="invoiceBeanInvoiceTotalWithVat" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="invoiceBeanInvoiceTotal" value="Total:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceTotal" value="#{invoiceBean.invoice.total}"/>
+					<h:message for="invoiceBeanInvoiceTotal" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="invoiceBeanInvoiceFirstName" value="First Name:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceFirstName" maxLength="50" required="true" value="#{invoiceBean.invoice.firstName}"/>
+					<h:message for="invoiceBeanInvoiceFirstName" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="invoiceBeanInvoiceLastName" value="Last Name:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceLastName" maxLength="50" required="true" value="#{invoiceBean.invoice.lastName}"/>
+					<h:message for="invoiceBeanInvoiceLastName" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="invoiceBeanInvoiceTelephone" value="Telephone:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceTelephone" value="#{invoiceBean.invoice.telephone}"/>
+					<h:message for="invoiceBeanInvoiceTelephone" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="invoiceBeanInvoiceEmail" value="Email:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceEmail" required="true" value="#{invoiceBean.invoice.email}"/>
+					<h:message for="invoiceBeanInvoiceEmail" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="invoiceBeanInvoiceStreet1" value="Street 1:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceStreet1" maxLength="50" required="true" value="#{invoiceBean.invoice.street1}"/>
+					<h:message for="invoiceBeanInvoiceStreet1" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="invoiceBeanInvoiceStreet2" value="Street 2:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceStreet2" value="#{invoiceBean.invoice.street2}"/>
+					<h:message for="invoiceBeanInvoiceStreet2" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="invoiceBeanInvoiceCity" value="City:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceCity" maxLength="50" required="true" value="#{invoiceBean.invoice.city}"/>
+					<h:message for="invoiceBeanInvoiceCity" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="invoiceBeanInvoiceState" value="State:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceState" value="#{invoiceBean.invoice.state}"/>
+					<h:message for="invoiceBeanInvoiceState" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="invoiceBeanInvoiceZipcode" value="Zipcode:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceZipcode" maxLength="10" required="true" value="#{invoiceBean.invoice.zipcode}"/>
+					<h:message for="invoiceBeanInvoiceZipcode" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="invoiceBeanInvoiceCountry" value="Country:"/>
+				<h:panelGroup>
+					<h:inputText id="invoiceBeanInvoiceCountry" value="#{invoiceBean.invoice.country}"/>
+					<h:message for="invoiceBeanInvoiceCountry" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="invoiceBeanInvoiceInvoiceLines" value="Invoice Lines:"/>
+				<h:panelGroup>
+					<ui:param name="_collection" value="#{invoiceBean.invoice.invoiceLines}"/>
+					<h:dataTable id="invoiceBeanInvoiceInvoiceLines" styleClass="data-table" value="#{forgeview:asList(_collection)}" var="_item">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Quantity"/>
+							</f:facet>
+							<h:link outcome="/invoiceLine/view">
+								<f:param name="id" value="#{_item.id}"/>
+								<h:outputText id="itemQuantity" value="#{_item.quantity}"/>
+							</h:link>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Title"/>
+							</f:facet>
+							<h:link outcome="/invoiceLine/view">
+								<f:param name="id" value="#{_item.id}"/>
+								<h:outputText id="itemTitle" value="#{_item.title}"/>
+							</h:link>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Unit Cost"/>
+							</f:facet>
+							<h:link outcome="/invoiceLine/view">
+								<f:param name="id" value="#{_item.id}"/>
+								<h:outputText id="itemUnitCost" value="#{_item.unitCost}"/>
+							</h:link>
+						</h:column>
+						<h:column footerClass="remove-column" headerClass="remove-column">
+							<h:commandLink action="#{_collection.remove(_item)}" styleClass="remove-button"/>
+						</h:column>
+					</h:dataTable>
+					<h:panelGrid columnClasses=",remove-column" columns="2" styleClass="data-table-footer">
+						<h:selectOneMenu converter="#{invoiceLineBean.converter}" id="invoiceBeanInvoiceInvoiceLinesSelect" value="#{requestScope['invoiceBeanInvoiceInvoiceLinesSelect']}">
+							<f:selectItem/>
+							<f:selectItems itemLabel="#{forgeview:display(_item)}" itemValue="#{_item}" value="#{invoiceLineBean.all}" var="_item"/>
+						</h:selectOneMenu>
+						<h:commandLink action="#{_collection.add(requestScope['invoiceBeanInvoiceInvoiceLinesSelect'])}" id="invoiceBeanInvoiceInvoiceLinesAdd" onclick="if (document.getElementById(document.forms[0].id+':invoiceBeanInvoiceInvoiceLinesSelect').selectedIndex &lt; 1) { alert('Must select a Invoice Line'); return false; }" styleClass="add-button"/>
+					</h:panelGrid>
+				</h:panelGroup>
+				<h:outputText/>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandLink value="Save" action='#{invoiceBean.update}' styleClass="btn btn-primary"/>
+				<c:choose>
+					<c:when test='#{!empty invoiceBean.id}'>
+						<h:link value="Cancel" outcome="view" styleClass="btn btn-primary">
+							<f:param name="id" value='#{invoiceBean.id}'/>
+						</h:link>
+						<h:commandLink value="Delete" action='#{invoiceBean.delete}' styleClass="btn btn-primary"/>
+					</c:when>
+					<c:otherwise>
+						<h:link value="Cancel" outcome="search" styleClass="btn btn-primary"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
