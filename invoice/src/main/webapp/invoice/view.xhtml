@@ -32,7 +32,7 @@
 			</h:outputText>
 			<h:outputText/>
 			<h:outputLabel for="invoiceBeanInvoiceTotalWithoutVat" value="Total Without Vat:"/>
-			<h:outputText id="invoiceBeanInvoiceTotalWithoutVat" value="#{invoiceBean.invoice.totalWithoutVat}"/>
+			<h:outputText id="invoiceBeanInvoiceTotalWithoutVat" value="#{invoiceBean.invoice.totalBeforeDiscount}"/>
 			<h:outputText/>
 			<h:outputLabel for="invoiceBeanInvoiceVatRate" value="Vat Rate:"/>
 			<h:outputText id="invoiceBeanInvoiceVatRate" value="#{invoiceBean.invoice.vatRate}"/>
@@ -50,7 +50,7 @@
 			<h:outputText id="invoiceBeanInvoiceTotalWithVat" value="#{invoiceBean.invoice.totalWithVat}"/>
 			<h:outputText/>
 			<h:outputLabel for="invoiceBeanInvoiceTotal" value="Total:"/>
-			<h:outputText id="invoiceBeanInvoiceTotal" value="#{invoiceBean.invoice.total}"/>
+			<h:outputText id="invoiceBeanInvoiceTotal" value="#{invoiceBean.invoice.totalAfterVat}"/>
 			<h:outputText/>
 			<h:outputLabel for="invoiceBeanInvoiceFirstName" value="First Name:"/>
 			<h:outputText id="invoiceBeanInvoiceFirstName" value="#{invoiceBean.invoice.firstName}"/>

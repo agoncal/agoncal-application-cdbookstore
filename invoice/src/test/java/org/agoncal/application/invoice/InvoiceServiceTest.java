@@ -95,7 +95,13 @@ public class InvoiceServiceTest {
         invoice = invoiceService.findById(invoice.getId());
         assertEquals(2, invoice.getInvoiceLines().size());
         assertEquals("First name", invoice.getFirstName());
-        assertEquals(new Float(5.5F), invoice.getVatRate());
-        assertEquals(new Float(12.5F), invoice.getDiscountRate());
+        assertEquals(new Float(5.5), invoice.getVatRate());
+        assertEquals(new Float(12.5), invoice.getDiscountRate());
+
+        assertEquals(new Float(126.5), invoice.getTotalBeforeDiscount());
+        assertEquals(new Float(15.81), invoice.getDiscount());
+        assertEquals(new Float(110.69), invoice.getTotalAfterDiscount());
+        assertEquals(new Float(6.09), invoice.getVat());
+        assertEquals(new Float(116.78), invoice.getTotalAfterVat());
     }
 }

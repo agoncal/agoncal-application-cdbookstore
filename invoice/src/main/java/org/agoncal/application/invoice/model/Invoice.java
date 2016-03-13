@@ -36,17 +36,17 @@ public class Invoice implements Serializable {
     @Temporal(TemporalType.DATE)
     @Past
     private Date invoiceDate;
-    private Float totalWithoutVat;
-
-    @Column(name = "vat_rate")
-    private Float vatRate;
-    private Float vat;
+    private Float totalBeforeDiscount;
 
     @Column(name = "discount_rate")
     private Float discountRate;
     private Float discount;
-    private Float totalWithVat;
-    private Float total;
+    private Float totalAfterDiscount;
+
+    @Column(name = "vat_rate")
+    private Float vatRate;
+    private Float vat;
+    private Float totalAfterVat;
 
     @Column(length = 50, name = "first_name", nullable = false)
     @NotNull
@@ -129,12 +129,12 @@ public class Invoice implements Serializable {
         this.invoiceDate = invoiceDate;
     }
 
-    public Float getTotalWithoutVat() {
-        return totalWithoutVat;
+    public Float getTotalBeforeDiscount() {
+        return totalBeforeDiscount;
     }
 
-    public void setTotalWithoutVat(Float totalWithoutVat) {
-        this.totalWithoutVat = totalWithoutVat;
+    public void setTotalBeforeDiscount(Float totalBeforeDiscount) {
+        this.totalBeforeDiscount = totalBeforeDiscount;
     }
 
     public Float getVatRate() {
@@ -169,20 +169,20 @@ public class Invoice implements Serializable {
         this.discountRate = discountRate;
     }
 
-    public Float getTotalWithVat() {
-        return totalWithVat;
+    public Float getTotalAfterDiscount() {
+        return totalAfterDiscount;
     }
 
-    public void setTotalWithVat(Float totalWithVat) {
-        this.totalWithVat = totalWithVat;
+    public void setTotalAfterDiscount(Float totalAfterDiscount) {
+        this.totalAfterDiscount = totalAfterDiscount;
     }
 
-    public Float getTotal() {
-        return total;
+    public Float getTotalAfterVat() {
+        return totalAfterVat;
     }
 
-    public void setTotal(Float total) {
-        this.total = total;
+    public void setTotalAfterVat(Float totalAfterVat) {
+        this.totalAfterVat = totalAfterVat;
     }
 
     public String getFirstName() {
@@ -305,11 +305,13 @@ public class Invoice implements Serializable {
                 ", id=" + id +
                 ", version=" + version +
                 ", invoiceDate=" + invoiceDate +
-                ", totalWithoutVat=" + totalWithoutVat +
+                ", totalBeforeDiscount=" + totalBeforeDiscount +
+                ", discountRate=" + discountRate +
+                ", discount=" + discount +
+                ", totalAfterDiscount=" + totalAfterDiscount +
                 ", vatRate=" + vatRate +
                 ", vat=" + vat +
-                ", totalWithVat=" + totalWithVat +
-                ", total=" + total +
+                ", totalAfterVat=" + totalAfterVat +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", telephone='" + telephone + '\'' +

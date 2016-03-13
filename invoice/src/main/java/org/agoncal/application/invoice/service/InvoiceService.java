@@ -1,6 +1,7 @@
 package org.agoncal.application.invoice.service;
 
 import org.agoncal.application.invoice.model.Invoice;
+import org.agoncal.application.invoice.model.InvoiceLine;
 import org.agoncal.application.invoice.util.Discount;
 import org.agoncal.application.invoice.util.Vat;
 
@@ -9,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Transactional
@@ -21,10 +23,12 @@ public class InvoiceService {
     @Inject
     private EntityManager em;
 
-    @Inject @Vat
+    @Inject
+    @Vat
     private Float vatRate;
 
-    @Inject @Discount
+    @Inject
+    @Discount
     private Float discountRate;
 
     // ======================================
@@ -34,6 +38,18 @@ public class InvoiceService {
     public Invoice persist(Invoice invoice) {
         invoice.setVatRate(vatRate);
         invoice.setDiscountRate(discountRate);
+
+        // Compute total amount
+        Float total = 0F;
+        for (InvoiceLine invoiceLine : invoice.getInvoiceLines()) {
+            total += invoiceLine.getQuantity() * invoiceLine.getUnitCost();
+        }
+
+        invoice.setTotalBeforeDiscount(total);
+        invoice.setDiscount(round(total * (discountRate / 100)));
+        invoice.setTotalAfterDiscount(total - invoice.getDiscount());
+        invoice.setVat(round(invoice.getTotalAfterDiscount() * (vatRate / 100)));
+        invoice.setTotalAfterVat(invoice.getTotalAfterDiscount() + invoice.getVat());
         em.persist(invoice);
         return invoice;
     }
@@ -69,5 +85,11 @@ public class InvoiceService {
     public TypedQuery<Invoice> getListAllQuery() {
         CriteriaQuery<Invoice> criteria = em.getCriteriaBuilder().createQuery(Invoice.class);
         return em.createQuery(criteria.select(criteria.from(Invoice.class)));
+    }
+
+    private static Float round(Float d) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 }

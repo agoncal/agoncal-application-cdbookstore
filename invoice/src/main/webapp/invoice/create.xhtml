@@ -47,7 +47,7 @@
 				<h:outputText/>
 				<h:outputLabel for="invoiceBeanInvoiceTotalWithoutVat" value="Total Without Vat:"/>
 				<h:panelGroup>
-					<h:inputText id="invoiceBeanInvoiceTotalWithoutVat" value="#{invoiceBean.invoice.totalWithoutVat}"/>
+					<h:inputText id="invoiceBeanInvoiceTotalWithoutVat" value="#{invoiceBean.invoice.totalBeforeDiscount}"/>
 					<h:message for="invoiceBeanInvoiceTotalWithoutVat" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
@@ -83,7 +83,7 @@
 				<h:outputText/>
 				<h:outputLabel for="invoiceBeanInvoiceTotal" value="Total:"/>
 				<h:panelGroup>
-					<h:inputText id="invoiceBeanInvoiceTotal" value="#{invoiceBean.invoice.total}"/>
+					<h:inputText id="invoiceBeanInvoiceTotal" value="#{invoiceBean.invoice.totalAfterVat}"/>
 					<h:message for="invoiceBeanInvoiceTotal" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
