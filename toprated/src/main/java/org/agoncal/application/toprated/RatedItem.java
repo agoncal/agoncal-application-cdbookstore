@@ -28,10 +28,6 @@ public class RatedItem implements Serializable {
     @Column(name = "id", updatable = false, nullable = false)
     protected Long id;
 
-    @Version
-    @Column(name = "version")
-    protected int version;
-
     @Column(length = 200)
     @NotNull
     @Size(min = 1, max = 200)
@@ -57,14 +53,6 @@ public class RatedItem implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 
     public Integer getRank() {
@@ -97,7 +85,7 @@ public class RatedItem implements Serializable {
     public String toString() {
         return "TopItem{" +
                 "id=" + id +
-                ", version=" + version +
+                ", rank=" + rank +
                 ", title='" + title + '\'' +
                 '}';
     }
