@@ -12,11 +12,9 @@ import org.junit.runner.RunWith;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.net.URI;
 
 import static org.junit.Assert.assertEquals;
@@ -32,9 +30,10 @@ public class TopRatedItemEndpointTest {
     public static WebArchive createDeployment() {
         return ShrinkWrap
                 .create(WebArchive.class)
-                .addClass(RestApplication.class)
-                .addClass(ResourceProducer.class)
                 .addClass(RatedItem.class)
+                .addClass(RatedItems.class)
+                .addClass(ResourceProducer.class)
+                .addClass(RestApplication.class)
                 .addClass(TopRatedItemEndpoint.class)
                 .addAsResource("META-INF/persistence-test.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -43,31 +42,7 @@ public class TopRatedItemEndpointTest {
     @Test
     public void should_be_deployed() {
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.target(baseURL).path("rest").path("topitems");
-        assertEquals(Response.Status.OK.getStatusCode(), target.request(MediaType.APPLICATION_XML).get().getStatus());
-    }
-
-    @Test
-    public void shouldCRUDBooks() throws IOException {
-
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target(baseURL).path("rest").path("topitems");
-        int initialSize = target.request(MediaType.APPLICATION_XML).get(RatedItems.class).size();
-
-        // creates a book
-        RatedItem topItem = new RatedItem();
-        Response response = target.request().post(Entity.entity(topItem, MediaType.APPLICATION_XML));
-        assertEquals(201, response.getStatus());
-        URI locationNewBook = response.getLocation();
-
-        // checks there is one more book
-        assertEquals(initialSize + 1, target.request(MediaType.APPLICATION_XML).get(RatedItems.class).size());
-
-        // deletes the created book
-        response = client.target(locationNewBook).request().delete();
-        assertEquals(204, response.getStatus());
-
-        // checks there is one less book
-        assertEquals(initialSize, target.request(MediaType.APPLICATION_XML).get(RatedItems.class).size());
+        WebTarget target = client.target(baseURL).path("toprateditems");
+        assertEquals(Response.Status.OK.getStatusCode(), target.request(MediaType.APPLICATION_JSON).get().getStatus());
     }
 }

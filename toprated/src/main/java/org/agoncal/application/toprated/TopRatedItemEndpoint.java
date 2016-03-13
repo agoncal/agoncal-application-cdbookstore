@@ -2,15 +2,15 @@ package org.agoncal.application.toprated;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.Random;
 import java.util.logging.Logger;
 
-@Path("/topitems")
+@Path("/toprateditems")
 @Transactional
 public class TopRatedItemEndpoint {
 
@@ -30,18 +30,12 @@ public class TopRatedItemEndpoint {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public RatedItems getTopBooks() {
+    public RatedItems TopRatedItems() {
+
         RatedItems results = new RatedItems();
 
-        int min = em.createQuery("select min (i.id) from RatedItem i", Long.class).getSingleResult().intValue();
-        int max = em.createQuery("select max (i.id) from RatedItem i", Long.class).getSingleResult().intValue();
-
-        while (results.size() < 5) {
-            long id = new Random().nextInt((max - min) + 1) + min;
-            RatedItem item = em.find(RatedItem.class, id);
-            if (item != null)
-                results.add(item);
-        }
+        TypedQuery<RatedItem> query = em.createNamedQuery(RatedItem.FIND_TOP_ITEMS, RatedItem.class);
+        results.addAll(query.getResultList());
 
         logger.info("Top Items are " + results);
 

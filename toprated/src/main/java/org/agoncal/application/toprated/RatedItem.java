@@ -7,8 +7,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Table(name = "rated_item")
 @NamedQueries({
-        @NamedQuery(name = RatedItem.FIND_TOP_ITEMS, query = "SELECT i FROM RatedItem i")
+        @NamedQuery(name = RatedItem.FIND_TOP_ITEMS, query = "SELECT i FROM RatedItem i WHERE i.rank = 5")
 })
 public class RatedItem implements Serializable {
 
