@@ -101,6 +101,15 @@ public class Invoice implements Serializable {
         this.zipcode = zipcode;
     }
 
+    public Invoice(String firstName, String lastName, String email, String street1, String city, String zipcode) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.street1 = street1;
+        this.city = city;
+        this.zipcode = zipcode;
+    }
+
     public Invoice(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;

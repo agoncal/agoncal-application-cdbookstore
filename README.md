@@ -39,7 +39,10 @@ The invoice is an MDB, so you need to start the full profile of JBoss :
 
 * `./standalone.sh -c standalone-full.xml`
 
-Then you need to create a Queue with the following command in `jboss_cli.sh` : `jms-queue add --queue-address=invoiceQueue --entries=jms/queue/invoiceQueue`
+Then you need to create a Queue with the following command in `jboss_cli.sh` :
+
+* Create the queue : `jms-queue add --queue-address=invoiceQueue --entries=jms/queue/invoiceQueue`
+* Delete the queue : `jms-queue remove --queue-address=invoiceQueue`
 
 ### Test with Arquillian
 

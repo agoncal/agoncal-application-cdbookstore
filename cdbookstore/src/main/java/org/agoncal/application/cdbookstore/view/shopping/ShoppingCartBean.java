@@ -100,15 +100,11 @@ public class ShoppingCartBean implements Serializable {
         return null;
     }
 
-    public String checkout() {
-        return "/checkout";
-    }
-
     public String confirmation() {
 
         // Creating the invoice
         User user = accountBean.getUser();
-        Invoice invoice = new Invoice(user.getFirstName(), user.getLastName(), user.getEmail());
+        Invoice invoice = new Invoice(user.getFirstName(), user.getLastName(), user.getEmail(), address.getStreet1(), address.getCity(), address.getZipcode());
         for (ShoppingCartItem cartItem : cartItems) {
             invoice.addInvoiceLine(new InvoiceLine(cartItem.getQuantity(), cartItem.getItem().getTitle(), cartItem.getItem().getUnitCost()));
         }

@@ -26,31 +26,13 @@
 
 	<ui:define name="main">
 		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="invoiceBeanInvoiceId" value="Invoice number:"/>
+			<h:outputText id="invoiceBeanInvoiceId" value="#{invoiceBean.invoice.id}"/>
+			<h:outputText/>
 			<h:outputLabel for="invoiceBeanInvoiceInvoiceDate" value="Invoice Date:"/>
 			<h:outputText id="invoiceBeanInvoiceInvoiceDate" value="#{invoiceBean.invoice.invoiceDate}">
 				<f:convertDateTime type="date"/>
 			</h:outputText>
-			<h:outputText/>
-			<h:outputLabel for="invoiceBeanInvoiceTotalBeforeDiscount" value="Total Before Discount:"/>
-			<h:outputText id="invoiceBeanInvoiceTotalBeforeDiscount" value="#{invoiceBean.invoice.totalBeforeDiscount}"/>
-			<h:outputText/>
-			<h:outputLabel for="invoiceBeanInvoiceVatRate" value="Vat Rate:"/>
-			<h:outputText id="invoiceBeanInvoiceVatRate" value="#{invoiceBean.invoice.vatRate}"/>
-			<h:outputText/>
-			<h:outputLabel for="invoiceBeanInvoiceVat" value="Vat:"/>
-			<h:outputText id="invoiceBeanInvoiceVat" value="#{invoiceBean.invoice.vat}"/>
-			<h:outputText/>
-			<h:outputLabel for="invoiceBeanInvoiceDiscount" value="Discount:"/>
-			<h:outputText id="invoiceBeanInvoiceDiscount" value="#{invoiceBean.invoice.discount}"/>
-			<h:outputText/>
-			<h:outputLabel for="invoiceBeanInvoiceDiscountRate" value="Discount Rate:"/>
-			<h:outputText id="invoiceBeanInvoiceDiscountRate" value="#{invoiceBean.invoice.discountRate}"/>
-			<h:outputText/>
-			<h:outputLabel for="invoiceBeanInvoiceTotalAfterDiscount" value="Total After Discount:"/>
-			<h:outputText id="invoiceBeanInvoiceTotalAfterDiscount" value="#{invoiceBean.invoice.totalAfterDiscount}"/>
-			<h:outputText/>
-			<h:outputLabel for="invoiceBeanInvoiceTotalAfterVat" value="Total After Vat:"/>
-			<h:outputText id="invoiceBeanInvoiceTotalAfterVat" value="#{invoiceBean.invoice.totalAfterVat}"/>
 			<h:outputText/>
 			<h:outputLabel for="invoiceBeanInvoiceFirstName" value="First Name:"/>
 			<h:outputText id="invoiceBeanInvoiceFirstName" value="#{invoiceBean.invoice.firstName}"/>
@@ -112,6 +94,27 @@
 					</h:link>
 				</h:column>
 			</h:dataTable>
+			<h:outputText/>
+			<h:outputLabel for="invoiceBeanInvoiceTotalBeforeDiscount" value="Total Before Discount:"/>
+			<h:outputText id="invoiceBeanInvoiceTotalBeforeDiscount" value="#{invoiceBean.invoice.totalBeforeDiscount}"/>
+			<h:outputText/>
+			<h:outputLabel for="invoiceBeanInvoiceVatRate" value="Vat Rate:"/>
+			<h:outputText id="invoiceBeanInvoiceVatRate" value="#{invoiceBean.invoice.vatRate}"/>
+			<h:outputText/>
+			<h:outputLabel for="invoiceBeanInvoiceVat" value="Vat:"/>
+			<h:outputText id="invoiceBeanInvoiceVat" value="#{invoiceBean.invoice.vat}"/>
+			<h:outputText/>
+			<h:outputLabel for="invoiceBeanInvoiceDiscount" value="Discount:"/>
+			<h:outputText id="invoiceBeanInvoiceDiscount" value="#{invoiceBean.invoice.discount}"/>
+			<h:outputText/>
+			<h:outputLabel for="invoiceBeanInvoiceDiscountRate" value="Discount Rate:"/>
+			<h:outputText id="invoiceBeanInvoiceDiscountRate" value="#{invoiceBean.invoice.discountRate}"/>
+			<h:outputText/>
+			<h:outputLabel for="invoiceBeanInvoiceTotalAfterDiscount" value="Total After Discount:"/>
+			<h:outputText id="invoiceBeanInvoiceTotalAfterDiscount" value="#{invoiceBean.invoice.totalAfterDiscount}"/>
+			<h:outputText/>
+			<h:outputLabel for="invoiceBeanInvoiceTotalAfterVat" value="Total After Vat:"/>
+			<h:outputText id="invoiceBeanInvoiceTotalAfterVat" value="#{invoiceBean.invoice.totalAfterVat}"/>
 			<h:outputText/>
 		</h:panelGrid>
 

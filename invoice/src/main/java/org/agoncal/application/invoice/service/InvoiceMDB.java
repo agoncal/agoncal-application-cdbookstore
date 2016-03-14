@@ -41,7 +41,9 @@ public class InvoiceMDB implements MessageListener {
     @Override
     public void onMessage(Message message) {
         try {
+            logger.info("Message received " + message);
             Invoice invoice = message.getBody(Invoice.class);
+            logger.info("Invoice received " + invoice);
             invoiceService.persist(invoice);
             logger.info("Invoice persisted " + invoice);
         } catch (JMSException e) {

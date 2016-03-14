@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -36,6 +37,7 @@ public class InvoiceService {
     // ======================================
 
     public Invoice persist(Invoice invoice) {
+        invoice.setInvoiceDate(new Date());
         invoice.setVatRate(vatRate);
         invoice.setDiscountRate(discountRate);
 
@@ -47,9 +49,9 @@ public class InvoiceService {
 
         invoice.setTotalBeforeDiscount(total);
         invoice.setDiscount(round(total * (discountRate / 100)));
-        invoice.setTotalAfterDiscount(total - invoice.getDiscount());
+        invoice.setTotalAfterDiscount(round(total - invoice.getDiscount()));
         invoice.setVat(round(invoice.getTotalAfterDiscount() * (vatRate / 100)));
-        invoice.setTotalAfterVat(invoice.getTotalAfterDiscount() + invoice.getVat());
+        invoice.setTotalAfterVat(round(invoice.getTotalAfterDiscount() + invoice.getVat()));
         em.persist(invoice);
         return invoice;
     }

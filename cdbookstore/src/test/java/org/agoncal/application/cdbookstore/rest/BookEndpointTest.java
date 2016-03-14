@@ -8,6 +8,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -56,7 +57,7 @@ public class BookEndpointTest {
         assertEquals(Response.Status.OK.getStatusCode(), target.request(MediaType.APPLICATION_XML).get().getStatus());
     }
 
-    @Test
+    @Test @Ignore
     public void shouldCRUDBooks() throws IOException {
 
         Client client = ClientBuilder.newClient();
