@@ -1,14 +1,20 @@
 package org.agoncal.application.cdbookstore.view.shopping;
 
-import org.agoncal.application.cdbookstore.model.CreditCard;
-import org.agoncal.application.cdbookstore.model.CreditCardType;
-import org.agoncal.application.cdbookstore.model.Item;
+import org.agoncal.application.cdbookstore.model.*;
+import org.agoncal.application.cdbookstore.view.account.AccountBean;
+import org.agoncal.application.invoice.model.Invoice;
+import org.agoncal.application.invoice.model.InvoiceLine;
 
+import javax.annotation.Resource;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.jms.JMSConnectionFactory;
+import javax.jms.JMSContext;
+import javax.jms.JMSSessionMode;
+import javax.jms.Queue;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
@@ -31,6 +37,16 @@ public class ShoppingCartBean implements Serializable {
     @Inject
     private FacesContext facesContext;
 
+    @Inject
+    private AccountBean accountBean;
+
+    @Inject
+    private transient JMSContext context;
+
+    @Resource(lookup = "jms/queue/invoiceQueue")
+    private Queue queue;
+
+
     @PersistenceContext(unitName = "applicationCDBookStorePU")
     private EntityManager em;
 
@@ -39,6 +55,7 @@ public class ShoppingCartBean implements Serializable {
     // ======================================
 
     private List<ShoppingCartItem> cartItems = new ArrayList<>();
+    private Address address = new Address();
     private CreditCard creditCard = new CreditCard();
 
     // ======================================
@@ -84,6 +101,22 @@ public class ShoppingCartBean implements Serializable {
     }
 
     public String checkout() {
+        return "/checkout";
+    }
+
+    public String confirmation() {
+
+        // Creating the invoice
+        User user = accountBean.getUser();
+        Invoice invoice = new Invoice(user.getFirstName(), user.getLastName(), user.getEmail());
+        for (ShoppingCartItem cartItem : cartItems) {
+            invoice.addInvoiceLine(new InvoiceLine(cartItem.getQuantity(), cartItem.getItem().getTitle(), cartItem.getItem().getUnitCost()));
+        }
+
+        // Sending the invoice
+        context.createProducer().setTimeToLive(1000).send(queue, invoice);
+
+        // Displaying the invoice creation
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Order created",
                 "You will receive a confirmation email"));
 
@@ -127,6 +160,14 @@ public class ShoppingCartBean implements Serializable {
 
     public void setCreditCard(CreditCard creditCard) {
         this.creditCard = creditCard;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public CreditCardType[] getCreditCardTypes() {

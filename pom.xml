@@ -13,12 +13,12 @@
     <modules>
         <module>cdbookstore</module>
         <module>invoice</module>
+        <module>invoice-api</module>
         <module>toprated</module>
     </modules>
 
     <properties>
         <version.javaee7>1.0.3.Final</version.javaee7>
-        <version.mapstruct>1.0.0.Final</version.mapstruct>
         <version.lorem>2.0</version.lorem>
         <version.bootstrap>3.3.6</version.bootstrap>
         <version.primefaces>5.3</version.primefaces>
@@ -85,11 +85,6 @@
                 <groupId>com.thedeanda</groupId>
                 <artifactId>lorem</artifactId>
                 <version>${version.lorem}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct-jdk8</artifactId>
-                <version>${version.mapstruct}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
@@ -196,33 +191,6 @@
                             </manifestEntries>
                         </archive>
                     </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.bsc.maven</groupId>
-                    <artifactId>maven-processor-plugin</artifactId>
-                    <version>version.processor.plugin</version>
-                    <configuration>
-                        <defaultOutputDirectory>${project.build.directory}/generated-sources</defaultOutputDirectory>
-                        <processors>
-                            <processor>org.mapstruct.ap.MappingProcessor</processor>
-                        </processors>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>process</id>
-                            <phase>generate-sources</phase>
-                            <goals>
-                                <goal>process</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>${version.mapstruct}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>

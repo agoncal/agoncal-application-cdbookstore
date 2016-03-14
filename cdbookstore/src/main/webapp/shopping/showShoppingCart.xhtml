@@ -14,6 +14,10 @@
         <h:outputText value="Shopping cart is empty" rendered="#{shoppingCartBean.shoppingCartIsEmpty()}"/>
     </ui:define>
 
+    <ui:define name="message">
+        <h:outputText value="Shopping cart" rendered="#{!shoppingCartBean.shoppingCartIsEmpty()}"/>
+    </ui:define>
+
     <ui:define name="body">
 
         <h:form rendered="#{!shoppingCartBean.shoppingCartIsEmpty()}">
@@ -63,7 +67,7 @@
             </div>
 
             <div class="buttons">
-                <h:commandLink action="#{shoppingCartBean.checkout}" styleClass="btn btn-primary" value="Check Out"/>
+                <h:link outcome="checkout.xhtml" styleClass="btn btn-primary" value="Check Out"/>
             </div>
 
         </h:form>

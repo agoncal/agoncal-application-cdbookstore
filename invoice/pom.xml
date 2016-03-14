@@ -22,6 +22,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.agoncal.application.cdbookstore</groupId>
+            <artifactId>invoice-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-7.0</artifactId>
             <type>pom</type>

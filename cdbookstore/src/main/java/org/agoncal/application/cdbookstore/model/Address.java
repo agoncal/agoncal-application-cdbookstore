@@ -1,8 +1,5 @@
 package org.agoncal.application.cdbookstore.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -13,37 +10,23 @@ import java.io.Serializable;
  *         --
  */
 
-@Embeddable
 public class Address implements Serializable {
 
     // ======================================
     // =             Attributes             =
     // ======================================
 
-    @Column(length = 50, nullable = false)
     @Size(min = 5, max = 50)
     @NotNull
     private String street1;
-
-    @Column
     private String street2;
-
-    @Column(length = 50, nullable = false)
     @Size(min = 2, max = 50)
     @NotNull
     private String city;
-
-    @Column
     private String state;
-
-    @Column(length = 10, name = "zip_code", nullable = false)
     @Size(min = 1, max = 10)
     @NotNull
     private String zipcode;
-
-    @ManyToOne
-    @NotNull
-    private Country country;
 
     // ======================================
     // =        Getters and Setters         =
@@ -87,14 +70,6 @@ public class Address implements Serializable {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
-    }
-
-    public Country getCountry() {
-        return this.country;
-    }
-
-    public void setCountry(final Country country) {
-        this.country = country;
     }
 
     // ======================================

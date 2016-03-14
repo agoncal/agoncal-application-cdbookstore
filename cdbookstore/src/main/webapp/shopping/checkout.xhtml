@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/resources/scaffold/template.xhtml">
+
+    <ui:define name="title">Checkout</ui:define>
+
+    <ui:define name="message">Checking out</ui:define>
+
+    <ui:define name="body">
+
+        <h:form>
+            <h:panelGrid columnClasses="component,required" columns="3">
+                <h:outputLabel for="purchaseOrderBeanPurchaseOrderCustomer" value="Customer:"/>
+                <h:panelGroup>
+                    <h:inputText id="purchaseOrderBeanPurchaseOrderCustomer" maxLength="50" readonly="true"
+                                 value="#{accountBean.user.fullName}"/>
+                    <h:message for="purchaseOrderBeanPurchaseOrderStreet1" styleClass="error"/>
+                </h:panelGroup>
+                <h:outputText/>
+                <h:outputLabel for="purchaseOrderBeanPurchaseOrderStreet1" value="Street 1:"/>
+                <h:panelGroup>
+                    <h:inputText id="purchaseOrderBeanPurchaseOrderStreet1" maxLength="50" required="true"
+                                 value="#{shoppingCartBean.address.street1}"/>
+                    <h:message for="purchaseOrderBeanPurchaseOrderStreet1" styleClass="error"/>
+                </h:panelGroup>
+                <h:outputText value="*"/>
+                <h:outputLabel for="purchaseOrderBeanPurchaseOrderStreet2" value="Street 2:"/>
+                <h:panelGroup>
+                    <h:inputText id="purchaseOrderBeanPurchaseOrderStreet2"
+                                 value="#{shoppingCartBean.address.street2}"/>
+                    <h:message for="purchaseOrderBeanPurchaseOrderStreet2" styleClass="error"/>
+                </h:panelGroup>
+                <h:outputText/>
+                <h:outputLabel for="purchaseOrderBeanPurchaseOrderCity" value="City:"/>
+                <h:panelGroup>
+                    <h:inputText id="purchaseOrderBeanPurchaseOrderCity" maxLength="50" required="true"
+                                 value="#{shoppingCartBean.address.city}"/>
+                    <h:message for="purchaseOrderBeanPurchaseOrderCity" styleClass="error"/>
+                </h:panelGroup>
+                <h:outputText value="*"/>
+                <h:outputLabel for="purchaseOrderBeanPurchaseOrderState" value="State:"/>
+                <h:panelGroup>
+                    <h:inputText id="purchaseOrderBeanPurchaseOrderState"
+                                 value="#{shoppingCartBean.address.state}"/>
+                    <h:message for="purchaseOrderBeanPurchaseOrderState" styleClass="error"/>
+                </h:panelGroup>
+                <h:outputText/>
+                <h:outputLabel for="purchaseOrderBeanPurchaseOrderZipcode" value="Zipcode:"/>
+                <h:panelGroup>
+                    <h:inputText id="purchaseOrderBeanPurchaseOrderZipcode" maxLength="10" required="true"
+                                 value="#{shoppingCartBean.address.zipcode}"/>
+                    <h:message for="purchaseOrderBeanPurchaseOrderZipcode" styleClass="error"/>
+                </h:panelGroup>
+                <h:outputText value="*"/>
+                <h:outputLabel for="purchaseOrderBeanPurchaseOrderCreditCardNumber" value="Credit Card Number:"/>
+                <h:panelGroup>
+                    <h:inputText id="purchaseOrderBeanPurchaseOrderCreditCardNumber" maxLength="30" required="true"
+                                 value="#{shoppingCartBean.creditCard.creditCardNumber}"/>
+                    <h:message for="purchaseOrderBeanPurchaseOrderCreditCardNumber" styleClass="error"/>
+                </h:panelGroup>
+                <h:outputText value="*"/>
+                <h:outputLabel for="purchaseOrderBeanPurchaseOrderCreditCardType" value="Credit Card Type:"/>
+                <h:panelGroup>
+                    <h:selectOneMenu id="purchaseOrderBeanPurchaseOrderCreditCardType" required="true"
+                                     value="#{shoppingCartBean.creditCard.creditCardType}">
+                        <f:selectItem itemValue="VISA"/>
+                        <f:selectItem itemValue="MASTER_CARD"/>
+                        <f:selectItem itemValue="AMERICAN_EXPRESS"/>
+                    </h:selectOneMenu>
+                    <h:message for="purchaseOrderBeanPurchaseOrderCreditCardType" styleClass="error"/>
+                </h:panelGroup>
+                <h:outputText value="*"/>
+                <h:outputLabel for="purchaseOrderBeanPurchaseOrderCreditCardExpDate" value="Credit Card Exp Date:"/>
+                <h:panelGroup>
+                    <h:inputText id="purchaseOrderBeanPurchaseOrderCreditCardExpDate" maxLength="5" required="true"
+                                 value="#{shoppingCartBean.creditCard.creditCardExpDate}"/>
+                    <h:message for="purchaseOrderBeanPurchaseOrderCreditCardExpDate" styleClass="error"/>
+                </h:panelGroup>
+                <h:outputText value="*"/>
+            </h:panelGrid>
+
+            <div class="buttons">
+                <h:commandLink action="#{shoppingCartBean.confirmation}" styleClass="btn btn-primary"
+                               value="Check Out"/>
+            </div>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+
