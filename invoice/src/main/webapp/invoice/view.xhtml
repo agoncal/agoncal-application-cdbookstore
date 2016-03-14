@@ -64,37 +64,6 @@
 			<h:outputLabel for="invoiceBeanInvoiceCountry" value="Country:"/>
 			<h:outputText id="invoiceBeanInvoiceCountry" value="#{invoiceBean.invoice.country}"/>
 			<h:outputText/>
-			<h:outputLabel for="invoiceBeanInvoiceInvoiceLines" value="Invoice Lines:"/>
-			<h:dataTable id="invoiceBeanInvoiceInvoiceLines" styleClass="data-table" value="#{forgeview:asList(invoiceBean.invoice.invoiceLines)}" var="_item">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Quantity"/>
-					</f:facet>
-					<h:link outcome="/invoiceLine/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemQuantity" value="#{_item.quantity}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Title"/>
-					</f:facet>
-					<h:link outcome="/invoiceLine/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemTitle" value="#{_item.title}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Unit Cost"/>
-					</f:facet>
-					<h:link outcome="/invoiceLine/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemUnitCost" value="#{_item.unitCost}"/>
-					</h:link>
-				</h:column>
-			</h:dataTable>
-			<h:outputText/>
 			<h:outputLabel for="invoiceBeanInvoiceTotalBeforeDiscount" value="Total Before Discount:"/>
 			<h:outputText id="invoiceBeanInvoiceTotalBeforeDiscount" value="#{invoiceBean.invoice.totalBeforeDiscount}"/>
 			<h:outputText/>
@@ -120,8 +89,6 @@
 
 		<div class="buttons">
 			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
-			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
-			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
 		</div>
 	</ui:define>
 
