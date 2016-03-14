@@ -57,6 +57,17 @@
                     <h:message for="purchaseOrderBeanPurchaseOrderZipcode" styleClass="error"/>
                 </h:panelGroup>
                 <h:outputText value="*"/>
+
+                <h:outputLabel for="purchaseOrderBeanPurchaseOrderCountry" value="Country:"/>
+                <h:panelGroup>
+                    <h:selectOneMenu id="purchaseOrderBeanPurchaseOrderCountry" required="true"
+                                     value="#{shoppingCartBean.country}">
+                        <f:selectItems value="#{shoppingCartBean.countries}"/>
+                    </h:selectOneMenu>
+                    <h:message for="purchaseOrderBeanPurchaseOrderCountry" styleClass="error"/>
+                </h:panelGroup>
+                <h:outputText value="*"/>
+
                 <h:outputLabel for="purchaseOrderBeanPurchaseOrderCreditCardNumber" value="Credit Card Number:"/>
                 <h:panelGroup>
                     <h:inputText id="purchaseOrderBeanPurchaseOrderCreditCardNumber" maxLength="30" required="true"
@@ -68,9 +79,7 @@
                 <h:panelGroup>
                     <h:selectOneMenu id="purchaseOrderBeanPurchaseOrderCreditCardType" required="true"
                                      value="#{shoppingCartBean.creditCard.creditCardType}">
-                        <f:selectItem itemValue="VISA"/>
-                        <f:selectItem itemValue="MASTER_CARD"/>
-                        <f:selectItem itemValue="AMERICAN_EXPRESS"/>
+                        <f:selectItems value="#{shoppingCartBean.creditCardTypes}"/>
                     </h:selectOneMenu>
                     <h:message for="purchaseOrderBeanPurchaseOrderCreditCardType" styleClass="error"/>
                 </h:panelGroup>
@@ -82,6 +91,7 @@
                     <h:message for="purchaseOrderBeanPurchaseOrderCreditCardExpDate" styleClass="error"/>
                 </h:panelGroup>
                 <h:outputText value="*"/>
+
             </h:panelGrid>
 
             <div class="buttons">

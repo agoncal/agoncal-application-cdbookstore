@@ -17,6 +17,7 @@ import javax.jms.JMSSessionMode;
 import javax.jms.Queue;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,7 @@ public class ShoppingCartBean implements Serializable {
 
     private List<ShoppingCartItem> cartItems = new ArrayList<>();
     private Address address = new Address();
+    private String country = new String();
     private CreditCard creditCard = new CreditCard();
 
     // ======================================
@@ -104,7 +106,9 @@ public class ShoppingCartBean implements Serializable {
 
         // Creating the invoice
         User user = accountBean.getUser();
-        Invoice invoice = new Invoice(user.getFirstName(), user.getLastName(), user.getEmail(), address.getStreet1(), address.getCity(), address.getZipcode());
+        Invoice invoice = new Invoice(user.getFirstName(), user.getLastName(), user.getEmail(), address.getStreet1(), address.getCity(), address.getZipcode(), country);
+        invoice.setTelephone(user.getTelephone());
+        invoice.setStreet2(address.getStreet2());
         for (ShoppingCartItem cartItem : cartItems) {
             invoice.addInvoiceLine(new InvoiceLine(cartItem.getQuantity(), cartItem.getItem().getTitle(), cartItem.getItem().getUnitCost()));
         }
@@ -166,7 +170,25 @@ public class ShoppingCartBean implements Serializable {
         this.address = address;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public CreditCardType[] getCreditCardTypes() {
         return CreditCardType.values();
+    }
+
+    public String[] getCountries() {
+        TypedQuery<Country> query = em.createNamedQuery(Country.FIND_ALL, Country.class);
+        List<Country> countries = query.getResultList();
+        String[] result = new String[countries.size()];
+        for (int i = 0; i < countries.size(); i++) {
+            result[i] = countries.get(i).getName();
+        }
+        return result;
     }
 }

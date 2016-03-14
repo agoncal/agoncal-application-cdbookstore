@@ -13,7 +13,14 @@ import java.io.Serializable;
 
 @Entity
 @Cacheable
+@NamedQuery(name = Country.FIND_ALL, query = "SELECT c FROM Country c ORDER BY c.name")
 public class Country implements Serializable {
+
+    // ======================================
+    // =             Constants              =
+    // ======================================
+
+    public static final String FIND_ALL = "Country.findAll";
 
     // ======================================
     // =             Attributes             =
