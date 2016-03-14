@@ -9,7 +9,7 @@
     <version>1.0</version>
     <packaging>pom</packaging>
     <name>Parent of CD Bookstore</name>
-    
+
     <modules>
         <module>cdbookstore</module>
         <module>invoice</module>
@@ -17,11 +17,31 @@
     </modules>
 
     <properties>
+        <version.javaee7>1.0.3.Final</version.javaee7>
+        <version.mapstruct>1.0.0.Final</version.mapstruct>
+        <version.lorem>2.0</version.lorem>
+        <version.bootstrap>3.3.6</version.bootstrap>
+        <version.primefaces>5.3</version.primefaces>
+        <version.primefaces.theme>1.0.10</version.primefaces.theme>
+        <version.resteasy>3.0.12.Final</version.resteasy>
+        <!-- Test -->
+        <version.arquillian>1.1.11.Final</version.arquillian>
+        <version.arquillian.wildfly.remote>8.2.1.Final</version.arquillian.wildfly.remote>
+        <version.junit>4.12</version.junit>
+        <!-- Plugins -->
+        <version.clean.plugin>3.0.0</version.clean.plugin>
+        <version.compiler.plugin>3.5.1</version.compiler.plugin>
+        <version.dependency.plugin>2.10</version.dependency.plugin>
+        <version.failsafe.plugin>2.19.1</version.failsafe.plugin>
+        <version.install.plugin>2.5.2</version.install.plugin>
+        <version.jar.plugin>2.6</version.jar.plugin>
+        <version.surefire.plugin>2.19.1</version.surefire.plugin>
+        <version.war.plugin>2.6</version.war.plugin>
+        <version.processor.plugin>3.1.0</version.processor.plugin>
+        <!-- Compiler -->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.arquillian_core>1.1.11.Final</version.arquillian_core>
-        <version.junit>4.12</version.junit>
     </properties>
 
     <dependencyManagement>
@@ -29,42 +49,47 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>${version.arquillian_core}</version>
+                <version>${version.arquillian}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>bootstrap</artifactId>
-                <version>3.3.6</version>
+                <version>${version.bootstrap}</version>
             </dependency>
             <dependency>
                 <groupId>org.primefaces</groupId>
                 <artifactId>primefaces</artifactId>
-                <version>5.3</version>
+                <version>${version.primefaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.primefaces.themes</groupId>
                 <artifactId>all-themes</artifactId>
-                <version>1.0.10</version>
+                <version>${version.primefaces.theme}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.spec</groupId>
                 <artifactId>jboss-javaee-7.0</artifactId>
-                <version>1.0.3.Final</version>
+                <version>${version.javaee7}</version>
                 <type>pom</type>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-client</artifactId>
-                <version>3.0.12.Final</version>
+                <version>${version.resteasy}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>com.thedeanda</groupId>
                 <artifactId>lorem</artifactId>
-                <version>2.0</version>
+                <version>${version.lorem}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-jdk8</artifactId>
+                <version>${version.mapstruct}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
@@ -75,7 +100,7 @@
             <dependency>
                 <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-arquillian-container-remote</artifactId>
-                <version>8.2.1.Final</version>
+                <version>${version.arquillian.wildfly.remote}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -85,20 +110,119 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>2.6</version>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${version.clean.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${version.compiler.plugin}</version>
                     <configuration>
-                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                        <encoding>UTF-8</encoding>
+                        <compilerArgument>-XDignore.symbol.file</compilerArgument>
                     </configuration>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${version.dependency.plugin}</version>
+                    <configuration>
+                        <!-- Perfs improvements - PAR-191 -->
+                        <useJvmChmod>true</useJvmChmod>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${version.failsafe.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${version.install.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${version.jar.plugin}</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <Date>${maven.build.timestamp}</Date>
+                                <Specification-Title>${project.name}</Specification-Title>
+                                <Specification-Version>${project.version}</Specification-Version>
+                                <Specification-Vendor>${project.organization.name}</Specification-Vendor>
+                                <Implementation-Title>${project.name}</Implementation-Title>
+                                <Implementation-Version>${project.version}</Implementation-Version>
+                                <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.19.1</version>
+                    <version>${version.surefire.plugin}</version>
                     <configuration>
                         <systemPropertyVariables>
                             <arquillian.launch>arquillian-wildfly-remote</arquillian.launch>
                         </systemPropertyVariables>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${version.war.plugin}</version>
+                    <configuration>
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                        <archive>
+                            <manifest>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <Date>${maven.build.timestamp}</Date>
+                                <Specification-Title>${project.name}</Specification-Title>
+                                <Specification-Version>${project.version}</Specification-Version>
+                                <Specification-Vendor>${project.organization.name}</Specification-Vendor>
+                                <Implementation-Title>${project.name}</Implementation-Title>
+                                <Implementation-Version>${project.version}</Implementation-Version>
+                                <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.bsc.maven</groupId>
+                    <artifactId>maven-processor-plugin</artifactId>
+                    <version>version.processor.plugin</version>
+                    <configuration>
+                        <defaultOutputDirectory>${project.build.directory}/generated-sources</defaultOutputDirectory>
+                        <processors>
+                            <processor>org.mapstruct.ap.MappingProcessor</processor>
+                        </processors>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>process</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>process</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${version.mapstruct}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>
