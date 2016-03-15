@@ -1,0 +1,9 @@
+<job id="InvoiceJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
+    <step id="process">
+        <chunk item-count="2">
+            <reader ref="invoiceReader"/>
+            <processor ref="simpleItemProcessor"/>
+            <writer ref="simpleItemWriter"/>
+        </chunk>
+    </step>
+</job>

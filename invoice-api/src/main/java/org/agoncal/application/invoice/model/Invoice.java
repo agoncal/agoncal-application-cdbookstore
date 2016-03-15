@@ -5,10 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Antonio Goncalves
@@ -17,7 +14,14 @@ import java.util.Set;
  */
 
 @Entity
+@NamedQuery(name = Invoice.FIND_MONTHLY, query = "SELECT i FROM Invoice i ORDER BY i.invoiceDate ASC")
 public class Invoice implements Serializable {
+
+    // ======================================
+    // =             Constants              =
+    // ======================================
+
+    public static final String FIND_MONTHLY = "Invoice.findMonthly";
 
     // ======================================
     // =             Attributes             =
@@ -142,6 +146,12 @@ public class Invoice implements Serializable {
 
     public void setInvoiceDate(Date invoiceDate) {
         this.invoiceDate = invoiceDate;
+    }
+
+    public int getMonth() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(invoiceDate);
+        return cal.get(Calendar.MONTH);
     }
 
     public Float getTotalBeforeDiscount() {

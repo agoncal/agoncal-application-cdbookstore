@@ -16,8 +16,16 @@ import static org.junit.Assert.*;
 @RunWith(Arquillian.class)
 public class PublisherBeanTest {
 
+    // ======================================
+    // =          Injection Points          =
+    // ======================================
+
     @Inject
     private PublisherBean publisherBean;
+
+    // ======================================
+    // =         Deployment methods         =
+    // ======================================
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -28,6 +36,10 @@ public class PublisherBeanTest {
                 .addAsManifestResource("META-INF/persistence-test.xml", "persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
+
+    // ======================================
+    // =            Test methods            =
+    // ======================================
 
     @Test
     public void should_be_deployed() {

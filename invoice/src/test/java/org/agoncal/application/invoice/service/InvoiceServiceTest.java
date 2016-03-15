@@ -1,4 +1,4 @@
-package org.agoncal.application.invoice;
+package org.agoncal.application.invoice.service;
 
 import org.agoncal.application.invoice.model.Invoice;
 import org.agoncal.application.invoice.model.InvoiceLine;
@@ -21,8 +21,16 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(Arquillian.class)
 public class InvoiceServiceTest {
 
+    // ======================================
+    // =          Injection Points          =
+    // ======================================
+
     @Inject
     private InvoiceService invoiceService;
+
+    // ======================================
+    // =         Deployment methods         =
+    // ======================================
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -34,6 +42,10 @@ public class InvoiceServiceTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
+
+    // ======================================
+    // =            Test methods            =
+    // ======================================
 
     @Test
     public void should_be_deployed() {

@@ -24,8 +24,16 @@ import static org.junit.Assert.assertEquals;
 @RunAsClient
 public class CDEndpointTest {
 
+    // ======================================
+    // =          Injection Points          =
+    // ======================================
+
     @ArquillianResource
     private URI baseURL;
+
+    // ======================================
+    // =         Deployment methods         =
+    // ======================================
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -42,6 +50,10 @@ public class CDEndpointTest {
                 .addAsResource("META-INF/persistence-test.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
+
+    // ======================================
+    // =            Test methods            =
+    // ======================================
 
     @Test
     public void should_be_deployed() {
