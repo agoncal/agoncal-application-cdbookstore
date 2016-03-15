@@ -69,6 +69,24 @@
 			<h:dataTable id="invoiceBeanPageItems" styleClass="data-table" value="#{invoiceBean.pageItems}" var="_item">
 				<h:column>
 					<f:facet name="header">
+						<h:outputText value="Invoice number"/>
+					</f:facet>
+					<h:link outcome="/invoice/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemId" value="#{_item.id}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Date"/>
+					</f:facet>
+					<h:link outcome="/invoice/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemDate" value="#{_item.invoiceDate}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
 						<h:outputText value="First Name"/>
 					</f:facet>
 					<h:link outcome="/invoice/view">
@@ -92,24 +110,6 @@
 					<h:link outcome="/invoice/view">
 						<f:param name="id" value="#{_item.id}"/>
 						<h:outputText id="itemEmail" value="#{_item.email}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Street 1"/>
-					</f:facet>
-					<h:link outcome="/invoice/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemStreet1" value="#{_item.street1}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="City"/>
-					</f:facet>
-					<h:link outcome="/invoice/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemCity" value="#{_item.city}"/>
 					</h:link>
 				</h:column>
 			</h:dataTable>

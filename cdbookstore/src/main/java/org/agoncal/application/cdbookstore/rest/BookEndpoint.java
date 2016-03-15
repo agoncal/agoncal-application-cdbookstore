@@ -3,6 +3,7 @@ package org.agoncal.application.cdbookstore.rest;
 import org.agoncal.application.cdbookstore.model.Book;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -24,7 +25,7 @@ public class BookEndpoint {
     // =          Injection Points          =
     // ======================================
 
-    @PersistenceContext(unitName = "applicationCDBookStorePU")
+    @Inject
     private EntityManager em;
 
     // ======================================

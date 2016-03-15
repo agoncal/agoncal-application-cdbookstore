@@ -24,7 +24,7 @@ public class CatalogBean {
     @Inject
     private FacesContext facesContext;
 
-    @PersistenceContext(unitName = "applicationCDBookStorePU")
+    @Inject
     private EntityManager em;
 
     // ======================================

@@ -47,8 +47,7 @@ public class ShoppingCartBean implements Serializable {
     @Resource(lookup = "jms/queue/invoiceQueue")
     private Queue queue;
 
-
-    @PersistenceContext(unitName = "applicationCDBookStorePU")
+    @Inject
     private EntityManager em;
 
     // ======================================

@@ -47,7 +47,7 @@ public class AccountBean implements Serializable {
     @Inject
     private HttpServletRequest request;
 
-    @PersistenceContext(unitName = "applicationCDBookStorePU")
+    @Inject
     private EntityManager em;
 
     // ======================================

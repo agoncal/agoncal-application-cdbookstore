@@ -16,7 +16,7 @@ import java.io.Serializable;
 @DiscriminatorColumn(name = "discriminator", discriminatorType = DiscriminatorType.CHAR)
 @DiscriminatorValue("I")
 @NamedQueries({
-        @NamedQuery(name = Item.FIND_TOP_RATED, query = "SELECT i FROM Item i WHERE i.rank = 5"),
+        @NamedQuery(name = Item.FIND_TOP_RATED, query = "SELECT i FROM Item i WHERE i.id in :ids"),
         @NamedQuery(name = Item.SEARCH, query = "SELECT i FROM Item i WHERE UPPER(i.title) LIKE :keyword OR UPPER(i.description) LIKE :keyword ORDER BY i.title")
 
 })

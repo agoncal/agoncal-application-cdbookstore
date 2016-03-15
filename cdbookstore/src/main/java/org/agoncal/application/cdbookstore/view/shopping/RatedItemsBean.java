@@ -7,11 +7,18 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonReader;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.io.StringReader;
 import java.util.*;
+import java.util.logging.Logger;
 
 @Named
 @RequestScoped
@@ -25,7 +32,10 @@ public class RatedItemsBean {
     @Inject
     private FacesContext facesContext;
 
-    @PersistenceContext(unitName = "applicationCDBookStorePU")
+    @Inject
+    private Logger logger;
+
+    @Inject
     private EntityManager em;
 
     // ======================================
@@ -63,8 +73,28 @@ public class RatedItemsBean {
     }
 
     private void doFindTopRated() {
-        TypedQuery<Item> query = em.createNamedQuery(Item.FIND_TOP_RATED, Item.class);
-        topRatedItems = query.getResultList();
+
+        Response response = ClientBuilder.newClient().target("http://localhost:8080/applicationToprated/toprateditems").request(MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != Response.Status.OK.getStatusCode())
+            return;
+
+        String body = response.readEntity(String.class);
+
+        List<Long> topRateditemIds = new ArrayList<>();
+        try (JsonReader reader = Json.createReader(new StringReader(body))) {
+            JsonArray array = reader.readArray();
+            for (int i = 0; i < array.size(); i++) {
+                topRateditemIds.add((long) array.getJsonObject(i).getInt("id"));
+            }
+        }
+
+        if (!topRateditemIds.isEmpty()) {
+            logger.info("Top rated books ids " + topRateditemIds);
+            TypedQuery<Item> query = em.createNamedQuery(Item.FIND_TOP_RATED, Item.class);
+            query.setParameter("ids", topRateditemIds);
+            topRatedItems = query.getResultList();
+            logger.info("Number of top rated items found " + topRatedItems.size());
+        }
     }
 
     // ======================================
