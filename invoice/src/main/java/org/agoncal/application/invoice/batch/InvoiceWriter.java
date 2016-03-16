@@ -43,8 +43,9 @@ public class InvoiceWriter extends AbstractItemWriter {
         InvoiceSummaries summaries = new InvoiceSummaries();
         summaries.setYear(2016);
 
-        for (Object item : items) {
-            summaries.add((InvoiceSummary) item);
+        List<InvoiceSummary> invoiceSummaries = (List<InvoiceSummary>) items.get(0);
+        for (InvoiceSummary invoiceSummary : invoiceSummaries) {
+            summaries.add(invoiceSummary);
         }
 
         JAXBContext context = JAXBContext.newInstance(InvoiceSummaries.class);
