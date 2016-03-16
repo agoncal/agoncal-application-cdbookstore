@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui"
+                template="/resources/scaffold/template.xhtml">
+
+    <ui:define name="title">Chat</ui:define>
+
+    <ui:define name="message">Chat with customer support</ui:define>
+
+    <ui:define name="body">
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h:form class="form-horizontal">
+                    <div class="form-group">
+                        <h:outputLabel for="inputChat" class="col-sm-2 control-label" value="Chat"/>
+
+                        <div class="col-sm-10">
+                            <h:inputText class="form-control" id="inputChat" value="#{accountBean.user.login}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel for="inputHistory" class="col-sm-2 control-label" value="Password"/>
+
+                        <div class="col-sm-10">
+                            <p:inputTextarea id="inputHistory" value="#{accountBean.password1}" cols="50"/>
+                        </div>
+
+                    </div>
+                </h:form>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+
+    </ui:define>
+
+</ui:composition>
