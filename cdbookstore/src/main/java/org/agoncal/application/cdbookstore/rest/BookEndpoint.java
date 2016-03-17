@@ -4,7 +4,10 @@ import org.agoncal.application.cdbookstore.model.Book;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.OptimisticLockException;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
