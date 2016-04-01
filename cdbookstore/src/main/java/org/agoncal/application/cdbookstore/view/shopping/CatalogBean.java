@@ -1,13 +1,13 @@
 package org.agoncal.application.cdbookstore.view.shopping;
 
 import org.agoncal.application.cdbookstore.model.Item;
+import org.agoncal.application.cdbookstore.util.Auditable;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -40,6 +40,7 @@ public class CatalogBean {
     // =          Business methods          =
     // ======================================
 
+    @Auditable
     public String doSearch() {
         TypedQuery<Item> typedQuery = em.createNamedQuery(Item.SEARCH, Item.class);
         typedQuery.setParameter("keyword", "%" + keyword.toUpperCase() + "%");

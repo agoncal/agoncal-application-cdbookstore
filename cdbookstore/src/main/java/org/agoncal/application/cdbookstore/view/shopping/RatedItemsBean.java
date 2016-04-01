@@ -1,6 +1,7 @@
 package org.agoncal.application.cdbookstore.view.shopping;
 
 import org.agoncal.application.cdbookstore.model.Item;
+import org.agoncal.application.cdbookstore.util.Auditable;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -60,6 +61,7 @@ public class RatedItemsBean {
     // =          Business methods          =
     // ======================================
 
+    @Auditable
     private void doFindRandomThree() {
         int min = em.createQuery("select min (i.id) from Item i", Long.class).getSingleResult().intValue();
         int max = em.createQuery("select max (i.id) from Item i", Long.class).getSingleResult().intValue();
@@ -72,6 +74,7 @@ public class RatedItemsBean {
         }
     }
 
+    @Auditable
     private void doFindTopRated() {
 
         Response response = ClientBuilder.newClient().target("http://localhost:8080/applicationToprated/toprateditems").request(MediaType.APPLICATION_JSON).get();
