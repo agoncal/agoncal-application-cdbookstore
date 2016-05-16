@@ -1,6 +1,7 @@
 package org.agoncal.application.cdbookstore.rest;
 
 import org.agoncal.application.cdbookstore.model.*;
+import org.agoncal.application.cdbookstore.util.ResourceProducer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -47,6 +48,7 @@ public class CDEndpointTest {
                 .addClass(Label.class)
                 .addClass(Artist.class)
                 .addClass(Musician.class)
+                .addClass(ResourceProducer.class)
                 .addAsResource("META-INF/persistence-test.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }

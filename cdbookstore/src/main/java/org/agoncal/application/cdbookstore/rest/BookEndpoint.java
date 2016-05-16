@@ -2,12 +2,12 @@ package org.agoncal.application.cdbookstore.rest;
 
 import org.agoncal.application.cdbookstore.model.Book;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -20,8 +20,8 @@ import java.util.List;
  *         --
  */
 
-@Stateless
 @Path("/books")
+@Transactional
 public class BookEndpoint {
 
     // ======================================

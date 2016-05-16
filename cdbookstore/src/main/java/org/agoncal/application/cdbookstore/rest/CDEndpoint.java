@@ -2,9 +2,9 @@ package org.agoncal.application.cdbookstore.rest;
 
 import org.agoncal.application.cdbookstore.model.CD;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -17,8 +17,8 @@ import java.util.List;
  *         --
  */
 
-@Stateless
 @Path("/cds")
+@Transactional
 public class CDEndpoint {
 
     // ======================================
