@@ -2,7 +2,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-                xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/resources/scaffold/template.xhtml">
 
     <ui:define name="title">Signup</ui:define>
@@ -12,75 +13,89 @@
     <ui:define name="body">
 
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
                 <h:form id="form" class="form-horizontal">
                     <div class="form-group">
-                        <h:outputLabel for="inputLogin" class="col-sm-2 control-label" value="Login"/>
+                        <h:outputLabel for="inputLogin" class="col-sm-4 control-label" value="Login"/>
 
-                        <div class="col-sm-10">
+                        <div class="col-sm-8">
                             <h:inputText class="form-control" id="inputLogin" value="#{accountBean.user.login}"
                                          label="Login"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <h:outputLabel for="inputPassword1" class="col-sm-2 control-label" value="Password"/>
+                        <h:outputLabel for="inputPassword1" class="col-sm-4 control-label" value="Password"/>
 
-                        <div class="col-sm-10">
+                        <div class="col-sm-8">
                             <p:password id="inputPassword1" value="#{accountBean.password1}" feedback="true"
-                                        inline="true"
+                                        inline="false"
                                         match="inputPassword2" required="true" label="Password 1"/>
                         </div>
 
                     </div>
                     <div class="form-group">
-                        <h:outputLabel for="inputPassword2" class="col-sm-2 control-label" value="Re-type Password"/>
+                        <h:outputLabel for="inputPassword2" class="col-sm-4 control-label" value="Re-type Password"/>
 
-                        <div class="col-sm-10">
+                        <div class="col-sm-8">
                             <p:password id="inputPassword2" value="#{accountBean.password2}" feedback="false"
                                         required="true" label="Password 2"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <h:outputLabel for="inputRole" class="col-sm-2 control-label" value="Role"/>
+                        <h:outputLabel for="inputRole" class="col-sm-4 control-label" value="Role"/>
 
-                        <div class="col-sm-10">
+                        <div class="col-sm-8">
                             <h:selectOneMenu value="#{accountBean.user.role}" class="form-control" id="inputRole">
                                 <f:selectItems value="#{accountBean.roles}"/>
                             </h:selectOneMenu>
                         </div>
                     </div>
                     <div class="form-group">
-                        <h:outputLabel for="inputFirstName" class="col-sm-2 control-label" value="First name"/>
+                        <h:outputLabel for="inputFirstName" class="col-sm-4 control-label" value="First name"/>
 
-                        <div class="col-sm-10">
+                        <div class="col-sm-8">
                             <h:inputText class="form-control" id="inputFirstName"
                                          value="#{accountBean.user.firstName}"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <h:outputLabel for="inputLastName" class="col-sm-2 control-label" value="Last name"/>
+                        <h:outputLabel for="inputLastName" class="col-sm-4 control-label" value="Last name"/>
 
-                        <div class="col-sm-10">
+                        <div class="col-sm-8">
                             <h:inputText class="form-control" id="inputLastName" value="#{accountBean.user.lastName}"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <h:outputLabel for="inputEmail" class="col-sm-2 control-label" value="Email"/>
+                        <h:outputLabel for="inputEmail" class="col-sm-4 control-label" value="Email"/>
 
-                        <div class="col-sm-10">
+                        <div class="col-sm-8">
                             <h:inputText pt:type="email" class="form-control" id="inputEmail"
                                          value="#{accountBean.user.email}"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                        <h:outputLabel for="inputDate" class="col-sm-4 control-label" value="Date of birth"/>
+
+                        <div class="col-sm-8">
+                            <p:calendar id="inputDate" value="#{accountBean.user.dateOfBirth}" showOn="button" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel for="inputPhone" class="col-sm-4 control-label" value="Phone"/>
+
+                        <div class="col-sm-8">
+                            <p:inputMask id="inputPhone" value="#{accountBean.user.telephone}" mask="(999) 999-9999"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-8">
                             <h:commandButton class="btn btn-default" value="Sign up" action="#{accountBean.doSignup}"/>
                         </div>
                     </div>
                 </h:form>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-3"></div>
         </div>
 
 
