@@ -21,7 +21,7 @@
 
                         <div class="col-sm-8">
                             <h:inputText class="form-control" id="inputLogin" value="#{accountBean.user.login}"
-                                         label="Login"/>
+                                         label="Login" style="display:block;width:177px"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -35,46 +35,6 @@
 
                     </div>
                     <div class="form-group">
-                        <h:outputLabel for="inputPassword2" class="col-sm-4 control-label" value="Re-type Password"/>
-
-                        <div class="col-sm-8">
-                            <p:password id="inputPassword2" value="#{accountBean.password2}" feedback="false"
-                                        required="true" label="Password 2"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <h:outputLabel for="inputRole" class="col-sm-4 control-label" value="Role"/>
-
-                        <div class="col-sm-8">
-                            <h:selectOneMenu value="#{accountBean.user.role}" class="form-control" id="inputRole">
-                                <f:selectItems value="#{accountBean.roles}"/>
-                            </h:selectOneMenu>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <h:outputLabel for="inputFirstName" class="col-sm-4 control-label" value="First name"/>
-
-                        <div class="col-sm-8">
-                            <h:inputText class="form-control" id="inputFirstName"
-                                         value="#{accountBean.user.firstName}"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <h:outputLabel for="inputLastName" class="col-sm-4 control-label" value="Last name"/>
-
-                        <div class="col-sm-8">
-                            <h:inputText class="form-control" id="inputLastName" value="#{accountBean.user.lastName}"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <h:outputLabel for="inputEmail" class="col-sm-4 control-label" value="Email"/>
-
-                        <div class="col-sm-8">
-                            <h:inputText pt:type="email" class="form-control" id="inputEmail"
-                                         value="#{accountBean.user.email}"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <h:outputLabel for="inputDate" class="col-sm-4 control-label" value="Date of birth"/>
 
                         <div class="col-sm-8">
@@ -82,14 +42,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <h:outputLabel for="inputPhone" class="col-sm-4 control-label" value="Phone"/>
-
-                        <div class="col-sm-8">
-                            <p:inputMask id="inputPhone" value="#{accountBean.user.telephone}" mask="(999) 999-9999"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-8">
+                        <div class="col-sm-offset-4 col-sm-8">
                             <h:commandButton class="btn btn-default" value="Sign up" action="#{accountBean.doSignup}"/>
                         </div>
                     </div>
