@@ -65,7 +65,7 @@
             </dependency>
             <dependency>
                 <groupId>org.primefaces.themes</groupId>
-                <artifactId>all-themes</artifactId>
+                <artifactId>bootstrap</artifactId>
                 <version>${version.primefaces.theme}</version>
             </dependency>
             <dependency>

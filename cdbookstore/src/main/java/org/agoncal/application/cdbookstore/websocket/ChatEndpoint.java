@@ -1,11 +1,8 @@
 package org.agoncal.application.cdbookstore.websocket;
 
 import javax.inject.Inject;
-import javax.websocket.EncodeException;
-import javax.websocket.OnMessage;
-import javax.websocket.Session;
+import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
-import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
@@ -28,11 +25,36 @@ public class ChatEndpoint {
     // =          Business methods          =
     // ======================================
 
-    @OnMessage
-    public void message(String message, Session client) throws IOException, EncodeException {
+    @OnOpen
+    public void onOpen(Session session) {
+        System.out.println("######################");
+        System.out.println("######################");
+        System.out.println("######################");
+        // ...
+    }
+
+        @OnMessage
+    public void message(String message, Session client) throws Exception {
+            System.out.println("######################");
+            System.out.println("######################");
+            System.out.println("######################");
         logger.info("message: " + message);
         for (Session peer : client.getOpenSessions()) {
             peer.getBasicRemote().sendText(message);
         }
+    }
+
+    @OnClose
+    public void onClose(Session session) {
+        System.out.println("######################");
+        System.out.println("######################");
+        System.out.println("######################");
+    }
+
+    @OnError
+    public void onError(Throwable t) {
+        System.out.println("######################");
+        System.out.println("######################");
+        System.out.println("######################");
     }
 }
