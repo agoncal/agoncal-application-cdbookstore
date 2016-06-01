@@ -1,7 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui"
                 template="/resources/scaffold/template.xhtml">
 
     <ui:define name="title">Chat</ui:define>
@@ -29,6 +28,10 @@
                         <tr>
                             <td colspan="2">
                                 <input id="textField" name="name" value="Enter your name" type="text"/><br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
                                 <input onclick="join();" value="Join" type="button"/>
                                 <input onclick="send_message();" value="Chat" type="button"/>
                             </td>
@@ -37,7 +40,11 @@
 
                 </form>
             </div>
-            <div id="output"></div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" id="output"></div>
             <div class="col-md-2"></div>
         </div>
 
