@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 
 /**
@@ -20,6 +21,7 @@ import java.io.Serializable;
         @NamedQuery(name = Item.SEARCH, query = "SELECT i FROM Item i WHERE UPPER(i.title) LIKE :keyword OR UPPER(i.description) LIKE :keyword ORDER BY i.title")
 
 })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Item implements Serializable {
 
     // ======================================
@@ -36,15 +38,18 @@ public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
+    @XmlAttribute
     protected Long id;
 
     @Version
     @Column(name = "version")
+    @XmlTransient
     protected int version;
 
     @Column(length = 200)
     @NotNull
     @Size(min = 1, max = 200)
+    @XmlAttribute
     protected String title;
 
     @Column(length = 10000)
@@ -53,14 +58,17 @@ public class Item implements Serializable {
 
     @Column(name = "unit_cost")
     @Min(1)
+    @XmlAttribute(name = "unit-cost")
     protected Float unitCost;
 
     protected Integer rank;
 
     @Column(name = "small_image_url")
+    @XmlElement(name = "small-image-url")
     protected String smallImageURL;
 
     @Column(name = "medium_image_url")
+    @XmlElement(name = "medium-image-url")
     protected String mediumImageURL;
 
     // ======================================

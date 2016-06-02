@@ -3,6 +3,10 @@ package org.agoncal.application.cdbookstore.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 
 /**
@@ -12,6 +16,7 @@ import java.io.Serializable;
  */
 
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Category implements Serializable {
 
     // ======================================
@@ -21,14 +26,17 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
+    @XmlTransient
     private Long id;
     @Version
     @Column(name = "version")
+    @XmlTransient
     private int version;
 
     @Column(length = 100)
     @NotNull
     @Size(max = 100)
+    @XmlAttribute
     private String name;
 
     // ======================================

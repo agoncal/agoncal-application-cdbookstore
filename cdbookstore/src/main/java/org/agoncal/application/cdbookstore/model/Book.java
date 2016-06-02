@@ -4,6 +4,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 import java.util.HashSet;
@@ -16,8 +19,9 @@ import java.util.Set;
  */
 
 @Entity
-@XmlRootElement
 @DiscriminatorValue("B")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Book extends Item {
 
     // ======================================
@@ -31,10 +35,12 @@ public class Book extends Item {
 
     @Column(name = "nb_of_pages")
     @Min(1)
+    @XmlElement(name = "nb-of-pages")
     private Integer nbOfPage;
 
     @Column(name = "publication_date")
     @Temporal(TemporalType.DATE)
+    @XmlElement(name = "publication-date")
     private Date publicationDate;
 
     @Enumerated
