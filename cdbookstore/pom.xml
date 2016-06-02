@@ -48,7 +48,10 @@
             <groupId>com.thedeanda</groupId>
             <artifactId>lorem</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-client</artifactId>

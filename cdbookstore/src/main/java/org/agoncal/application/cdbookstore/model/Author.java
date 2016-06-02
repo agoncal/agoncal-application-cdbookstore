@@ -1,6 +1,8 @@
 package org.agoncal.application.cdbookstore.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
 
 /**
  * @author Antonio Goncalves
@@ -20,6 +22,18 @@ public class Author extends Artist {
     private Language preferredLanguage;
 
     // ======================================
+    // =            Constructors            =
+    // ======================================
+
+    public Author() {
+    }
+
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    // ======================================
     // =        Getters and Setters         =
     // ======================================
 
@@ -34,31 +48,6 @@ public class Author extends Artist {
     // ======================================
     // =   Methods hash, equals, toString   =
     // ======================================
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Author)) {
-            return false;
-        }
-        Author other = (Author) obj;
-        if (id != null) {
-            if (!id.equals(other.id)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
 
     @Override
     public String toString() {

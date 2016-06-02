@@ -4,10 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,6 +28,7 @@ public class Book extends Item {
     @Column(length = 15)
     @NotNull
     @Size(max = 15)
+    @XmlAttribute
     private String isbn;
 
     @Column(name = "nb_of_pages")
@@ -50,6 +48,8 @@ public class Book extends Item {
     private Category category;
 
     @OneToMany
+    @XmlElementWrapper(name = "authors")
+    @XmlElement(name = "author")
     private Set<Author> authors = new HashSet<>();
 
     @ManyToOne
@@ -155,14 +155,6 @@ public class Book extends Item {
         this.category = category;
     }
 
-    public Set<Author> getAuthors() {
-        return this.authors;
-    }
-
-    public void setAuthors(final Set<Author> authors) {
-        this.authors = authors;
-    }
-
     public Publisher getPublisher() {
         return this.publisher;
     }
@@ -171,34 +163,24 @@ public class Book extends Item {
         this.publisher = publisher;
     }
 
+    public Set<Author> getAuthors() {
+        return this.authors;
+    }
+
+    public void setAuthors(final Set<Author> authors) {
+        this.authors = authors;
+    }
+
+    public void addAuthor(Author author) {
+        if (authors == null) {
+            authors = new HashSet<>();
+        }
+        authors.add(author);
+    }
+
     // ======================================
     // =   Methods hash, equals, toString   =
     // ======================================
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Book)) {
-            return false;
-        }
-        Book other = (Book) obj;
-        if (id != null) {
-            if (!id.equals(other.id)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
 
     @Override
     public String toString() {

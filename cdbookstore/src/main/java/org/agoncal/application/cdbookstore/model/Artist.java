@@ -4,6 +4,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -15,6 +19,7 @@ import java.util.GregorianCalendar;
  */
 
 @MappedSuperclass
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Artist {
 
     // ======================================
@@ -24,19 +29,23 @@ public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
+    @XmlTransient
     protected Long id;
     @Version
     @Column(name = "version")
+    @XmlTransient
     protected int version;
 
     @Column(length = 50, name = "first_name", nullable = false)
     @NotNull
     @Size(min = 2, max = 50)
+    @XmlElement(name = "first-name")
     protected String firstName;
 
     @Column(length = 50, name = "last_name", nullable = false)
     @NotNull
     @Size(min = 2, max = 50)
+    @XmlElement(name = "last-name")
     protected String lastName;
 
     @Column(length = 5000)
