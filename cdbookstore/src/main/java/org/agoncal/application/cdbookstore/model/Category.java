@@ -40,6 +40,17 @@ public class Category implements Serializable {
     private String name;
 
     // ======================================
+    // =            Constructors            =
+    // ======================================
+
+    public Category() {
+    }
+
+    public Category(String name) {
+        this.name = name;
+    }
+
+    // ======================================
     // =        Getters and Setters         =
     // ======================================
 

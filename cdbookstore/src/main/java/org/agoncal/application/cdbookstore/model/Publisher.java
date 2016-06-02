@@ -40,6 +40,17 @@ public class Publisher implements Serializable {
     private String name;
 
     // ======================================
+    // =            Constructors            =
+    // ======================================
+
+    public Publisher() {
+    }
+
+    public Publisher(String name) {
+        this.name = name;
+    }
+
+    // ======================================
     // =        Getters and Setters         =
     // ======================================
 
