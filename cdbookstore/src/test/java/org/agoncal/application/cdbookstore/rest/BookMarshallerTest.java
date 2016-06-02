@@ -34,8 +34,8 @@ public class BookMarshallerTest {
                 .add("isbn", "1234")
                 .add("title", "H2G2")
                 .add("unit-cost", "63.98")
-                .add("description", "Best Scifi book")
                 .add("nb-of-pages", "123")
+                .add("description", "Best Scifi book")
                 .add("language", "ENGLISH")
                 .add("category", Json.createObjectBuilder()
                         .add("name", "IT")
@@ -49,8 +49,10 @@ public class BookMarshallerTest {
                                 .add("last-name", "Adams"))
                         .add(Json.createObjectBuilder()
                                 .add("first-name", "John")
-                                .add("last-name", "Cleese")))
+                                .add("last-name", "Cleese")
+                        )
+                )
         ).build();
-        // System.out.println(jsonBook);
+        System.out.println(jsonBook);
     }
 }
