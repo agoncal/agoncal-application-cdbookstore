@@ -4,11 +4,21 @@ import org.agoncal.application.cdbookstore.model.*;
 import org.junit.Test;
 
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class BookMarshallerTest {
 
@@ -54,5 +64,22 @@ public class BookMarshallerTest {
                 )
         ).build();
         System.out.println(jsonBook);
+    }
+
+    @Test
+    public void should_process_books() throws IOException {
+        List<Long> bookIds = new ArrayList<>();
+
+        InputStream stream = Files.newInputStream(Paths.get("src/test/resources/books.json"));
+        try (JsonReader reader = Json.createReader(stream)) {
+            JsonArray array = reader.readArray();
+            for (int i = 0; i < array.size(); i++) {
+                bookIds.add((long) array.getJsonObject(i).getInt("id"));
+                System.out.println(array.getJsonObject(i).getInt("id"));
+                System.out.println(array.getJsonObject(i).getString("title"));
+            }
+        }
+        System.out.println(bookIds);
+        assertTrue(bookIds.size() > 0);
     }
 }
