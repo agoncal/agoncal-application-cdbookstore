@@ -38,7 +38,7 @@ public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
-    @XmlAttribute
+    @XmlTransient
     protected Long id;
 
     @Version
