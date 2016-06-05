@@ -44,6 +44,14 @@ Then you need to create a Queue with the following command in `jboss_cli.sh` :
 * Create the queue : `jms-queue add --queue-address=invoiceQueue --entries=jms/queue/invoiceQueue`
 * Delete the queue : `jms-queue remove --queue-address=invoiceQueue`
 
+### Several WildFlies
+
+If you want to execute each application on different WildFly instances, just do :
+
+* `./standalone.sh -c standalone-full.xml -Djboss.socket.binding.port-offset=2` (ports 8082 / 9992)
+* `./standalone.sh -c standalone-full.xml -Djboss.socket.binding.port-offset=3` (ports 8083 / 9993)
+* `./standalone.sh -c standalone-full.xml -Djboss.socket.binding.port-offset=5` (ports 8085 / 9995)
+
 ### Test with Arquillian
 
 Launching tests under [WildFly](http://www.wildfly.org/) is straight forward. You only have to launch WidlFly and execute the tests using the Maven profile :
@@ -59,6 +67,7 @@ The admin [REST interface](rs/application.wadl) allows you to create/update/remo
 * `curl -X GET http://localhost:8080/applicationCDBookStore/rs/catalog/categories`
 * `curl -X GET http://localhost:8080/applicationCDBookStore/rs/catalog/products`
 * `curl -X GET http://localhost:8080/applicationCDBookStore/rs/catalog/items`
+* `curl -X GET http://localhost:8085/applicationToprated/toprateditems`
 
 You can also get a JSON representation as follow :
 

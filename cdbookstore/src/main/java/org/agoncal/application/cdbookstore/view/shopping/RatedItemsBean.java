@@ -77,27 +77,42 @@ public class RatedItemsBean {
     @Auditable
     private void doFindTopRated() {
 
-        Response response = ClientBuilder.newClient().target("http://localhost:8080/applicationToprated/toprateditems").request(MediaType.APPLICATION_JSON).get();
+        Response response;
+
+        // Tries on port 8080 if not 8085
+        try {
+            response = ClientBuilder.newClient().target("http://localhost:8080/applicationToprated/toprateditems").request(MediaType.APPLICATION_JSON).get();
+        } catch (Exception e) {
+            response = ClientBuilder.newClient().target("http://localhost:8085/applicationToprated/toprateditems").request(MediaType.APPLICATION_JSON).get();
+        }
+
         if (response.getStatus() != Response.Status.OK.getStatusCode())
             return;
 
         String body = response.readEntity(String.class);
 
         List<Long> topRateditemIds = new ArrayList<>();
-        try (JsonReader reader = Json.createReader(new StringReader(body))) {
+        try (
+                JsonReader reader = Json.createReader(new StringReader(body))
+        )
+
+        {
             JsonArray array = reader.readArray();
             for (int i = 0; i < array.size(); i++) {
                 topRateditemIds.add((long) array.getJsonObject(i).getInt("id"));
             }
         }
 
-        if (!topRateditemIds.isEmpty()) {
+        if (!topRateditemIds.isEmpty())
+
+        {
             logger.info("Top rated books ids " + topRateditemIds);
             TypedQuery<Item> query = em.createNamedQuery(Item.FIND_TOP_RATED, Item.class);
             query.setParameter("ids", topRateditemIds);
             topRatedItems = query.getResultList();
             logger.info("Number of top rated items found " + topRatedItems.size());
         }
+
     }
 
     // ======================================
