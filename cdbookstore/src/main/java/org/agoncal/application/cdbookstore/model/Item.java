@@ -38,7 +38,6 @@ public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
-    @XmlTransient
     protected Long id;
 
     @Version
@@ -49,7 +48,6 @@ public class Item implements Serializable {
     @Column(length = 200)
     @NotNull
     @Size(min = 1, max = 200)
-    @XmlAttribute
     protected String title;
 
     @Column(length = 10000)
@@ -58,7 +56,6 @@ public class Item implements Serializable {
 
     @Column(name = "unit_cost")
     @Min(1)
-    @XmlAttribute(name = "unit-cost")
     protected Float unitCost;
 
     protected Integer rank;

@@ -28,32 +28,27 @@ public class Book extends Item {
     @Column(length = 15)
     @NotNull
     @Size(max = 15)
-    @XmlAttribute
     private String isbn;
 
     @Column(name = "nb_of_pages")
     @Min(1)
-    @XmlElement(name = "nb-of-pages")
     private Integer nbOfPage;
 
     @Column(name = "publication_date")
     @Temporal(TemporalType.DATE)
-    @XmlElement(name = "publication-date")
     private Date publicationDate;
 
     @Enumerated
     private Language language;
 
     @ManyToOne
+    private Publisher publisher;
+
+    @ManyToOne
     private Category category;
 
     @OneToMany
-    @XmlElementWrapper(name = "authors")
-    @XmlElement(name = "author")
     private Set<Author> authors = new HashSet<>();
-
-    @ManyToOne
-    private Publisher publisher;
 
     // ======================================
     // =            Constructors            =

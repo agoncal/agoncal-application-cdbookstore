@@ -35,6 +35,20 @@ public class BookEndpoint {
     // =          Business methods          =
     // ======================================
 
+    @GET
+    @Produces({"text/plain"})
+    @Path("/paper")
+    public String listPaperBooks() {
+        return "list paper books";
+    }
+
+    @GET
+    @Produces({"text/plain"})
+    @Path("/paper/old")
+    public String listOldPaperBooks() {
+        return "list old paper books";
+    }
+
     @POST
     @Consumes({"application/xml", "application/json"})
     public Response create(Book entity) {
