@@ -11,17 +11,17 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
-import javax.jms.JMSSessionMode;
 import javax.jms.Queue;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
+
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 /**
  * @author Antonio Goncalves http://www.antoniogoncalves.org --
@@ -42,13 +42,16 @@ public class ShoppingCartBean implements Serializable {
     private AccountBean accountBean;
 
     @Inject
-    private transient JMSContext context;
+    private transient JMSContext jmsContext;
 
     @Resource(lookup = "jms/queue/invoiceQueue")
     private Queue queue;
 
     @Inject
     private EntityManager em;
+
+    @Inject
+    private Logger logger;
 
     // ======================================
     // =             Attributes             =
@@ -113,7 +116,8 @@ public class ShoppingCartBean implements Serializable {
         }
 
         // Sending the invoice
-        context.createProducer().setTimeToLive(1000).send(queue, invoice);
+        jmsContext.createProducer().setTimeToLive(1000).send(queue, invoice);
+        logger.info("An invoice has been sent to the queue");
 
         // Displaying the invoice creation
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Order created",
