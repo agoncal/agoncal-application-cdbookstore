@@ -13,90 +13,80 @@
 
     <ui:define name="body">
 
-        <h:form>
+        <h:form id="form">
             <h:panelGrid columnClasses="component,required" columns="3">
-                <h:outputLabel for="purchaseOrderBeanPurchaseOrderCustomer" value="Customer:"/>
+                <h:outputLabel for="customer" value="Customer:"/>
                 <h:panelGroup>
-                    <h:inputText id="purchaseOrderBeanPurchaseOrderCustomer" maxLength="50" readonly="true"
-                                 value="#{accountBean.user.fullName}"/>
-                    <h:message for="purchaseOrderBeanPurchaseOrderStreet1" styleClass="error"/>
+                    <h:inputText id="customer" maxLength="50" readonly="true" value="#{accountBean.user.fullName}"/>
+                    <h:message for="stree1" styleClass="error"/>
                 </h:panelGroup>
                 <h:outputText/>
-                <h:outputLabel for="purchaseOrderBeanPurchaseOrderStreet1" value="Street 1:"/>
+                <h:outputLabel for="stree1" value="Street 1:"/>
                 <h:panelGroup>
-                    <h:inputText id="purchaseOrderBeanPurchaseOrderStreet1" maxLength="50" required="true"
+                    <h:inputText id="stree1" maxLength="50" required="true"
                                  value="#{shoppingCartBean.address.street1}"/>
-                    <h:message for="purchaseOrderBeanPurchaseOrderStreet1" styleClass="error"/>
+                    <h:message for="stree1" styleClass="error"/>
                 </h:panelGroup>
                 <h:outputText value="*"/>
-                <h:outputLabel for="purchaseOrderBeanPurchaseOrderStreet2" value="Street 2:"/>
+                <h:outputLabel for="street2" value="Street 2:"/>
                 <h:panelGroup>
-                    <h:inputText id="purchaseOrderBeanPurchaseOrderStreet2"
-                                 value="#{shoppingCartBean.address.street2}"/>
-                    <h:message for="purchaseOrderBeanPurchaseOrderStreet2" styleClass="error"/>
+                    <h:inputText id="street2" value="#{shoppingCartBean.address.street2}"/>
+                    <h:message for="street2" styleClass="error"/>
                 </h:panelGroup>
                 <h:outputText/>
-                <h:outputLabel for="purchaseOrderBeanPurchaseOrderCity" value="City:"/>
+                <h:outputLabel for="city" value="City:"/>
                 <h:panelGroup>
-                    <h:inputText id="purchaseOrderBeanPurchaseOrderCity" maxLength="50" required="true"
-                                 value="#{shoppingCartBean.address.city}"/>
-                    <h:message for="purchaseOrderBeanPurchaseOrderCity" styleClass="error"/>
+                    <h:inputText id="city" maxLength="50" required="true" value="#{shoppingCartBean.address.city}"/>
+                    <h:message for="city" styleClass="error"/>
                 </h:panelGroup>
                 <h:outputText value="*"/>
-                <h:outputLabel for="purchaseOrderBeanPurchaseOrderState" value="State:"/>
+                <h:outputLabel for="state" value="State:"/>
                 <h:panelGroup>
-                    <h:inputText id="purchaseOrderBeanPurchaseOrderState"
-                                 value="#{shoppingCartBean.address.state}"/>
-                    <h:message for="purchaseOrderBeanPurchaseOrderState" styleClass="error"/>
+                    <h:inputText id="state" value="#{shoppingCartBean.address.state}"/>
+                    <h:message for="state" styleClass="error"/>
                 </h:panelGroup>
                 <h:outputText/>
-                <h:outputLabel for="purchaseOrderBeanPurchaseOrderZipcode" value="Zipcode:"/>
+                <h:outputLabel for="zipcode" value="Zipcode:"/>
                 <h:panelGroup>
-                    <h:inputText id="purchaseOrderBeanPurchaseOrderZipcode" maxLength="10" required="true"
-                                 value="#{shoppingCartBean.address.zipcode}"/>
-                    <h:message for="purchaseOrderBeanPurchaseOrderZipcode" styleClass="error"/>
+                    <h:inputText id="zipcode" maxLength="10" required="true" value="#{shoppingCartBean.address.zipcode}"/>
+                    <h:message for="zipcode" styleClass="error"/>
                 </h:panelGroup>
                 <h:outputText value="*"/>
 
-                <h:outputLabel for="purchaseOrderBeanPurchaseOrderCountry" value="Country:"/>
+                <h:outputLabel for="country" value="Country:"/>
                 <h:panelGroup>
-                    <h:selectOneMenu id="purchaseOrderBeanPurchaseOrderCountry" required="true"
-                                     value="#{shoppingCartBean.country}">
+                    <h:selectOneMenu id="country" required="true" value="#{shoppingCartBean.country}">
                         <f:selectItems value="#{shoppingCartBean.countries}"/>
                     </h:selectOneMenu>
-                    <h:message for="purchaseOrderBeanPurchaseOrderCountry" styleClass="error"/>
+                    <h:message for="country" styleClass="error"/>
                 </h:panelGroup>
                 <h:outputText value="*"/>
 
-                <h:outputLabel for="purchaseOrderBeanPurchaseOrderCreditCardNumber" value="Credit Card Number:"/>
+                <h:outputLabel for="creditCardNumber" value="Credit Card Number:"/>
                 <h:panelGroup>
-                    <h:inputText id="purchaseOrderBeanPurchaseOrderCreditCardNumber" maxLength="30" required="true"
-                                 value="#{shoppingCartBean.creditCard.creditCardNumber}"/>
-                    <h:message for="purchaseOrderBeanPurchaseOrderCreditCardNumber" styleClass="error"/>
+                    <h:inputText id="creditCardNumber" maxLength="30" required="true" value="#{shoppingCartBean.creditCard.creditCardNumber}"/>
+                    <h:message for="creditCardNumber" styleClass="error"/>
                 </h:panelGroup>
                 <h:outputText value="*"/>
-                <h:outputLabel for="purchaseOrderBeanPurchaseOrderCreditCardType" value="Credit Card Type:"/>
+                <h:outputLabel for="creditCardType" value="Credit Card Type:"/>
                 <h:panelGroup>
-                    <h:selectOneMenu id="purchaseOrderBeanPurchaseOrderCreditCardType" required="true"
-                                     value="#{shoppingCartBean.creditCard.creditCardType}">
+                    <h:selectOneMenu id="creditCardType" required="true" value="#{shoppingCartBean.creditCard.creditCardType}">
                         <f:selectItems value="#{shoppingCartBean.creditCardTypes}"/>
                     </h:selectOneMenu>
-                    <h:message for="purchaseOrderBeanPurchaseOrderCreditCardType" styleClass="error"/>
+                    <h:message for="creditCardType" styleClass="error"/>
                 </h:panelGroup>
                 <h:outputText value="*"/>
-                <h:outputLabel for="purchaseOrderBeanPurchaseOrderCreditCardExpDate" value="Credit Card Exp Date:"/>
+                <h:outputLabel for="creditCardExpDate" value="Credit Card Exp Date:"/>
                 <h:panelGroup>
-                    <h:inputText id="purchaseOrderBeanPurchaseOrderCreditCardExpDate" maxLength="5" required="true"
-                                 value="#{shoppingCartBean.creditCard.creditCardExpDate}"/>
-                    <h:message for="purchaseOrderBeanPurchaseOrderCreditCardExpDate" styleClass="error"/>
+                    <h:inputText id="creditCardExpDate" maxLength="5" required="true" value="#{shoppingCartBean.creditCard.creditCardExpDate}"/>
+                    <h:message for="creditCardExpDate" styleClass="error"/>
                 </h:panelGroup>
                 <h:outputText value="*"/>
 
             </h:panelGrid>
 
             <div class="buttons">
-                <h:commandLink action="#{shoppingCartBean.confirmation}" styleClass="btn btn-primary"
-                               value="Check Out"/>
+                <h:commandLink action="#{shoppingCartBean.confirmation}" styleClass="btn btn-primary" value="Check Out"/>
             </div>
 
         </h:form>
