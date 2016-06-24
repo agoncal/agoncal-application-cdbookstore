@@ -21,8 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
-
 /**
  * @author Antonio Goncalves http://www.antoniogoncalves.org --
  */
