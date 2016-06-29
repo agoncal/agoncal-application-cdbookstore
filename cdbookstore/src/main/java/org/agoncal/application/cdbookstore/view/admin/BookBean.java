@@ -2,6 +2,8 @@ package org.agoncal.application.cdbookstore.view.admin;
 
 import org.agoncal.application.cdbookstore.model.Book;
 import org.agoncal.application.cdbookstore.model.Language;
+import org.agoncal.application.cdbookstore.util.NumberGenerator;
+import org.agoncal.application.cdbookstore.util.ThirteenDigits;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -113,20 +115,24 @@ public class BookBean implements Serializable {
         return this.entityManager.find(Book.class, id);
     }
 
+    @Inject
+    @ThirteenDigits
+    private NumberGenerator generator;
+
     public String update() {
         this.conversation.end();
 
         try {
-            if (this.id == null) {
-                this.entityManager.persist(this.book);
+            if (id == null) {
+                book.setIsbn(generator.generateNumber());
+                entityManager.persist(book);
                 return "search?faces-redirect=true";
             } else {
-                this.entityManager.merge(this.book);
-                return "view?faces-redirect=true&id=" + this.book.getId();
+                entityManager.merge(book);
+                return "view?faces-redirect=true&id=" + book.getId();
             }
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(e.getMessage()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
             return null;
         }
     }

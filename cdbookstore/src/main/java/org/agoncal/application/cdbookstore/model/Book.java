@@ -25,9 +25,7 @@ public class Book extends Item {
     // =             Attributes             =
     // ======================================
 
-    @Column(length = 15)
-    @NotNull
-    @Size(max = 15)
+    @Column(length = 50)
     private String isbn;
 
     @Column(name = "nb_of_pages")

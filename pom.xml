@@ -21,7 +21,7 @@
         <version.javaee7>1.0.3.Final</version.javaee7>
         <version.lorem>2.0</version.lorem>
         <version.bootstrap>3.3.6</version.bootstrap>
-        <version.primefaces>5.3</version.primefaces>
+        <version.primefaces>6.0</version.primefaces>
         <version.primefaces.theme>1.0.10</version.primefaces.theme>
         <version.resteasy>3.0.12.Final</version.resteasy>
         <!-- Test -->
