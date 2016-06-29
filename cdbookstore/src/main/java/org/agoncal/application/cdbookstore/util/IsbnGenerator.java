@@ -1,5 +1,7 @@
 package org.agoncal.application.cdbookstore.util;
 
+import java.util.Random;
+
 /**
  * @author Antonio Goncalves
  *         http://www.antoniogoncalves.org
@@ -14,6 +16,6 @@ public class IsbnGenerator implements NumberGenerator {
     // ======================================
 
     public String generateNumber() {
-        return "13-" + Math.random();
+        return "13-" + new Random().nextInt();
     }
 }

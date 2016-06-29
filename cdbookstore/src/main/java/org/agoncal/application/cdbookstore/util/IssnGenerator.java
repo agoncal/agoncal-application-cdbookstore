@@ -1,5 +1,7 @@
 package org.agoncal.application.cdbookstore.util;
 
+import java.util.Random;
+
 /**
  * @author Antonio Goncalves
  *         http://www.antoniogoncalves.org
@@ -14,6 +16,6 @@ public class IssnGenerator implements NumberGenerator {
     // ======================================
 
     public String generateNumber() {
-        return "8-" + Math.random() / 1000;
+        return "8-" + new Random().nextInt() / 1000;
     }
 }
