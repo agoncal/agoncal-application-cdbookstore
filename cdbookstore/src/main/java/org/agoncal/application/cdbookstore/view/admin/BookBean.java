@@ -2,6 +2,7 @@ package org.agoncal.application.cdbookstore.view.admin;
 
 import org.agoncal.application.cdbookstore.model.Book;
 import org.agoncal.application.cdbookstore.model.Language;
+import org.agoncal.application.cdbookstore.util.Loggable;
 import org.agoncal.application.cdbookstore.util.NumberGenerator;
 import org.agoncal.application.cdbookstore.util.ThirteenDigits;
 
@@ -39,6 +40,7 @@ import java.util.List;
 @Named
 @Stateful
 @ConversationScoped
+@Loggable
 public class BookBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,26 +62,29 @@ public class BookBean implements Serializable {
     @Resource
     private SessionContext sessionContext;
     private Book add = new Book();
-
-    public Long getId() {
-        return this.id;
-    }
+    @Inject
+    @ThirteenDigits
+    private NumberGenerator generator;
 
    /*
     * Support updating and deleting Book entities
     */
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return this.id;
     }
 
-    public Book getBook() {
-        return this.book;
+    public void setId(Long id) {
+        this.id = id;
     }
 
    /*
     * Support searching Book entities with pagination
     */
+
+    public Book getBook() {
+        return this.book;
+    }
 
     public void setBook(Book book) {
         this.book = book;
@@ -114,10 +119,6 @@ public class BookBean implements Serializable {
 
         return this.entityManager.find(Book.class, id);
     }
-
-    @Inject
-    @ThirteenDigits
-    private NumberGenerator generator;
 
     public String update() {
         this.conversation.end();

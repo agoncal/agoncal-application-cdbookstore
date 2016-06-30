@@ -11,10 +11,10 @@
             <property name="javax.persistence.schema-generation.scripts.create-target" value="dbCDBookStoreCreate.ddl"/>
             <property name="javax.persistence.schema-generation.scripts.drop-target" value="dbCDBookStoreDrop.ddl"/>
             <property name="javax.persistence.sql-load-script-source" value="import_h2.sql"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <property name="hibernate.generate_statistics" value="true"/>
+            <!--<property name="hibernate.show_sql" value="true"/>-->
+            <!--<property name="hibernate.format_sql" value="true"/>-->
+            <!--<property name="hibernate.generate_statistics" value="true"/>-->
         </properties>
     </persistence-unit>
     <!--<persistence-unit name="applicationCDBookStorePU" transaction-type="JTA">-->

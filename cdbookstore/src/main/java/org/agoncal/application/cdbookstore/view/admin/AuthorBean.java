@@ -2,6 +2,7 @@ package org.agoncal.application.cdbookstore.view.admin;
 
 import org.agoncal.application.cdbookstore.model.Author;
 import org.agoncal.application.cdbookstore.model.Language;
+import org.agoncal.application.cdbookstore.util.Loggable;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -37,6 +38,7 @@ import java.util.List;
 @Named
 @Stateful
 @ConversationScoped
+@Loggable
 public class AuthorBean implements Serializable {
 
     private static final long serialVersionUID = 1L;

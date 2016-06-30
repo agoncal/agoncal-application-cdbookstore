@@ -4,11 +4,12 @@ import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+import java.io.Serializable;
 import java.util.logging.Logger;
 
 @Auditable
 @Interceptor
-public class AuditInterceptor {
+public class AuditInterceptor implements Serializable {
 
     // ======================================
     // =             Attributes             =

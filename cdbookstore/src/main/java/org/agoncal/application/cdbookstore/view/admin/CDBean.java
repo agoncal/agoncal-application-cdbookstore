@@ -3,6 +3,7 @@ package org.agoncal.application.cdbookstore.view.admin;
 import org.agoncal.application.cdbookstore.model.CD;
 import org.agoncal.application.cdbookstore.model.Genre;
 import org.agoncal.application.cdbookstore.model.Label;
+import org.agoncal.application.cdbookstore.util.Loggable;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -38,6 +39,7 @@ import java.util.List;
 @Named("CDBean")
 @Stateful
 @ConversationScoped
+@Loggable
 public class CDBean implements Serializable {
 
     private static final long serialVersionUID = 1L;

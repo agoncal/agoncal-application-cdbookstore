@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+import java.io.Serializable;
 import java.util.logging.Logger;
 
 /**
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
 
 @Loggable
 @Interceptor
-public class LoggingInterceptor {
+public class LoggingInterceptor implements Serializable {
 
     // ======================================
     // =          Injection Points          =
@@ -29,11 +30,11 @@ public class LoggingInterceptor {
 
     @AroundInvoke
     private Object intercept(InvocationContext ic) throws Exception {
-        logger.entering(ic.getTarget().getClass().getName(), ic.getMethod().getName());
+        logger.info(ic.getTarget().getClass().getName() + "." + ic.getMethod().getName());
         try {
             return ic.proceed();
         } finally {
-            logger.exiting(ic.getTarget().getClass().getName(), ic.getMethod().getName());
+            logger.fine(ic.getTarget().getClass().getName() + "." + ic.getMethod().getName());
         }
     }
 }
