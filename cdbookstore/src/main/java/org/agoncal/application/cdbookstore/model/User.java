@@ -48,6 +48,11 @@ public class User implements Serializable {
     @Column(name = "version")
     private int version;
 
+    @Column(length = 10, nullable = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    private String login;
+
     @Column(length = 50, name = "first_name", nullable = false)
     @NotNull
     @Size(min = 2, max = 50)
@@ -64,11 +69,6 @@ public class User implements Serializable {
     @Column
     @NotNull
     private String email;
-
-    @Column(length = 10, nullable = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    private String login;
 
     @Column(length = 256, nullable = false)
     @NotNull
