@@ -92,20 +92,14 @@ public class RatedItemsBean {
         String body = response.readEntity(String.class);
 
         List<Long> topRateditemIds = new ArrayList<>();
-        try (
-                JsonReader reader = Json.createReader(new StringReader(body))
-        )
-
-        {
+        try (JsonReader reader = Json.createReader(new StringReader(body))) {
             JsonArray array = reader.readArray();
             for (int i = 0; i < array.size(); i++) {
                 topRateditemIds.add((long) array.getJsonObject(i).getInt("id"));
             }
         }
 
-        if (!topRateditemIds.isEmpty())
-
-        {
+        if (!topRateditemIds.isEmpty()) {
             logger.info("Top rated books ids " + topRateditemIds);
             TypedQuery<Item> query = em.createNamedQuery(Item.FIND_TOP_RATED, Item.class);
             query.setParameter("ids", topRateditemIds);
