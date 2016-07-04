@@ -41,7 +41,6 @@ public class InvoiceReader extends AbstractItemReader {
     public Object readItem() throws Exception {
 
         TypedQuery<Invoice> query = em.createNamedQuery(Invoice.FIND_MONTHLY, Invoice.class);
-        //query.setParameter("month", 2);
         List<Invoice> invoices = query.getResultList();
         logger.info("Read " + invoices.size() + " invoices");
         return invoices;

@@ -53,7 +53,5 @@ public class InvoiceWriter extends AbstractItemWriter {
         File file = new File("invoice.xml");
         m.marshal(summaries, file);
         logger.info("Wrote " + file.getAbsolutePath());
-        System.out.println("################");
-        System.out.println(file.getAbsolutePath());
     }
 }

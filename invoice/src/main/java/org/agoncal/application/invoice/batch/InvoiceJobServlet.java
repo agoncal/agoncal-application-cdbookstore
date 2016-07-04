@@ -24,6 +24,6 @@ public class InvoiceJobServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JobOperator jobOperator = BatchRuntime.getJobOperator();
-        jobOperator.start("invoiceJob", null);
+        jobOperator.start("InvoiceJob", null);
     }
 }
