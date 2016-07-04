@@ -4,8 +4,8 @@
        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd">
 
     <interceptors>
-        <class>org.agoncal.application.cdbookstore.util.LoggingInterceptor</class>
-        <class>org.agoncal.application.cdbookstore.util.AuditInterceptor</class>
+        <!--<class>org.agoncal.application.cdbookstore.util.LoggingInterceptor</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.util.AuditInterceptor</class>-->
     </interceptors>
 
 </beans>

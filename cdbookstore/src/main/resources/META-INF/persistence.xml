@@ -15,33 +15,33 @@
         </properties>
     </persistence-unit>
 
-    <persistence-unit name="applicationCDBookStoreGenPU" transaction-type="RESOURCE_LOCAL">
-        <description>Persistence Unit for Schema Generation used in JPASchemaGen class</description>
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>org.agoncal.application.cdbookstore.model.Address</class>
-        <class>org.agoncal.application.cdbookstore.model.Artist</class>
-        <class>org.agoncal.application.cdbookstore.model.Author</class>
-        <class>org.agoncal.application.cdbookstore.model.Book</class>
-        <class>org.agoncal.application.cdbookstore.model.Category</class>
-        <class>org.agoncal.application.cdbookstore.model.CD</class>
-        <class>org.agoncal.application.cdbookstore.model.Country</class>
-        <class>org.agoncal.application.cdbookstore.model.CreditCard</class>
-        <class>org.agoncal.application.cdbookstore.model.Genre</class>
-        <class>org.agoncal.application.cdbookstore.model.Item</class>
-        <class>org.agoncal.application.cdbookstore.model.Label</class>
-        <class>org.agoncal.application.cdbookstore.model.LanguageConverter</class>
-        <class>org.agoncal.application.cdbookstore.model.Musician</class>
-        <class>org.agoncal.application.cdbookstore.model.Publisher</class>
-        <class>org.agoncal.application.cdbookstore.model.User</class>
-        <properties>
-            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:CDBookStoreDB;create=true"/>
-
-            <property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>
-            <property name="javax.persistence.schema-generation.scripts.create-target" value="dbCDBookStoreCreate.ddl"/>
-            <property name="javax.persistence.schema-generation.scripts.drop-target" value="dbCDBookStoreDrop.ddl"/>
-        </properties>
-    </persistence-unit>
+    <!--<persistence-unit name="applicationCDBookStoreGenPU" transaction-type="RESOURCE_LOCAL">-->
+        <!--<description>Persistence Unit for Schema Generation used in JPASchemaGen class</description>-->
+        <!--<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.Address</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.Artist</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.Author</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.Book</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.Category</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.CD</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.Country</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.CreditCard</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.Genre</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.Item</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.Label</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.LanguageConverter</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.Musician</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.Publisher</class>-->
+        <!--<class>org.agoncal.application.cdbookstore.model.User</class>-->
+        <!--<properties>-->
+            <!--<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>-->
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:CDBookStoreDB;create=true"/>-->
+<!---->
+            <!--<property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>-->
+            <!--<property name="javax.persistence.schema-generation.scripts.create-target" value="dbCDBookStoreCreate.ddl"/>-->
+            <!--<property name="javax.persistence.schema-generation.scripts.drop-target" value="dbCDBookStoreDrop.ddl"/>-->
+        <!--</properties>-->
+    <!--</persistence-unit>-->
 
     <!--<persistence-unit name="applicationCDBookStorePU" transaction-type="JTA">-->
     <!--<description>Postgres Persistence Unit</description>-->
