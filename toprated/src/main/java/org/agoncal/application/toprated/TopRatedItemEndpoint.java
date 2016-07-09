@@ -37,7 +37,7 @@ public class TopRatedItemEndpoint {
         TypedQuery<RatedItem> query = em.createNamedQuery(RatedItem.FIND_TOP_ITEMS, RatedItem.class);
         results.addAll(query.getResultList());
 
-        logger.info("Top Items are " + results);
+        logger.fine("Top Items are " + results);
 
         return results;
     }

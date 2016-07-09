@@ -100,11 +100,11 @@ public class RatedItemsBean {
         }
 
         if (!topRateditemIds.isEmpty()) {
-            logger.info("Top rated books ids " + topRateditemIds);
+            logger.fine("Top rated books ids " + topRateditemIds);
             TypedQuery<Item> query = em.createNamedQuery(Item.FIND_TOP_RATED, Item.class);
             query.setParameter("ids", topRateditemIds);
             topRatedItems = query.getResultList();
-            logger.info("Number of top rated items found " + topRatedItems.size());
+            logger.fine("Number of top rated items found " + topRatedItems.size());
         }
 
     }
