@@ -117,6 +117,9 @@ public class ShoppingCartBean implements Serializable {
         jmsContext.createProducer().setTimeToLive(1000).send(queue, invoice);
         logger.info("An invoice has been sent to the queue");
 
+        // Clear the shopping cart
+        cartItems = new ArrayList<>();
+
         // Displaying the invoice creation
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Order created",
                 "You will receive a confirmation email"));
