@@ -114,7 +114,7 @@ public class ShoppingCartBean implements Serializable {
         }
 
         // Sending the invoice
-        jmsContext.createProducer().setTimeToLive(1000).send(queue, invoice);
+        jmsContext.createProducer().send(queue, invoice);
         logger.info("An invoice has been sent to the queue");
 
         // Clear the shopping cart
